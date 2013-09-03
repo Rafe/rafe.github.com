@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Neethack]]></title>
   <link href="http://neethack.com/categories/javascript/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-09-03T00:13:04-04:00</updated>
+  <updated>2013-09-03T00:34:32-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -297,7 +297,6 @@ npm start
 </code></pre>
 
 <p><div><script src='https://gist.github.com/4589002.js'></script>
-<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code>var express = require(&#39;express&#39;)
   , async = require(&#39;async&#39;)
   , path = require(&#39;path&#39;)

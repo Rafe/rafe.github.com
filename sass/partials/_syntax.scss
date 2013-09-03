@@ -1,6 +1,6 @@
 .highlight, html .gist .gist-file .gist-syntax .gist-highlight {
   table td.code { width: 100%; }
-  border: 1px solid $pre-border !important;
+  border: 0px solid $pre-border !important;
 }
 .highlight .line-numbers, html .gist .gist-file .gist-syntax .highlight .line_numbers {
   text-align: right;
@@ -31,16 +31,17 @@ figure.code, .gist-file, pre {
   @include selection(adjust-color($base03, $lightness: 23%, $saturation: -65%), $text-shadow: $base03 0 1px);
 }
 html .gist .gist-file {
+  font-size: 13px !important;
   margin-bottom: 1.8em;
   position: relative;
-  border: none;
+  border: 1px solid $pre-border !important;
   padding-top: image-height("code_bg.png") !important;
   .highlight {
     margin-bottom: 0;
   }
   .gist-syntax {
-    border-bottom: 0 !important;
-    background: none !important;
+    border-bottom: 1px solid $pre-border !important;
+    background: $base03 !important;
     .gist-highlight {
       background: $base03 !important;
     }
@@ -53,7 +54,7 @@ html .gist .gist-file {
    padding: .6em 0.8em;
    border: 1px solid lighten($base02, 2) !important;
    color: $base01;
-   font-size: .7em !important;
+   font-size: .9em !important;
    @if $solarized == light {
      background: lighten($base03, 2) $noise-bg;
      border: 1px solid $pre-border !important;
@@ -97,15 +98,15 @@ h3.filename {
   + pre { @include border-top-radius(0px); }
 }
 
-p, li {
+p, li, td{
   code {
     @extend .mono;
     display: inline-block;
     white-space: no-wrap;
-    background: #fff;
+    background: #fbfbfb !important;
     font-size: .8em;
     line-height: 1.5em;
-    color: #555;
+    color: $base1 !important;
     border: 1px solid #ddd;
     @include border-radius(.4em);
     padding: 0 .3em;

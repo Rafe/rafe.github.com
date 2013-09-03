@@ -4,7 +4,7 @@
   <title><![CDATA[Neethack]]></title>
   <link href="http://neethack.com/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-09-03T00:13:04-04:00</updated>
+  <updated>2013-09-03T00:34:32-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -297,7 +297,6 @@ npm start
 </code></pre>
 
 <div><script src='https://gist.github.com/4589002.js'></script>
-<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code>var express = require(&#39;express&#39;)
   , async = require(&#39;async&#39;)
   , path = require(&#39;path&#39;)
@@ -828,7 +827,6 @@ run</p>
 <p>in project can execute the spec</p>
 
 <div><script src='https://gist.github.com/4033566.js?file=README.md'></script>
-<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code># Minispec
 #### minispec is a mini bdd test framework example
     # npm install git://gist.github.com/4033566.git
@@ -965,7 +963,6 @@ It will detect the function param, if there is a specific callback param in func
 <h2>Source</h2>
 
 <div><script src='https://gist.github.com/4033566.js?file=minispec.coffee'></script>
-<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code>{EventEmitter} = require &#39;events&#39;
 async = require &#39;async&#39;
 
@@ -1890,7 +1887,6 @@ Ember.js, unlike Backbone concentrate on simple and minimal code, it is a very o
 <p>For the project, I choose the hash method to generate code. Because this method works well with redis hash map data type. Lets bring some code in the project:</p>
 
 <div><script src='https://gist.github.com/3232892.js?file=hashUrl.coffee'></script>
-<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code>exports.hashUrl = hashUrl = (url, digits = 5, algorithm = &#39;md5&#39;)-&gt;
   symbols = &#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&#39;
   length = symbols.length
@@ -1962,7 +1958,6 @@ P(N) = 0.50, N ~= 35638
 <p>Here&rsquo;s the code that rehash url:</p>
 
 <div><script src='https://gist.github.com/3232892.js?file=generateCode.coffee'></script>
-<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code>getAlgorithms = -&gt; [&#39;md5&#39;, &#39;sha1&#39;, &#39;sha256&#39;, &#39;sha512&#39;]
 
 generateCode = (url, algorithms, digits, callback)-&gt;

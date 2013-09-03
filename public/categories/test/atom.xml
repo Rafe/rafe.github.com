@@ -4,7 +4,7 @@
   <title><![CDATA[Category: test | Neethack]]></title>
   <link href="http://neethack.com/categories/test/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-09-03T00:13:04-04:00</updated>
+  <updated>2013-09-03T00:34:32-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -43,7 +43,6 @@ run</p>
 <p>in project can execute the spec</p>
 
 <p><div><script src='https://gist.github.com/4033566.js?file=README.md'></script>
-<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code># Minispec
 #### minispec is a mini bdd test framework example
     # npm install git://gist.github.com/4033566.git
@@ -180,7 +179,6 @@ It will detect the function param, if there is a specific callback param in func
 <h2>Source</h2>
 
 <p><div><script src='https://gist.github.com/4033566.js?file=minispec.coffee'></script>
-<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code>{EventEmitter} = require &#39;events&#39;
 async = require &#39;async&#39;
 

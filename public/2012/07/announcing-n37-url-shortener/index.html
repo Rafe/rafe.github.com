@@ -124,7 +124,6 @@
 <p>For the project, I choose the hash method to generate code. Because this method works well with redis hash map data type. Lets bring some code in the project:</p>
 
 <div><script src='https://gist.github.com/3232892.js?file=hashUrl.coffee'></script>
-<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code>exports.hashUrl = hashUrl = (url, digits = 5, algorithm = &#39;md5&#39;)-&gt;
   symbols = &#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&#39;
   length = symbols.length
@@ -196,7 +195,6 @@ P(N) = 0.50, N ~= 35638
 <p>Here&rsquo;s the code that rehash url:</p>
 
 <div><script src='https://gist.github.com/3232892.js?file=generateCode.coffee'></script>
-<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code>getAlgorithms = -&gt; [&#39;md5&#39;, &#39;sha1&#39;, &#39;sha256&#39;, &#39;sha512&#39;]
 
 generateCode = (url, algorithms, digits, callback)-&gt;
