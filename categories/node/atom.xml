@@ -4,7 +4,7 @@
   <title><![CDATA[Category: node, | Neethack]]></title>
   <link href="http://neethack.com/categories/node/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-09-03T00:42:05-04:00</updated>
+  <updated>2013-09-03T01:03:22-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -123,7 +123,7 @@ generateCode = (url, algorithms, digits, callback)-&gt;
 
   redis.get &quot;url:#{code}&quot;, (err, reply)-&gt;
     if not reply or reply == url
-      client.set &quot;url:#{code}&quot;, url, (err, reply)-&gt;
+      redis.set &quot;url:#{code}&quot;, url, (err, reply)-&gt;
         callback(null, code)
     else generateCode(url, algorithms, digits, callback)</code></pre></noscript></div>
 </p>

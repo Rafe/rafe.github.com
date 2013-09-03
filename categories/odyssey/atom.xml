@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Odyssey | Neethack]]></title>
   <link href="http://neethack.com/categories/odyssey/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-09-03T00:42:05-04:00</updated>
+  <updated>2013-09-03T01:03:22-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -188,7 +188,7 @@ But how do Sinatra do this?</p>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;h1&gt;Sinatra delegation mixin. Mixing this module into an object causes all&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nb">methods</span> <span class="n">to</span> <span class="n">be</span> <span class="n">delegated</span> <span class="n">to</span> <span class="n">the</span> <span class="no">Sinatra</span><span class="o">::</span><span class="no">Application</span> <span class="n">class</span><span class="o">.</span> <span class="no">Used</span> <span class="n">primarily</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nb">methods</span> <span class="n">to</span> <span class="n">be</span> <span class="n">delegated</span> <span class="n">to</span> <span class="n">the</span> <span class="ss">Sinatra</span><span class="p">:</span><span class="ss">:Application</span> <span class="n">class</span><span class="o">.</span> <span class="no">Used</span> <span class="n">primarily</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;h1&gt;at the top-level.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>

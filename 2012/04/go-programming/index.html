@@ -144,20 +144,20 @@ attracting enterprise developers to use go as part of their solution.</p>
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">import</span> <span class="p">(</span>
+</span><span class='line'><span class="kn">import</span> <span class="p">(</span>
 </span><span class='line'>  <span class="s">&quot;fmt&quot;</span>
 </span><span class='line'>  <span class="s">&quot;runtime&quot;</span>
 </span><span class='line'><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">HelloGo</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="s">&quot;Hello Go!&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">HelloGo</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Hello Go!&quot;</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">main</span><span class="p">(){</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="p">++</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">go</span> <span class="n">HelloGo</span><span class="p">()</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">(){</span>
+</span><span class='line'>  <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">go</span> <span class="nx">HelloGo</span><span class="p">()</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -292,32 +292,32 @@ attracting enterprise developers to use go as part of their solution.</p>
 <span class='line-number'>25</span>
 <span class='line-number'>26</span>
 <span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">import</span> <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">counter</span><span class="p">(</span><span class="n">id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">channel</span> <span class="k">chan</span> <span class="nb">int</span><span class="p">,</span> <span class="n">closer</span> <span class="n">bool</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="mi">10000000</span><span class="p">;</span> <span class="n">i</span><span class="p">++</span> <span class="p">{</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">counter</span><span class="p">(</span><span class="nx">id</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">channel</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">closer</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10000000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
 </span><span class='line'>    <span class="c1">// send count data to channel</span>
-</span><span class='line'>    <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="s">&quot;process&quot;</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span><span class="s">&quot; send&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">channel</span> <span class="p">&lt;-</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;process&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span><span class="s">&quot; send&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">channel</span> <span class="o">&lt;-</span> <span class="mi">1</span>
 </span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">if</span> <span class="n">closer</span> <span class="p">{</span> <span class="nb">close</span><span class="p">(</span><span class="n">channel</span> <span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nx">closer</span> <span class="p">{</span> <span class="nb">close</span><span class="p">(</span><span class="nx">channel</span> <span class="p">)</span> <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">channel</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="nb">int</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">go</span> <span class="n">counter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">false</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">go</span> <span class="n">counter</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">true</span><span class="p">)</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">channel</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">go</span> <span class="nx">counter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">channel</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">go</span> <span class="nx">counter</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nx">channel</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="n">x</span> <span class="p">:=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="nx">x</span> <span class="o">:=</span> <span class="mi">0</span>
 </span><span class='line'>  <span class="c1">// receiving data from channel</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">channel</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="s">&quot;receiving&quot;</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">x</span> <span class="p">+=</span> <span class="n">i</span>
+</span><span class='line'>  <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">channel</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;receiving&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">x</span> <span class="o">+=</span> <span class="nx">i</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -421,16 +421,16 @@ And we can attach function to data as receiver.</p>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 </pre></td><td class='code'><pre><code class='go'><span class='line'><span class="c1">//define datatype Name is string</span>
-</span><span class='line'><span class="k">type</span> <span class="n">Name</span> <span class="nb">string</span>
+</span><span class='line'><span class="kd">type</span> <span class="nx">Name</span> <span class="kt">string</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">//define name.print() that type Name can receive function call &quot;print()&quot;</span>
-</span><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">name</span> <span class="n">Name</span><span class="p">)</span> <span class="n">print</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span class='line'><span class="kd">func</span> <span class="p">(</span><span class="nx">name</span> <span class="nx">Name</span><span class="p">)</span> <span class="nb">print</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">name</span> <span class="p">:=</span> <span class="n">Name</span><span class="p">(</span><span class="s">&quot;John&quot;</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">name</span><span class="p">.</span><span class="n">print</span><span class="p">()</span> <span class="c1">// John</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">name</span> <span class="o">:=</span> <span class="nx">Name</span><span class="p">(</span><span class="s">&quot;John&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">name</span><span class="p">.</span><span class="nb">print</span><span class="p">()</span> <span class="c1">// John</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -477,44 +477,44 @@ Go is using ducktype approach, as long as the type have all method defined in in
 <span class='line-number'>37</span>
 <span class='line-number'>38</span>
 <span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">import</span> <span class="p">(</span>
+</span><span class='line'><span class="kn">import</span> <span class="p">(</span>
 </span><span class='line'>  <span class="s">&quot;fmt&quot;</span>
 </span><span class='line'><span class="p">)</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">//define interface Runner which can Run</span>
-</span><span class='line'><span class="k">type</span> <span class="n">Runner</span> <span class="k">interface</span><span class="p">{</span>
-</span><span class='line'>  <span class="n">Run</span><span class="p">()</span>
+</span><span class='line'><span class="kd">type</span> <span class="nx">Runner</span> <span class="kd">interface</span><span class="p">{</span>
+</span><span class='line'>  <span class="nx">Run</span><span class="p">()</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">type</span> <span class="n">Person</span> <span class="nb">string</span>
+</span><span class='line'><span class="kd">type</span> <span class="nx">Person</span> <span class="kt">string</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">//A person can Run =&gt; p.Run()</span>
-</span><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">p</span> <span class="n">Person</span><span class="p">)</span> <span class="n">Run</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s">&quot;is running&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="nx">Person</span><span class="p">)</span> <span class="nx">Run</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="s">&quot;is running&quot;</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">type</span> <span class="n">Dog</span> <span class="k">struct</span><span class="p">{</span>
-</span><span class='line'>  <span class="n">Name</span> <span class="nb">string</span>
-</span><span class='line'>  <span class="n">Type</span> <span class="nb">string</span>
+</span><span class='line'><span class="kd">type</span> <span class="nx">Dog</span> <span class="kd">struct</span><span class="p">{</span>
+</span><span class='line'>  <span class="nx">Name</span> <span class="kt">string</span>
+</span><span class='line'>  <span class="nx">Type</span> <span class="kt">string</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">//A dog can Run =&gt; d.Run()</span>
-</span><span class='line'><span class="k">func</span> <span class="p">(</span><span class="n">d</span> <span class="n">Dog</span><span class="p">)</span> <span class="n">Run</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="s">&quot;A&quot;</span> <span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">Type</span><span class="p">,</span> <span class="s">&quot;dog is running&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="kd">func</span> <span class="p">(</span><span class="nx">d</span> <span class="nx">Dog</span><span class="p">)</span> <span class="nx">Run</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;A&quot;</span> <span class="p">,</span><span class="nx">d</span><span class="p">.</span><span class="nx">Type</span><span class="p">,</span> <span class="s">&quot;dog is running&quot;</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">//A runner can start running</span>
-</span><span class='line'><span class="k">func</span> <span class="n">Start</span><span class="p">(</span><span class="n">r</span> <span class="n">Runner</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">r</span><span class="p">.</span><span class="n">Run</span><span class="p">()</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">Start</span><span class="p">(</span><span class="nx">r</span> <span class="nx">Runner</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">r</span><span class="p">.</span><span class="nx">Run</span><span class="p">()</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">p</span> <span class="p">:=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;John&quot;</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">Start</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="c1">// &quot;John is running&quot;</span>
-</span><span class='line'>  <span class="n">d</span> <span class="p">:=</span> <span class="n">Dog</span><span class="p">{</span><span class="s">&quot;Johnny&quot;</span><span class="p">,</span><span class="s">&quot;Husky&quot;</span><span class="p">}</span>
-</span><span class='line'>  <span class="n">Start</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="c1">// &quot;A Husky dog is running&quot;</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">p</span> <span class="o">:=</span> <span class="nx">Person</span><span class="p">(</span><span class="s">&quot;John&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">Start</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="c1">// &quot;John is running&quot;</span>
+</span><span class='line'>  <span class="nx">d</span> <span class="o">:=</span> <span class="nx">Dog</span><span class="p">{</span><span class="s">&quot;Johnny&quot;</span><span class="p">,</span><span class="s">&quot;Husky&quot;</span><span class="p">}</span>
+</span><span class='line'>  <span class="nx">Start</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="c1">// &quot;A Husky dog is running&quot;</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -562,41 +562,41 @@ The most famous example is Google. When Google build the index of web pages. Bec
 <span class='line-number'>34</span>
 <span class='line-number'>35</span>
 <span class='line-number'>36</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">import</span> <span class="p">(</span>
+</span><span class='line'><span class="kn">import</span> <span class="p">(</span>
 </span><span class='line'>  <span class="s">&quot;fmt&quot;</span>
 </span><span class='line'>  <span class="s">&quot;math/rand&quot;</span>
 </span><span class='line'><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">type</span> <span class="n">Object</span> <span class="k">interface</span> <span class="p">{}</span>
+</span><span class='line'><span class="kd">type</span> <span class="nx">Object</span> <span class="kd">interface</span> <span class="p">{}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">MapReduce</span><span class="p">(</span><span class="n">input</span> <span class="k">chan</span> <span class="n">Object</span><span class="p">,</span>
-</span><span class='line'>               <span class="n">mapper</span> <span class="k">func</span><span class="p">(</span><span class="n">Object</span><span class="p">,</span> <span class="k">chan</span> <span class="n">Object</span><span class="p">),</span>
-</span><span class='line'>               <span class="n">reducer</span> <span class="k">func</span><span class="p">(</span><span class="k">chan</span> <span class="n">Object</span><span class="p">)</span> <span class="n">Object</span><span class="p">,</span>
-</span><span class='line'>               <span class="n">pool_size</span> <span class="nb">int</span><span class="p">)</span> <span class="n">Object</span> <span class="p">{</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">MapReduce</span><span class="p">(</span><span class="nx">input</span> <span class="kd">chan</span> <span class="nx">Object</span><span class="p">,</span>
+</span><span class='line'>               <span class="nx">mapper</span> <span class="kd">func</span><span class="p">(</span><span class="nx">Object</span><span class="p">,</span> <span class="kd">chan</span> <span class="nx">Object</span><span class="p">),</span>
+</span><span class='line'>               <span class="nx">reducer</span> <span class="kd">func</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">Object</span><span class="p">)</span> <span class="nx">Object</span><span class="p">,</span>
+</span><span class='line'>               <span class="nx">pool_size</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">Object</span> <span class="p">{</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="n">worker_outputs</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="k">chan</span> <span class="n">Object</span><span class="p">,</span> <span class="n">pool_size</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">worker_outputs</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">chan</span> <span class="nx">Object</span><span class="p">,</span> <span class="nx">pool_size</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>      <span class="c1">//read input, assign input to mapper(item, output)</span>
-</span><span class='line'>      <span class="k">for</span> <span class="n">item</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">input</span> <span class="p">{</span>
-</span><span class='line'>          <span class="n">worker_output</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="n">Object</span><span class="p">)</span>
-</span><span class='line'>          <span class="n">worker_outputs</span> <span class="p">&lt;-</span> <span class="n">worker_output</span>
-</span><span class='line'>          <span class="k">go</span> <span class="n">mapper</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">worker_output</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">for</span> <span class="nx">item</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">input</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">worker_output</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">Object</span><span class="p">)</span>
+</span><span class='line'>          <span class="nx">worker_outputs</span> <span class="o">&lt;-</span> <span class="nx">worker_output</span>
+</span><span class='line'>          <span class="k">go</span> <span class="nx">mapper</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">worker_output</span><span class="p">)</span>
 </span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>      <span class="nb">close</span><span class="p">(</span><span class="n">worker_outputs</span><span class="p">)</span>
+</span><span class='line'>      <span class="nb">close</span><span class="p">(</span><span class="nx">worker_outputs</span><span class="p">)</span>
 </span><span class='line'>    <span class="p">}()</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="n">reduce_input</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="n">Object</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">reduce_input</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">Object</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>      <span class="c1">//listening worker_outputs as reduce_input</span>
-</span><span class='line'>      <span class="k">for</span> <span class="n">worker</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">worker_outputs</span> <span class="p">{</span>
-</span><span class='line'>          <span class="n">reduce_input</span> <span class="p">&lt;-</span> <span class="p">(&lt;-</span><span class="n">worker</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">for</span> <span class="nx">worker</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">worker_outputs</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">reduce_input</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="o">&lt;-</span><span class="nx">worker</span><span class="p">)</span>
 </span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>      <span class="nb">close</span><span class="p">(</span><span class="n">reduce_input</span><span class="p">)</span>
+</span><span class='line'>      <span class="nb">close</span><span class="p">(</span><span class="nx">reduce_input</span><span class="p">)</span>
 </span><span class='line'>    <span class="p">}()</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="n">reducer</span><span class="p">(</span><span class="n">reduce_input</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">reducer</span><span class="p">(</span><span class="nx">reduce_input</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -644,38 +644,38 @@ The most famous example is Google. When Google build the index of web pages. Bec
 <span class='line-number'>33</span>
 <span class='line-number'>34</span>
 <span class='line-number'>35</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">func</span> <span class="n">CalculatePI</span><span class="p">(</span><span class="n">n</span> <span class="n">Object</span><span class="p">,</span> <span class="n">c</span> <span class="k">chan</span> <span class="n">Object</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">sum</span> <span class="p">:=</span> <span class="mi">0</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">n</span><span class="p">.(</span><span class="nb">int</span><span class="p">);</span> <span class="n">i</span><span class="p">++</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">x</span> <span class="p">:=</span> <span class="n">rand</span><span class="p">.</span><span class="n">Float64</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">y</span> <span class="p">:=</span> <span class="n">rand</span><span class="p">.</span><span class="n">Float64</span><span class="p">()</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="p">*</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span> <span class="p">*</span> <span class="n">y</span> <span class="p">)</span> <span class="p">&lt;=</span> <span class="mf">1.0</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">sum</span> <span class="p">+=</span> <span class="mi">1</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kd">func</span> <span class="nx">CalculatePI</span><span class="p">(</span><span class="nx">n</span> <span class="nx">Object</span><span class="p">,</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="nx">Object</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">sum</span> <span class="o">:=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">.(</span><span class="kt">int</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">x</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">Float64</span><span class="p">()</span>
+</span><span class='line'>    <span class="nx">y</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">Float64</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">*</span> <span class="nx">y</span> <span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">1.0</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">sum</span> <span class="o">+=</span> <span class="mi">1</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="n">c</span> <span class="p">&lt;-</span> <span class="n">sum</span>
-</span><span class='line'>  <span class="nb">close</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">sum</span>
+</span><span class='line'>  <span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">CollectPI</span><span class="p">(</span><span class="n">in</span> <span class="k">chan</span> <span class="n">Object</span><span class="p">)</span> <span class="n">Object</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">sum</span> <span class="p">:=</span> <span class="mi">0</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">in</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">sum</span> <span class="p">+=</span> <span class="n">i</span><span class="p">.(</span><span class="nb">int</span><span class="p">)</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">CollectPI</span><span class="p">(</span><span class="nx">in</span> <span class="kd">chan</span> <span class="nx">Object</span><span class="p">)</span> <span class="nx">Object</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">sum</span> <span class="o">:=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">in</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">i</span><span class="p">.(</span><span class="kt">int</span><span class="p">)</span>
 </span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">sum</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">sum</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">input</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="n">Object</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">go</span> <span class="k">func</span><span class="p">(){</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="mi">2000</span><span class="p">;</span> <span class="n">i</span><span class="p">++</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">input</span> <span class="p">&lt;-</span> <span class="mi">2000</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">input</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">Object</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">go</span> <span class="kd">func</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">2000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">input</span> <span class="o">&lt;-</span> <span class="mi">2000</span>
 </span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="nb">close</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+</span><span class='line'>    <span class="nb">close</span><span class="p">(</span><span class="nx">input</span><span class="p">)</span>
 </span><span class='line'>  <span class="p">}()</span>
-</span><span class='line'>  <span class="n">points_in_circle</span> <span class="p">:=</span> <span class="n">MapReduce</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">CalculatePI</span><span class="p">,</span> <span class="n">CollectPI</span><span class="p">,</span> <span class="mi">10</span><span class="p">).(</span><span class="nb">int</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">result</span> <span class="p">:=</span> <span class="nb">float64</span><span class="p">(</span><span class="n">points_in_circle</span><span class="p">)</span> <span class="p">*</span> <span class="mi">4</span> <span class="p">/</span> <span class="p">(</span><span class="mi">2000</span> <span class="p">*</span> <span class="mi">2000</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">points_in_circle</span> <span class="o">:=</span> <span class="nx">MapReduce</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">CalculatePI</span><span class="p">,</span> <span class="nx">CollectPI</span><span class="p">,</span> <span class="mi">10</span><span class="p">).(</span><span class="kt">int</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">result</span> <span class="o">:=</span> <span class="nb">float64</span><span class="p">(</span><span class="nx">points_in_circle</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2000</span> <span class="o">*</span> <span class="mi">2000</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'><span class="c1">//output: 3.141711</span>
 </span><span class='line'><span class="c1">//output on 20000 * 20000 points: 3.14156549</span>
@@ -723,34 +723,34 @@ The most famous example is Google. When Google build the index of web pages. Bec
 <span class='line-number'>28</span>
 <span class='line-number'>29</span>
 <span class='line-number'>30</span>
-</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">import</span> <span class="p">(</span>
+</span><span class='line'><span class="kn">import</span> <span class="p">(</span>
 </span><span class='line'>  <span class="s">&quot;testing&quot;</span>
 </span><span class='line'><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">TestCalculatePI</span><span class="p">(</span><span class="n">t</span> <span class="p">*</span><span class="n">testing</span><span class="p">.</span><span class="n">T</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">result</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="n">Object</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">go</span> <span class="n">CalculatePI</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">sum</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">result</span>
-</span><span class='line'>  <span class="n">PI</span> <span class="p">:=</span> <span class="nb">float64</span><span class="p">(</span><span class="n">sum</span><span class="p">.(</span><span class="nb">int</span><span class="p">))</span> <span class="p">*</span> <span class="mi">4</span> <span class="p">/</span> <span class="mi">2000</span>
-</span><span class='line'>  <span class="k">if</span> <span class="n">PI</span> <span class="p">&gt;</span> <span class="mf">3.5</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">t</span><span class="p">.</span><span class="n">Error</span><span class="p">(</span><span class="s">&quot;Calculation Error!!&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">TestCalculatePI</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">result</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">Object</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">go</span> <span class="nx">CalculatePI</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">sum</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">result</span>
+</span><span class='line'>  <span class="nx">PI</span> <span class="o">:=</span> <span class="nb">float64</span><span class="p">(</span><span class="nx">sum</span><span class="p">.(</span><span class="kt">int</span><span class="p">))</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">2000</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nx">PI</span> <span class="p">&gt;</span> <span class="mf">3.5</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;Calculation Error!!&quot;</span><span class="p">)</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">func</span> <span class="n">buildChannel</span><span class="p">(</span><span class="n">in</span> <span class="k">chan</span> <span class="n">Object</span><span class="p">,</span> <span class="n">a</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span> <span class="nb">int</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">b</span><span class="p">;</span> <span class="n">i</span><span class="p">++</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">in</span> <span class="p">&lt;-</span> <span class="n">a</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">buildChannel</span><span class="p">(</span><span class="nx">in</span> <span class="kd">chan</span> <span class="nx">Object</span><span class="p">,</span> <span class="nx">a</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">b</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">in</span> <span class="o">&lt;-</span> <span class="nx">a</span>
 </span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="nb">close</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">close</span><span class="p">(</span><span class="nx">in</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">func</span> <span class="n">TestCollectPI</span><span class="p">(</span><span class="n">t</span> <span class="p">*</span><span class="n">testing</span><span class="p">.</span><span class="n">T</span><span class="p">){</span>
-</span><span class='line'>  <span class="n">result</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="n">Object</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">go</span> <span class="n">buildChannel</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">sum</span> <span class="p">:=</span> <span class="n">CollectPI</span><span class="p">(</span><span class="n">result</span><span class="p">).(</span><span class="nb">int</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">if</span> <span class="n">sum</span> <span class="p">!=</span> <span class="mi">100</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">t</span><span class="p">.</span><span class="n">Error</span><span class="p">(</span><span class="s">&quot;Calculation Error!!&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="kd">func</span> <span class="nx">TestCollectPI</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">result</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">Object</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">go</span> <span class="nx">buildChannel</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">sum</span> <span class="o">:=</span> <span class="nx">CollectPI</span><span class="p">(</span><span class="nx">result</span><span class="p">).(</span><span class="kt">int</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nx">sum</span> <span class="o">!=</span> <span class="mi">100</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;Calculation Error!!&quot;</span><span class="p">)</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>

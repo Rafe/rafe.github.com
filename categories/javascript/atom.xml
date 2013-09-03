@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Neethack]]></title>
   <link href="http://neethack.com/categories/javascript/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-09-03T00:42:05-04:00</updated>
+  <updated>2013-09-03T01:03:22-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -269,88 +269,7 @@ npm start
 </code></pre>
 
 <p><div><script src='https://gist.github.com/4589002.js'></script>
-<noscript><pre><code>var express = require(&#39;express&#39;)
-  , async = require(&#39;async&#39;)
-  , path = require(&#39;path&#39;)
-  , jade = require(&#39;jade&#39;)
-  , fs = require(&#39;fs&#39;);
-
-var app = express();
-
-app.configure(function(){
-  app.set(&#39;port&#39;, process.env.PORT || 3000);
-  app.use(express.favicon());
-  app.use(express.logger(&#39;dev&#39;));
-});
-
-app.configure(&#39;development&#39;, function(){
-  app.use(express.errorHandler());
-});
-
-var loadView = function(name, locals) {
-  var template = fs.readFileSync(path.join(__dirname, name + &#39;.jade&#39;)).toString();
-  return jade.compile(template)(locals);
-};
-
-var db = {
-  search: function(callback) {
-    setTimeout(function() {
-      callback({items: [&#39;test&#39;, &#39;test1&#39;, &#39;test2&#39;, &#39;test3&#39;]});
-    }, 2000);
-  },
-  slowQuery: function(callback) {
-    setTimeout(function() {
-      callback();
-    }, 5000);
-  }
-};
-
-var renderLayout = function(req, res, next) {
-  res.writeHead(200, {&#39;Content-Type&#39;: &#39;text/html&#39;});
-  res.write(&#39;&lt;html&gt;&lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&#39;);
-  res.write(loadView(&#39;layout&#39;, {}));
-  next();
-};
-
-
-var renderSidebar = function (req, res, next) {
-  db.search(function(items) {
-    var content = loadView(&#39;sidebar&#39;, items);
-    res.write(&#39;&lt;script&gt;$(&quot;.content-sidebar&quot;).html(\&#39;&#39; + content + &#39;\&#39;);&lt;/script&gt;&#39;);
-    next();
-  });
-};
-
-var renderContent = function (req, res, next) {
-  var content = loadView(&#39;main&#39;, {title: &#39;Bigpipe!&#39;});
-  res.write(&#39;&lt;script&gt;$(&quot;.content-main&quot;).html(\&#39;&#39; + content + &#39;\&#39;);&lt;/script&gt;&#39;);
-  next();
-};
-
-var renderExtra = function (req, res, next) {
-  db.slowQuery(function() {
-    var extra = loadView(&#39;extra&#39;, {});
-    res.write(&#39;&lt;script&gt;$(&quot;.content-extra&quot;).html(\&#39;&#39; + extra + &#39;\&#39;);&lt;/script&gt;&#39;);
-    next();
-  });
-};
-
-var renderBody = function (req, res, next) {
-  async.forEach([renderExtra, renderSidebar, renderContent], function(fn, done) {
-    fn(req, res, done);
-  }, next);
-};
-
-var renderEnd = function (req, res, next) {
-  res.write(&#39;&lt;/body&gt;&lt;/html&gt;&#39;);
-  res.end();
-};
-
-app.get(&#39;/&#39;, renderLayout, renderBody, renderEnd );
-
-app.listen(3000);
-console.log(&quot;Express server listening on port &quot; + app.get(&#39;port&#39;));
-</code></pre></noscript></div>
+<noscript><pre><code></code></pre></noscript></div>
 </p>
 ]]></content>
   </entry>

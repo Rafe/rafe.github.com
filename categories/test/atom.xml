@@ -4,7 +4,7 @@
   <title><![CDATA[Category: test | Neethack]]></title>
   <link href="http://neethack.com/categories/test/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-09-03T00:42:05-04:00</updated>
+  <updated>2013-09-03T01:03:22-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -200,30 +200,12 @@ class Suite extends EventEmitter
 
     @on &#39;start&#39;, =&gt; @report yellow @title
     @delegate [&#39;before&#39;, &#39;after&#39;] if @parent?
-    @on &#39;result&#39;, (test, err)=&gt;
-      if err?
-        @errors += 1
-        @report red &quot;  ✗ #{test.title} (#{err})&quot;
-      else
-        @report green &quot;  ✓ #{test.title}&quot;
-    @on &#39;end&#39;, =&gt;
-      count = @tests.length
-      errors = @errors
-
-      (reduce = (suites)-&gt;
-        suites.forEach (suite)-&gt;
-          count += suite.tests.length
-          errors += suite.errors
-          reduce suite.childs if suite.childs?
-      )(@childs)
-
-      console.log yellow &quot;run #{count} #{pluralize(count, &#39;test&#39;) } , #{count - errors} success, #{errors} failed&quot;
+    @on &#39;result&#39;, @reportResult
+    @on &#39;end&#39;, @reportSummary
 
   delegate: (events)-&gt;
     events.forEach (event)=&gt;
       @on event, ()=&gt; @parent?.emit event
-
-  report: (text)-&gt; console.log indent(@level) + text
 
   run: -&gt;
     @emit &#39;start&#39;
@@ -247,6 +229,28 @@ class Suite extends EventEmitter
       @childs.forEach (spec)-&gt; spec.run()
       @emit &#39;end&#39; unless @parent?
 
+  report: (text)-&gt; console.log indent(@level) + text
+
+  reportResult: (test, err)=&gt;
+    if err?
+      @errors += 1
+      @report red &quot;  ✗ #{test.title} (#{err})&quot;
+    else
+      @report green &quot;  ✓ #{test.title}&quot;
+
+  reportSummary: =&gt;
+    count = @tests.length
+    errors = @errors
+
+    (reduce = (suites)-&gt;
+      suites.forEach (suite)-&gt;
+        count += suite.tests.length
+        errors += suite.errors
+        reduce suite.childs if suite.childs?
+    )(@childs)
+
+    console.log yellow &quot;run #{count} #{pluralize(count, &#39;test&#39;) } , #{count - errors} success, #{errors} failed&quot;
+
 class Runner
   constructor: (context)-&gt;
     suites = []
@@ -263,7 +267,7 @@ class Runner
       suites.shift()
       suite.run() if suites.length is 0
 
-new Runner(global or window)
+new Runner(global)
 </code></pre></noscript></div>
 </p>
 

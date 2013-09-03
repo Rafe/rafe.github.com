@@ -209,7 +209,7 @@ generateCode = (url, algorithms, digits, callback)-&gt;
 
   redis.get &quot;url:#{code}&quot;, (err, reply)-&gt;
     if not reply or reply == url
-      client.set &quot;url:#{code}&quot;, url, (err, reply)-&gt;
+      redis.set &quot;url:#{code}&quot;, url, (err, reply)-&gt;
         callback(null, code)
     else generateCode(url, algorithms, digits, callback)</code></pre></noscript></div>
 
