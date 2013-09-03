@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: interviews | Neethack]]></title>
+  <link href="http://neethack.com/categories/interviews/atom.xml" rel="self"/>
+  <link href="http://neethack.com/"/>
+  <updated>2013-09-03T00:42:05-04:00</updated>
+  <id>http://neethack.com/</id>
+  <author>
+    <name><![CDATA[Jimmy Chao]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Amazon Interview]]></title>
+    <link href="http://neethack.com/2012/02/amazon-interview/"/>
+    <updated>2012-02-25T01:41:00-05:00</updated>
+    <id>http://neethack.com/2012/02/amazon-interview</id>
+    <content type="html"><![CDATA[<p>  In 2011, I flew to Seattle for an on-site interview with Amazon, that is an interesting experience and I learned a lot from the preparation and knowing how these company finding new talents. I would like to share some of my experience on that interview.</p>
+
+<h2>Invitation</h2>
+
+<p>  After handing out my resume on school&rsquo;s career fair, I got an email from Amazon campus recruiter that they have an interview event for campus hire hold on Amazon campus in Seattle, and they would like to pay me the trip to the interview. That really surprise me because what I heard is they will usually have one or two phone interview before you get to the on-site interview. However, this is a great oppurtunity, and also a free trip visiting Seattle. So I just go for it.</p>
+
+<!-- more -->
+
+
+<h2>Preparation</h2>
+
+<p>  My sister in law live in Seattle, and she introduced me a friend who work in Amazon. I got lots of great advices about how to prepare the interview with Amazon. The position I applied for is general software engineer so I will not inteview with specific team members. Therefore I just prepare for general questions.</p>
+
+<p>  First, for technical interview. There&rsquo;re two books that really explain the process and questions they will ask:</p>
+
+<ul>
+<li><a href="http://www.amazon.com/Cracking-Coding-Interview-Fourth-Programming/dp/145157827X">Cracking the code interviews</a></li>
+<li><p><a href="http://www.amazon.com/Programming-Interviews-Exposed-Secrets-Programmer/dp/047012167X/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1330300919&amp;sr=1-1">Programming interviews exposed</a></p>
+
+<p>Those two book is really helpful. And is the main source of preparation. I started a github project and push answers on it for preparation, Also I wrote the code on notebook for practicing writing code on whiteboard.</p>
+
+<p>Also, <a href="http://www.topcoder.com/">TopCoder</a> is your good friend, attend some Single Round Matches or do some questions in practice room to really get the tempo of solving questions.</p>
+
+<p>For algorithms, the recruiter recommanded some books and resources:</p></li>
+<li><p><a href="http://www.amazon.com/Algorithms-Nutshell-OReilly-George-Heineman/dp/059651624X/ref=sr_1_1?ie=UTF8&amp;qid=1330301272&amp;sr=8-1">Algorithm in Nutshells</a> is a digest book for the algorithms and data structures.</p></li>
+<li><a href="http://www.topcoder.com/tc?d1=tutorials&amp;d2=alg_index&amp;module=Static">TopCoder algorithms tutorials</a> teach you the skills to solve problems on Topcoder using algorithms and data structures you learned.</li>
+<li><a href="http://www.amazon.com/Introduction-Algorithms-Thomas-H-Cormen/dp/0262033844/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1330301457&amp;sr=1-1">Introduction to Algorithms</a> is the masterbook of algorithms.</li>
+<li><a href="http://www.amazon.com/Programming-Pearls-2nd-Jon-Bentley/dp/0201657880">Programming Pearl</a> is another book about sophiscated pragramming questions. The friend in Amazon told me it is a good book for solving algorithm questions.</li>
+<li><p>Also, <a href="http://caterpillar.onlyfun.net/Gossip/">http://caterpillar.onlyfun.net/</a> is a great resouce for basic algorithms if you can read chinese :)</p>
+
+<p>For coding questions, I mainly prepared in Java so I reviewed the language basic through some internet resources, also remember to check regular expression and basic file and folder read, write Api in the language.</p>
+
+<p>Also I read other resouces from internet:</p></li>
+<li><a href="http://www.catonmat.net/blog/my-job-interview-at-google/">My job interview at google</a> is a great interview article that contains a lots of resources worth for reading. Also I translated it into <a href="http://neethack.blogspot.com/2010/01/my-job-interview-at-google-google.html">Chinese</a> before.</li>
+<li><a href="https://sites.google.com/site/steveyegge2/five-essential-phone-screen-questions">Five essential phone screen question</a> is also helpful on the basic problems.</li>
+<li><p><a href="http://projecteuler.net/">Euler project</a> is a resource for mathmatical computer programming questions.</p>
+
+<p>Before the departure, I asked my brother for some mock up interview and try to solve the problems by writing codes and speak my thought in the same time. Also I got a mock up interview on phone with the friend in Amazon, that is helpful because he can point out my errors and ask questions on my answer like real interviewer. (actually he is, all Amazon Engineer need to be interviewer).</p></li>
+</ul>
+
+
+<h2>Interview</h2>
+
+<p>  After 8 hours flight and transfer, I arrived in Seattle at night and took Taxi to Hilton Bellevue. The main traffic tool Amazon suggest is Taxi, they will reimburse all traffic expenses during the interview.</p>
+
+<p>  Next day, I took taxi to Amazon campus near Bellevue, the texi driver said Amazon just move their campus to south lake union recently. I arrived around 10:00, the interview hold on 11:00. So I visited the South Lake Union park before interview.</p>
+
+<p>  <img src="https://lh5.googleusercontent.com/-d81HUr6PFYM/T0spwNwRIQI/AAAAAAAABPU/znY3hTZWpTs/s640/P1010155.JPG" alt="Amazon" />
+  <img src="https://lh6.googleusercontent.com/-QboFdHY-fnk/T0sp9MSy43I/AAAAAAAABPc/uDJWErDFpuA/s640/P1010165.JPG" alt="South Lake Union Park" /></p>
+
+<p>  On 11:00, the interview began with a lunch with Amazon engineers, who will also be the interviewer afterward. It is not part of the interview, but a chance to let you understand more about Amazon. I sit on the table with an engineer who work in customer service team. I asked some questions about software development and life in Amazon. The interesting thing is, Amazon is composed by lots of small and medium teams running Agile, each team using the languages and services by their requirements and scale, the stack is differ from team to team. The culture looks pretty Engineer driven. And he said the life and workload balance is reasonable in Amazon.
+  After lunch, we was taken to different rooms with whiteboard, which is the place we will stay in the rest of the interview. There&rsquo;s four sessions, each is 45 minutes and no rest netween sessions. It seens like a really hard schedule for both side.</p>
+
+<hr />
+
+<p>  First session was from an enginner in Kindle app store. I signed the NDA so better not to talk about the question. But it is a simple programming question, not too hard but need to handle some details. I wrote the question in a python-like pseudo code first, and rewrote in java. It takes more time but make you able to write code with fewer errors. I am pretty comfortable in this way, but need to control the time of writing pseudo code and real code.</p>
+
+<p>  Second session was from web team (probally), He asked about some data structure. how do you implement it, pros and cons, and some optimize questions. As the same I write the data structure in Pseudo code first and rewrite with Java.</p>
+
+<p>  Third session was from an engineer in wireless team. He asked a tricky question about data structure. After answer that, he asked about the pro and cons of my implmentation and the design decision. I made a small mistake when answering a design question. I said I put the method in class just to keep code concise for interview, but I should rather talked more about the pro and cons about how I made the decision.</p>
+
+<p>  Last session was from kindle team. He asked a practical question that he solved in Amazon website before. In the beginning I wrote the pseudo code in python, and he suggest me just wrote in python. But I got confused with Python api of folder. And didn&rsquo;t answer well on the optimize question afterward. So the lesson is, just make sure you are familier with API of the language you use.</p>
+
+<p>  Afterward, they escorted me to the lobby and I took taxi back to meet my sister in law. Having some authentic Taiwanese dinner and met some friends who works in Amazon and Microsoft. I took to flight back to New York in the next morning.</p>
+
+<h2>Conclusion</h2>
+
+<p>  In the end I didn&rsquo;t get the job, and they encouraging me to try again in half year. But I learned a lot through the preparation of the interview. The interview process is pretty fun &ndash; solving different problems with engineers on whiteboard &ndash; is like playing a big quiz game. Not every programmer like these pop questions, but at least I think it is pretty interesting and challenging to solve. I will definatlly have more technical interview in future. And this experience will help a lot.</p>
+
+<p>  Thanks for the friends who help me on the interview. And for this oppurtunity to visit Seattle &ndash; it is a nice city to live. Wish I can visit there again in near future.</p>
+]]></content>
+  </entry>
+  
+</feed>

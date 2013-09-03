@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: javascript | Neethack]]></title>
+  <link href="http://neethack.com/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://neethack.com/"/>
+  <updated>2013-09-03T00:42:05-04:00</updated>
+  <id>http://neethack.com/</id>
+  <author>
+    <name><![CDATA[Jimmy Chao]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Announcing Code-Warrior]]></title>
+    <link href="http://neethack.com/2013/04/announcing-code-warrior/"/>
+    <updated>2013-04-18T11:38:00-04:00</updated>
+    <id>http://neethack.com/2013/04/announcing-code-warrior</id>
+    <content type="html"><![CDATA[<p>Recently I am preparing the interview with some companies in West Coast.<br/>
+One of the problem I have during the preparation, which is because I am a vim user,
+It is uncomfortable to practice algorithm questions on TopCoder, so I think it would be great if I have a npm tool that can
+download algorithm problems and provide some skeleton test case for practice.
+Therefore I created <a href="http://code-warrior.herokuapp.com">Code-Warrior</a></p>
+
+<!-- more -->
+
+
+<h2>Features</h2>
+
+<p>Code warrior provide some basic algorithm questions like quicksort, tree traversal, with some more advence questions too.
+The questions is all open source, so it can accept new algorithm questions on community.</p>
+
+<p><a href="http://github.com/Rafe/code-warrior-questions">Code-Warrior questions</a></p>
+
+<p>Code warrior also provide a web interface for people to check their status,
+get score by solving questions and share the code by Github:gist.</p>
+
+<h2>How to use?</h2>
+
+<p>First, you can install the code-warrior cli by npm:</p>
+
+<pre><code>npm install -g code-warrior
+</code></pre>
+
+<p>After that, you can create a directory for practice, init project on that directory:</p>
+
+<pre><code>war init
+</code></pre>
+
+<p>Code warrior will require your github username and password for authenticate.<br/>
+Your local directory should be like this after init:</p>
+
+<pre><code>arena/
+history/
+node_modules/
+package.json
+.config.json
+</code></pre>
+
+<p>You can check the questions by command:</p>
+
+<pre><code>war list
+</code></pre>
+
+<p>And download question to the <code>arena</code> folder by</p>
+
+<pre><code>war -l [level] -s [id]
+</code></pre>
+
+<p>Or ignore the id, Code-Warrior will return first unanswered question.</p>
+
+<p>Each question include a readme file, a test case and file to implement.</p>
+
+<p>Implement the question in index.js, and pass the test cases.<br/>
+you can test question by</p>
+
+<pre><code>war
+</code></pre>
+
+<p>or just use mocha</p>
+
+<pre><code>mocha arena
+</code></pre>
+
+<p>Then, commit the question on Code-Warrior:</p>
+
+<pre><code>war commit
+</code></pre>
+
+<p>If the test cases passed on both local and server, you can gain score according to the level of question.
+Check your status on site by:</p>
+
+<pre><code>war status
+</code></pre>
+
+<p>Or login with Github on Code-Warrior site.</p>
+
+<h2>More</h2>
+
+<p>Right now it only provide javascript for writing the question.
+But I will try to add ruby and python as language options.</p>
+
+<p>Also, another secret command <code>war legend</code>,
+which can download custom question for interviewing people, is working in progress.</p>
+
+<p>You can contact me by daizenga [at] gmail.com if you have any suggestion on it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Bacon.js for dummies]]></title>
+    <link href="http://neethack.com/2013/02/bacon-dot-js-for-dummies/"/>
+    <updated>2013-02-04T16:25:00-05:00</updated>
+    <id>http://neethack.com/2013/02/bacon-dot-js-for-dummies</id>
+    <content type="html"><![CDATA[<p>Bacon.js is an FRP module for events on javascript. Which can transform
+your event listener/handler to a functional event stream. After servey a few blogs and example project,
+I found it is a really interesting concept and can make event handling speghetti code into clear functional logics.</p>
+
+<h3>Event stream</h3>
+
+<p>First, what is event stream?
+Actually it is nothing special, it is just an event listener that listen to specific event.</p>
+
+<p>For example,</p>
+
+<pre><code>$("#clickme").on('click', function(event){ alert(event.target)})
+</code></pre>
+
+<p>Can transfer to event stream by Bacon.js&rsquo;s asEventStream helper:</p>
+
+<pre><code>clicked = $("#clickme").asEventStream('click')
+</code></pre>
+
+<p>And add handler to event stream, listen to click event:</p>
+
+<pre><code>clicked.onValue(function(event){ alert(event.target) })
+</code></pre>
+
+<!-- more -->
+
+
+<h3>So what&rsquo;s the different?</h3>
+
+<p>Remember what I said in the beginning, event stream is functional.
+Which means it provide functional interface to manipulate events:</p>
+
+<pre><code>clicked
+  .map(function(event) { return event.target })
+  .onValue(function(element) { alert(element) })
+// will map the event to event.target
+
+clicked.skip(1).take(4).onValue(function(event) { alert(event.target) })
+// will only take the 2-5 click event.
+
+clicked
+  .filter(function(event) { return event.type == 'click' })
+  .onValue(function(event) { alert(event.target)})
+// will only take 'click' event on event stream
+</code></pre>
+
+<h3>Merge</h3>
+
+<p>A powerful feature of event stream is it can merge with multiple stream.
+For example, if we want to listen 2 click event with enable and disable state, you can merge the stream:</p>
+
+<pre><code>enable = $('#enable').asEventStream('click').map(true)
+disable = $('#disable').asEventStream('click').map(false)
+enable.merge(disable).onValue(function(state) { alert(state) })
+</code></pre>
+
+<h3>Property</h3>
+
+<p>Moreover, it provide property: an event stream with state.
+What property different with event stream is it will remember the state of stream,
+which is the event object or mapped value.</p>
+
+<pre><code>buttonState = enable.merge(disable).toProperty(false)
+// with initial state false
+buttonState.onValue(function(state) {
+  $('#button').toggleClass('enable', state)
+})
+</code></pre>
+
+<p>Also, it provide scan and assign helper to provide advance usage.</p>
+
+<h3>Message Queue</h3>
+
+<p>We can also use the event stream as message queue.</p>
+
+<pre><code>messageQueue = new Bacon.Bus()
+messageQueue.plug(enable.map({type: 'enable'}))
+messageQueue.plug(disable.map({type: 'disable'}))
+//plug event stream to queue
+
+messageQueue.onValue(function(event){ alert(event.type)})
+// listen and alert event state
+
+messageQueue.push({ type: 'disable'})
+// push event manually, alert event
+</code></pre>
+
+<p>The project <a href="https://github.com/raimohanska/worzone">worzone</a> provide a more detailed implementation example for messageQueue</p>
+
+<h3>Ajax</h3>
+
+<p>You can use the .ajax() helper to pass stream params to .ajax(params) and listen the promise object as event stream</p>
+
+<pre><code>response = enable.map({url: '/enable', method: 'post' }).ajax()
+response.onValue(function(data) {
+  alert(data)
+})
+</code></pre>
+
+<h2>So what is it trying to solve?</h2>
+
+<p>FRP, functional reactive programming on events.
+Which reduce the duplicated part of event handling, and make code more looks like pure logic and functions.</p>
+
+<p>I recommand to read the example of <a href="http://nullzzz.blogspot.fi/2012/11/baconjs-tutorial-part-i-hacking-with.html">Bacon.js tutorial</a>,
+and <a href="https://github.com/raimohanska/todomvc">todomvc example</a> with Bacon.js.
+It shows how the functional declarative can simplify codes.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[express bigpipe experiment]]></title>
+    <link href="http://neethack.com/2013/01/express-bigpipe-experiment/"/>
+    <updated>2013-01-21T15:28:00-05:00</updated>
+    <id>http://neethack.com/2013/01/express-bigpipe-experiment</id>
+    <content type="html"><![CDATA[<h2>Bigpipe</h2>
+
+<p>Bigpipe is an unique frontend technique used by Facebook to increase their page rendering speed.</p>
+
+<p>When I read the article talk about <a href="https://www.facebook.com/note.php?note_id=389414033919">bigpipe on facebook</a>, I was pretty shocked about how facebook implements those unique ideas to
+increase their page rendering speed.</p>
+
+<p>Recently I am using node.js for web development, I think the async structure of node is a perfect environment to use this technique, so I wrote a small experiments app with express:</p>
+
+<!--more-->
+
+
+<h2>Streaming</h2>
+
+<p>The technique behind Bigpipe is actually pretty simple,
+what Bigpipe do is using http streaming to load the page seperatly.
+When the page load, Facebook will return basic layout, css and assets manager(bootLoader) to user first.
+Then other slower content like news feeds, notification will returned later on the same request as Pagelet.
+A pagelet contain it&rsquo;s own css, javascripts and contents,
+after pagelet loaded, it will render itself to page,
+and resources dependencies is managed by bootLoader so it won&rsquo;t load duplicated resources.</p>
+
+<p>The adventage of this approach is that the slower part of the request won&rsquo;t block the whole page rendering.
+User can get response for the completed part first, than receive the slower part.</p>
+
+<h2>experiments on express</h2>
+
+<p>In this example, I use express as web framework, async for async rendering and jQuery for render content to layout.</p>
+
+<p><a href="http://express-bigpipe.herokuapp.com/">Demo</a></p>
+
+<p>you can clone the gist and run it on local:</p>
+
+<pre><code>git clone https://gist.github.com/4589002.git
+cd 4589002
+npm install
+npm start
+</code></pre>
+
+<p><div><script src='https://gist.github.com/4589002.js'></script>
+<noscript><pre><code>var express = require(&#39;express&#39;)
+  , async = require(&#39;async&#39;)
+  , path = require(&#39;path&#39;)
+  , jade = require(&#39;jade&#39;)
+  , fs = require(&#39;fs&#39;);
+
+var app = express();
+
+app.configure(function(){
+  app.set(&#39;port&#39;, process.env.PORT || 3000);
+  app.use(express.favicon());
+  app.use(express.logger(&#39;dev&#39;));
+});
+
+app.configure(&#39;development&#39;, function(){
+  app.use(express.errorHandler());
+});
+
+var loadView = function(name, locals) {
+  var template = fs.readFileSync(path.join(__dirname, name + &#39;.jade&#39;)).toString();
+  return jade.compile(template)(locals);
+};
+
+var db = {
+  search: function(callback) {
+    setTimeout(function() {
+      callback({items: [&#39;test&#39;, &#39;test1&#39;, &#39;test2&#39;, &#39;test3&#39;]});
+    }, 2000);
+  },
+  slowQuery: function(callback) {
+    setTimeout(function() {
+      callback();
+    }, 5000);
+  }
+};
+
+var renderLayout = function(req, res, next) {
+  res.writeHead(200, {&#39;Content-Type&#39;: &#39;text/html&#39;});
+  res.write(&#39;&lt;html&gt;&lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&#39;);
+  res.write(loadView(&#39;layout&#39;, {}));
+  next();
+};
+
+
+var renderSidebar = function (req, res, next) {
+  db.search(function(items) {
+    var content = loadView(&#39;sidebar&#39;, items);
+    res.write(&#39;&lt;script&gt;$(&quot;.content-sidebar&quot;).html(\&#39;&#39; + content + &#39;\&#39;);&lt;/script&gt;&#39;);
+    next();
+  });
+};
+
+var renderContent = function (req, res, next) {
+  var content = loadView(&#39;main&#39;, {title: &#39;Bigpipe!&#39;});
+  res.write(&#39;&lt;script&gt;$(&quot;.content-main&quot;).html(\&#39;&#39; + content + &#39;\&#39;);&lt;/script&gt;&#39;);
+  next();
+};
+
+var renderExtra = function (req, res, next) {
+  db.slowQuery(function() {
+    var extra = loadView(&#39;extra&#39;, {});
+    res.write(&#39;&lt;script&gt;$(&quot;.content-extra&quot;).html(\&#39;&#39; + extra + &#39;\&#39;);&lt;/script&gt;&#39;);
+    next();
+  });
+};
+
+var renderBody = function (req, res, next) {
+  async.forEach([renderExtra, renderSidebar, renderContent], function(fn, done) {
+    fn(req, res, done);
+  }, next);
+};
+
+var renderEnd = function (req, res, next) {
+  res.write(&#39;&lt;/body&gt;&lt;/html&gt;&#39;);
+  res.end();
+};
+
+app.get(&#39;/&#39;, renderLayout, renderBody, renderEnd );
+
+app.listen(3000);
+console.log(&quot;Express server listening on port &quot; + app.get(&#39;port&#39;));
+</code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Announcing Papercut]]></title>
+    <link href="http://neethack.com/2012/12/announcing-papercut/"/>
+    <updated>2012-12-21T00:55:00-05:00</updated>
+    <id>http://neethack.com/2012/12/announcing-papercut</id>
+    <content type="html"><![CDATA[<p>Inspiring by <a href="https://github.com/jnicklas/carrierwave">carrierwave</a> on Rails.
+I wrote a image processing framework to handle images with different versions on node.js and express.
+Integrate with node-imagemagick and can upload image to Amazon S3.
+It is just a simple version of carrierwave with similiar Api.
+But I am comfortable with the features, which is enough for my requirement right now.
+I will try to improve the image processing efficiency, and add more processing options for future usage.</p>
+
+<p>You can check this project on <a href="https://github.com/Rafe/papercut">Github</a></p>
+]]></content>
+  </entry>
+  
+</feed>
