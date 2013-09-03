@@ -1,0 +1,26 @@
+<div class="highlight"><pre><span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">getAlgorithms</span> <span class="o">=</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="s1">&#39;md5&#39;</span><span class="p">,</span> <span class="s1">&#39;sha1&#39;</span><span class="p">,</span> <span class="s1">&#39;sha256&#39;</span><span class="p">,</span> <span class="s1">&#39;sha512&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">generateCode</span> <span class="o">=</span> <span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">algorithms</span><span class="p">,</span> <span class="nx">digits</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span><span class="o">-&gt;</span>
+  <span class="nx">algorithm</span> <span class="o">=</span> <span class="nx">algorithms</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
+  <span class="err">#</span><span class="nx">increase</span> <span class="nx">code</span> <span class="nx">digits</span> <span class="k">if</span> <span class="nx">all</span> <span class="nx">codes</span> <span class="nx">are</span> <span class="nx">registered</span>
+  <span class="k">if</span> <span class="nx">not</span> <span class="nx">algorithm</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">algorithms</span> <span class="o">=</span> <span class="nx">getAlgorithms</span><span class="p">()</span>
+<span class="nx">digits</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">code</span> <span class="o">=</span> <span class="nx">hashUrl</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">digits</span><span class="p">,</span> <span class="nx">algorithm</span><span class="p">)</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">client</span><span class="p">.</span><span class="nx">get</span> <span class="s2">&quot;url:#{code}&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">reply</span><span class="p">)</span><span class="o">-&gt;&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="nx">not</span> <span class="nx">reply</span> <span class="nx">or</span> <span class="nx">reply</span> <span class="o">==</span> <span class="nx">url</span>
+  <span class="nx">client</span><span class="p">.</span><span class="nx">set</span> <span class="s2">&quot;url:#{code}&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">reply</span><span class="p">)</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">code</span><span class="p">)</span>
+<span class="k">else</span> <span class="nx">generateCode</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">algorithms</span><span class="p">,</span> <span class="nx">digits</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</pre>
+</div>

@@ -1,0 +1,61 @@
+<div class="highlight"><pre><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;p&gt;  public&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1"># Defining a `GET` handler also automatically defines</span>
+<span class="c1"># a `HEAD` handler.</span>
+<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="p">{},</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">block</span><span class="p">)</span>
+  <span class="n">conditions</span> <span class="o">=</span> <span class="vi">@conditions</span><span class="o">.</span><span class="n">dup</span>
+  <span class="n">route</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">block</span><span class="p">)</span>
+
+  <span class="vi">@conditions</span> <span class="o">=</span> <span class="n">conditions</span>
+  <span class="n">route</span><span class="p">(</span><span class="s1">&#39;HEAD&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">block</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="p">{},</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span><span class="p">)</span>     <span class="n">route</span> <span class="s1">&#39;PUT&#39;</span><span class="p">,</span>     <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span> <span class="k">end</span>
+<span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="p">{},</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span><span class="p">)</span>    <span class="n">route</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>    <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span> <span class="k">end</span>
+<span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="p">{},</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span><span class="p">)</span>  <span class="n">route</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">,</span>  <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span> <span class="k">end</span>
+<span class="k">def</span> <span class="nf">head</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="p">{},</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span><span class="p">)</span>    <span class="n">route</span> <span class="s1">&#39;HEAD&#39;</span><span class="p">,</span>    <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span> <span class="k">end</span>
+<span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="p">{},</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span><span class="p">)</span> <span class="n">route</span> <span class="s1">&#39;OPTIONS&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span> <span class="k">end</span>
+<span class="k">def</span> <span class="nf">patch</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="p">{},</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span><span class="p">)</span>   <span class="n">route</span> <span class="s1">&#39;PATCH&#39;</span><span class="p">,</span>   <span class="n">path</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">bk</span> <span class="k">end</span>
+<span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="kp">private</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;pre&gt;&lt;code&gt;def route(verb, path, options={}, &amp;amp;block)</span>
+<span class="sr">  # Because of self.options.host</span>
+<span class="sr">  host_name(options.delete(:host)) if options.key?(:host)</span>
+<span class="sr">  enable :empty_path_info if path == &quot;&quot; and empty_path_info.nil?</span>
+<span class="sr">  signature = compile!(verb, path, block, options)</span>
+<span class="sr">  (@routes[verb] ||= []) &amp;lt;&amp;lt; signature</span>
+<span class="sr">  invoke_hook(:route_added, verb, path, block)</span>
+<span class="sr">  signature</span>
+<span class="sr">end</span>
+
+<span class="sr">def invoke_hook(name, *args)</span>
+<span class="sr">  extensions.each { |e| e.send(name, *args) if e.respond_to?(name) }</span>
+<span class="sr">end</span>
+
+<span class="sr">def generate_method(method_name, &amp;amp;block)</span>
+<span class="sr">  define_method(method_name, &amp;amp;block)</span>
+<span class="sr">  method = instance_method method_name</span>
+<span class="sr">  remove_method method_name</span>
+<span class="sr">  method</span>
+<span class="sr">end</span>
+
+<span class="sr">def compile!(verb, path, block, options = {})</span>
+<span class="sr">  options.each_pair { |option, args| send(option, *args) }</span>
+<span class="sr">  method_name             = &quot;</span><span class="si">#{</span><span class="n">verb</span><span class="si">}</span><span class="sr"> </span><span class="si">#{</span><span class="n">path</span><span class="si">}</span><span class="sr">&quot;</span>
+<span class="sr">  unbound_method          = generate_method(method_name, &amp;amp;block)</span>
+<span class="sr">  pattern, keys           = compile path</span>
+<span class="sr">  conditions, @conditions = @conditions, []</span>
+
+<span class="sr">  [ pattern, keys, conditions, block.arity != 0 ?</span>
+<span class="sr">      proc { |a,p| unbound_method.bind(a).call(*p) } :</span>
+<span class="sr">      proc { |a,p| unbound_method.bind(a).call } ]</span>
+<span class="sr">end</span>
+<span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+
+<span class="sr">&lt;p&gt;</span>
+</pre>
+</div>

@@ -1,0 +1,17 @@
+exports.hashUrl = hashUrl = (url, digits = 5, algorithm = 'md5')->
+  symbols = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+  length = symbols.length
+  code = ""
+
+  hash = crypto.createHash(algorithm)
+    .update(url)
+    .digest('hex')
+
+  hash_number = parseInt(hash, 16) % Math.pow(length, digits + 1)
+
+  while hash_number >= length
+    n = hash_number % length
+    code += symbols[n]
+    hash_number = parseInt(hash_number / length)
+
+  code

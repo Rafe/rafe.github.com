@@ -1,0 +1,28 @@
+<div class="highlight"><pre>  
+<span class="k">class</span> <span class="nc">Stream</span>
+  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">scheduler</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="p">,</span> <span class="n">keep_open</span> <span class="o">=</span> <span class="kp">false</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">back</span><span class="p">)</span>
+    <span class="vi">@back</span><span class="p">,</span> <span class="vi">@scheduler</span><span class="p">,</span> <span class="vi">@keep_open</span> <span class="o">=</span> <span class="n">back</span><span class="o">.</span><span class="n">to_proc</span><span class="p">,</span> <span class="n">scheduler</span><span class="p">,</span> <span class="n">keep_open</span>
+    <span class="vi">@callbacks</span><span class="p">,</span> <span class="vi">@closed</span> <span class="o">=</span> <span class="o">[]</span><span class="p">,</span> <span class="kp">false</span>
+  <span class="k">end</span>
+  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+  <span class="k">def</span> <span class="nf">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">front</span><span class="p">)</span>
+    <span class="vi">@front</span> <span class="o">=</span> <span class="n">front</span>
+    <span class="vi">@scheduler</span><span class="o">.</span><span class="n">defer</span> <span class="k">do</span>
+      <span class="k">begin</span>
+        <span class="vi">@back</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+      <span class="k">rescue</span> <span class="no">Exception</span> <span class="o">=&gt;</span> <span class="n">e</span>
+        <span class="vi">@scheduler</span><span class="o">.</span><span class="n">schedule</span> <span class="p">{</span> <span class="k">raise</span> <span class="n">e</span> <span class="p">}</span>
+      <span class="k">end</span>
+      <span class="n">close</span> <span class="k">unless</span> <span class="vi">@keep_open</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">&lt;&lt;</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="vi">@scheduler</span><span class="o">.</span><span class="n">schedule</span> <span class="p">{</span> <span class="vi">@front</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span> <span class="p">}</span>
+    <span class="nb">self</span>
+  <span class="k">end</span>
+  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+<span class="k">end</span>
+</pre>
+</div>

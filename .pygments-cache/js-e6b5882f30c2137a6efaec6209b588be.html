@@ -1,0 +1,14 @@
+<div class="highlight"><pre><span class="nx">App</span><span class="p">.</span><span class="nx">userView</span> <span class="o">=</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+  <span class="nx">templateName</span><span class="o">:</span> <span class="s1">&#39;user-view&#39;</span><span class="p">,</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+  <span class="nx">click</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;clicked&#39;</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="nx">sayHello</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;hello!&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">App</span><span class="p">.</span><span class="nx">userView</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">App</span><span class="p">.</span><span class="nx">rootElement</span><span class="p">);</span> <span class="c1">//append view to the application</span>
+</pre>
+</div>

@@ -1,0 +1,45 @@
+<div class="highlight"><pre><span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">package</span> <span class="n">main</span><span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">import</span> <span class="p">(</span>
+  <span class="s">&quot;testing&quot;</span>
+<span class="p">)&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">func</span> <span class="n">TestCalculatePI</span><span class="p">(</span><span class="n">t</span> <span class="p">*</span><span class="n">testing</span><span class="p">.</span><span class="n">T</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="n">result</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="n">Object</span><span class="p">)</span>
+  <span class="k">go</span> <span class="n">CalculatePI</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+  <span class="n">sum</span> <span class="p">:=</span> <span class="p">&lt;-</span><span class="n">result</span>
+  <span class="n">PI</span> <span class="p">:=</span> <span class="nb">float64</span><span class="p">(</span><span class="n">sum</span><span class="p">.(</span><span class="nb">int</span><span class="p">))</span> <span class="p">*</span> <span class="mi">4</span> <span class="p">/</span> <span class="mi">2000</span>
+  <span class="k">if</span> <span class="n">PI</span> <span class="p">&gt;</span> <span class="mf">3.5</span> <span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">t</span><span class="p">.</span><span class="n">Error</span><span class="p">(</span><span class="s">&quot;Calculation Error!!&quot;</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">func</span> <span class="n">buildChannel</span><span class="p">(</span><span class="n">in</span> <span class="k">chan</span> <span class="n">Object</span><span class="p">,</span> <span class="n">a</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span> <span class="nb">int</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">b</span><span class="p">;</span> <span class="n">i</span><span class="p">++</span> <span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">in</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;-</span> <span class="n">a</span>
+<span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>  <span class="p">}</span>
+  <span class="nb">close</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>
+<span class="p">}&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">func</span> <span class="n">TestCollectPI</span><span class="p">(</span><span class="n">t</span> <span class="p">*</span><span class="n">testing</span><span class="p">.</span><span class="n">T</span><span class="p">){</span>
+  <span class="n">result</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="n">Object</span><span class="p">)</span>
+  <span class="k">go</span> <span class="n">buildChannel</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+  <span class="n">sum</span> <span class="p">:=</span> <span class="n">CollectPI</span><span class="p">(</span><span class="n">result</span><span class="p">).(</span><span class="nb">int</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">sum</span> <span class="p">!=</span> <span class="mi">100</span> <span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">t</span><span class="p">.</span><span class="n">Error</span><span class="p">(</span><span class="s">&quot;Calculation Error!!&quot;</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>  <span class="p">}</span>
+<span class="p">}&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>
+</pre>
+</div>

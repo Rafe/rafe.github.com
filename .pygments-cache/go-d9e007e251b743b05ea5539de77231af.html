@@ -1,0 +1,45 @@
+<div class="highlight"><pre><span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">package</span> <span class="n">main</span><span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">import</span> <span class="p">(</span>
+  <span class="s">&quot;fmt&quot;</span>
+  <span class="s">&quot;math/rand&quot;</span>
+<span class="p">)&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">type</span> <span class="n">Object</span> <span class="k">interface</span> <span class="p">{}&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">func</span> <span class="n">MapReduce</span><span class="p">(</span><span class="n">input</span> <span class="k">chan</span> <span class="n">Object</span><span class="p">,&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span>           <span class="n">mapper</span> <span class="k">func</span><span class="p">(</span><span class="n">Object</span><span class="p">,</span> <span class="k">chan</span> <span class="n">Object</span><span class="p">),</span>
+           <span class="n">reducer</span> <span class="k">func</span><span class="p">(</span><span class="k">chan</span> <span class="n">Object</span><span class="p">)</span> <span class="n">Object</span><span class="p">,</span>
+           <span class="n">pool_size</span> <span class="nb">int</span><span class="p">)</span> <span class="n">Object</span> <span class="p">{</span>
+
+<span class="n">worker_outputs</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="k">chan</span> <span class="n">Object</span><span class="p">,</span> <span class="n">pool_size</span><span class="p">)</span>
+<span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">//read input, assign input to mapper(item, output)</span>
+  <span class="k">for</span> <span class="n">item</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">input</span> <span class="p">{</span>
+      <span class="n">worker_output</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="n">Object</span><span class="p">)</span>
+      <span class="n">worker_outputs</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;-</span> <span class="n">worker_output</span>
+      <span class="k">go</span> <span class="n">mapper</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">worker_output</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="nb">close</span><span class="p">(</span><span class="n">worker_outputs</span><span class="p">)</span>
+<span class="p">}()</span>
+
+<span class="n">reduce_input</span> <span class="p">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="n">Object</span><span class="p">)</span>
+<span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">//listening worker_outputs as reduce_input</span>
+  <span class="k">for</span> <span class="n">worker</span> <span class="p">:=</span> <span class="k">range</span> <span class="n">worker_outputs</span> <span class="p">{</span>
+      <span class="n">reduce_input</span> <span class="p">&amp;</span><span class="n">lt</span><span class="p">;-</span> <span class="p">(&amp;</span><span class="n">lt</span><span class="p">;-</span><span class="n">worker</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="nb">close</span><span class="p">(</span><span class="n">reduce_input</span><span class="p">)</span>
+<span class="p">}()</span>
+
+<span class="k">return</span> <span class="n">reducer</span><span class="p">(</span><span class="n">reduce_input</span><span class="p">)</span>
+<span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>
+</pre>
+</div>

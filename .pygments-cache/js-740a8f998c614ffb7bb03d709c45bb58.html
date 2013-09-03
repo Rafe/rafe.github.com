@@ -1,0 +1,30 @@
+<div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Route `method`, `path`, and one or more callbacks.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param {String} method</span>
+<span class="cm"> * @param {String} path</span>
+<span class="cm"> * @param {Function} callback...</span>
+<span class="cm"> * @return {Router} for chaining</span>
+<span class="cm"> * @api private</span>
+<span class="cm"> */</span>
+
+<span class="nx">Router</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">route</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">method</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">callbacks</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">method</span> <span class="o">=</span> <span class="nx">method</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span>
+    <span class="p">,</span> <span class="nx">callbacks</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">flatten</span><span class="p">([].</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+
+  <span class="c1">// ensure path was given</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">path</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Router#&#39;</span> <span class="o">+</span> <span class="nx">method</span> <span class="o">+</span> <span class="s1">&#39;() requires a path&#39;</span><span class="p">);</span>
+
+  <span class="c1">// create the route</span>
+  <span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;defined %s %s&#39;</span><span class="p">,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">path</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">route</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">(</span><span class="nx">method</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">callbacks</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">sensitive</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">caseSensitive</span>
+    <span class="p">,</span> <span class="nx">strict</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">strict</span>
+  <span class="p">});</span>
+
+  <span class="c1">// add it</span>
+  <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">[</span><span class="nx">method</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">[</span><span class="nx">method</span><span class="p">]</span> <span class="o">||</span> <span class="p">[]).</span><span class="nx">push</span><span class="p">(</span><span class="nx">route</span><span class="p">);</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">};</span>
+</pre>
+</div>

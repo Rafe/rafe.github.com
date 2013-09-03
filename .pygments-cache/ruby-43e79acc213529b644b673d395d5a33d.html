@@ -1,0 +1,41 @@
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">App</span>
+
+  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+    <span class="kp">attr_reader</span> <span class="ss">:routes</span> 
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{},</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+      <span class="n">route</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">route</span><span class="p">(</span><span class="n">verb</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+      <span class="vi">@routes</span> <span class="o">||=</span> <span class="p">{}</span>
+      <span class="n">signature</span> <span class="o">=</span> <span class="n">compile!</span><span class="p">(</span><span class="n">verb</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+      <span class="vi">@routes</span><span class="o">[</span><span class="n">verb</span><span class="o">]</span> <span class="o">||=</span> <span class="o">[]</span>
+      <span class="vi">@routes</span><span class="o">[</span><span class="n">verb</span><span class="o">]</span> <span class="o">&lt;&lt;</span> <span class="n">signature</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">compile!</span><span class="p">(</span><span class="n">verb</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+      <span class="n">unbound_method</span> <span class="o">=</span> <span class="n">generate_method</span><span class="p">(</span><span class="s2">&quot;{#verb} {#path}&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+
+      <span class="o">[</span><span class="n">path</span><span class="p">,</span> <span class="nb">proc</span> <span class="p">{</span><span class="o">|</span><span class="n">base</span><span class="o">|</span> <span class="n">unbinded_method</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">()</span> <span class="p">}</span> <span class="o">]</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">generate_method</span><span class="p">(</span><span class="n">method_name</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+      <span class="n">define_method</span><span class="p">(</span><span class="n">method_name</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+      <span class="nb">method</span> <span class="o">=</span> <span class="nb">instance_method</span> <span class="n">method_name</span>
+      <span class="n">remove_method</span> <span class="n">method_name</span>
+      <span class="nb">method</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">App</span><span class="o">.</span><span class="n">get</span> <span class="s2">&quot;/&quot;</span> <span class="k">do</span> 
+  <span class="s2">&quot;Hello world&quot;</span>
+<span class="k">end</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="no">App</span><span class="o">.</span><span class="n">new</span>
+
+<span class="no">App</span><span class="o">.</span><span class="n">routes</span><span class="o">[</span><span class="s2">&quot;GET&quot;</span><span class="o">][</span><span class="mi">0</span><span class="o">][</span><span class="mi">1</span><span class="o">].</span><span class="n">call</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+<span class="c1"># &quot;Hello world&quot;</span>
+</pre>
+</div>

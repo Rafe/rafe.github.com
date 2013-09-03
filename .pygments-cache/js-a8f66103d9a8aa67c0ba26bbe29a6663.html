@@ -1,0 +1,22 @@
+<div class="highlight"><pre><span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">View</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">lookup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">path</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">ext</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">ext</span><span class="p">;</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="c1">// &lt;path&gt;.&lt;engine&gt;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">utils</span><span class="p">.</span><span class="nx">isAbsolute</span><span class="p">(</span><span class="nx">path</span><span class="p">))</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">join</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="nx">path</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">exists</span><span class="p">(</span><span class="nx">path</span><span class="p">))</span> <span class="k">return</span> <span class="nx">path</span><span class="p">;</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="c1">// &lt;path&gt;/index.&lt;engine&gt;</span>
+  <span class="nx">path</span> <span class="o">=</span> <span class="nx">join</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">),</span> <span class="nx">basename</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="nx">ext</span><span class="p">),</span> <span class="s1">&#39;index&#39;</span> <span class="o">+</span> <span class="nx">ext</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">exists</span><span class="p">(</span><span class="nx">path</span><span class="p">))</span> <span class="k">return</span> <span class="nx">path</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="err">…</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">View</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="nx">fn</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">engine</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</pre>
+</div>

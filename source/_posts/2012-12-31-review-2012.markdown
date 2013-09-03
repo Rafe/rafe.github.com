@@ -1,0 +1,214 @@
+---
+layout: post
+title: "Review of 2012"
+date: 2012-12-31 18:58
+comments: true
+categories: 
+---
+
+2012 is a great year for me, lots of new things and new experience happened,
+and I also explored and learned lots of things in software from work and projects.  
+
+In the last day of 2012, I think it is a good time to review what I have done in this year, 
+what I can improve and my expectation for the incoming year.
+
+<!--more-->
+
+## Work
+
+### Ruby, python and coffeescript
+
+In 2012, I mainly work on three different languages:
+I was working on Rails from last year's project, and join spling.com afterward.
+Start to accomondate with django and celery. And write some side project with coffeescript in my offtime.
+Derive from those experience of side projects. Now I am mainly working on node.js.
+The build-in event loop of node.js is really powerful,
+not only make your code can work in real time application but also make it more efficient to handle requests.
+And the community is very active too. Lots of packages and new thoughts are invented (or reinvented) in node.
+Although javascript(and coffeescript) is not as clean and pleasure to work with as Ruby on Rails.
+But so far I feel pretty comfortable on this platform, I will continue to write code on node.js in 2013.
+
+### Source code reading
+
+Another big improvement this year is I started to read more source code in open source projects.
+Start with Sinatra, I took the class of [reading source code of Rails](http://owningrails.com/), and read through express, railsway.js and Tower.js,
+some client side framework like ember.js and angular.js.
+Other than web frameworks, I randomly read the source of some interesting projects too.
+Although I don't feel my coding speed is faster, but I learned something from design and code details in those projects.
+Also it largely improved my code reading speed and ability to work on existing project.
+
+### Messaging queue
+
+Working on celery and node.js makes me learned more how to work async,
+in spling.com, we process the link we a sequence of small tasks, like web parse and api calls.
+How to run those tasks in parallel and aggregate results make me easier to work on node.js.
+
+### Javascript frameworks
+
+In the frontend part, I worked on Backbone.js in spling.
+But I also survey and read sources of other front-end frameworks and examples of Todos mvc.
+like ember.js, angular.js and components. Ember.js is a powerful framework,
+but too many magics behind and learning curve is pretty steep. For the need of javascript MVC,
+I still prefer Backbone and I would like to try more things on [components](https://github.com/component/component).
+I think it is a powerful concept, and I am going to build a new project base on it.
+
+### Projects
+
+In last year, I was planning to more involved in open source development.
+But in the end didn't contribute any valuable code to big projects :(
+However, I still fork and patch some projects for my own requirement and create some projects on github. included:
+
++ [Papercut](https://github.com/Rafe/papercut) : node.js carriar wave clone.
++ [n37.co](http://n37.co) : express url shortener.
++ [Resume](http://neethack.com/resume) : build my resume to html, pdf and host on github pages.
++ [Bands-in-town-watcher](https://github.com/Rafe/Bands-in-town-watcher) : Running cron job to check changes on bands schedule.
++ [mail-parser](https://github.com/Rafe/mail_parser) : ruby dsl parser for parsing email.
++ [Chatty(incomplete)](https://github.com/Rafe/Chatty) : socket.io chat room lib.
+
+Also, I initiate a few private projects too:
+
++ tilio : node pinterest clone.
++ masxaro : Rails application that parse receipts email and display what user have bought.
++ [getflow](http://getflow.herokuapp.com/) : My attempt for Pomodoro, but I am still fighting to produce more quality concentration time.
++ [playdiary.tw](http://playdiary.tw) : A wordpress blog that aggregate my friend's travel and food articles,
+the purpose of this blog is to learn facebook fan page and ad. Right now I stop posting new article on it,
+Because posting other people's article is not that fun.
+However I am still planing to rebuild this blog with static content generator and my own articles.
+
+Other than those, thanks [@amonter5](https://twitter.com/amonter5) teach me the basic of iOS development.
+
+Overall, although I created numbers of projects, those project's quality is not good enough.
+Need to improve completeness, have more documents for projects in 2013.
+Also trying to maintain an open source package may be a good way to learn how to create popular projects.
+
+## Life
+
+Other than code, I enjoy a lot of the New York life. Thanks my bro, Alan, who take me to all those great trips and concerts.
+
+### Travels
+
++ Taiwan  
+![](https://lh4.googleusercontent.com/-yH-mJS8QDm8/UOOCm4prkZI/AAAAAAAABSE/fo3YI5vgEYE/s860/P1010505.JPG)
+Back to the home after 2 years. Meet friends and reunion with family.
+
++ Gwan  
+![](https://lh6.googleusercontent.com/-lHXVAr0yb8M/UOOCnsaWjrI/AAAAAAAABSM/jA116KOMsNw/s860/P1010615.JPG)
+For my brother's wedding, it's an unforgetable one. Well arranged, the church there is really beautiful.
+
++ Japan  
+![](https://lh6.googleusercontent.com/-RMKFXejdEFY/UOOCpCfkmEI/AAAAAAAABSU/KtGrNh3a10s/s860/P1010864.JPG)
+For snowboard and meet with my friend. Great trip, hot spring after snowboard is the best.
+Stay with one of my best friend in highschool in sendai and watch K-ON movie is very...Otakuness.
+
++ Vegas and Grand Canyon  
+![](https://lh5.googleusercontent.com/-KhTr3hCPZCo/UOOCwUDC1hI/AAAAAAAABS0/EKC4cpEYUIw/s860/P1020532.JPG)
+With my parents, treval with parents is one of my most meaningful memory.
+Vegas and Grand Canyon is great, hope we can have another trip soon.
+
++ Miami  
+![](https://lh3.googleusercontent.com/-pIZPvANTajg/UOOCiRc8v1I/AAAAAAAABRU/Xz7zfiK38p4/s860/IMG_4151.JPG)
+Jet Pack rules, the coolest water activity I ever have. another great trip include nude swiming in keywest beach.
+
++ Peru  
+![](https://lh4.googleusercontent.com/-D80SInjLTU0/UOOCgWsBZTI/AAAAAAAABQ8/7zF5HnvYgc8/s860/P1050788.JPG)
+Treveled around Cusco, walked through Inca trail in a 4 days 3 nights hike and visited Maccu Picchu.
+Than went to Puno and lake Titicaca, Back to Lima and watch Nasca line and sandboarding in dessert.
+Fly to Amazon Jungle and live in Jungle launge for Safari. Try the best 2 restaurants in Peru.
+To much memory there. It's the best trip ever.
+
+### Experence
+
++ Gun shooting  
+![gun shooting](https://lh4.googleusercontent.com/-qKLKTBNO7-c/UOOCxwnT6fI/AAAAAAAABS8/fESsbO0ng3I/s860/P1020627.JPG)
++ Jet Pack  
++ Wakeboard  
+![Wakeboard](https://lh5.googleusercontent.com/-9a1cR-Lbat8/UOOCdlAB62I/AAAAAAAABQs/pXTek3-tm-A/s860/IMG_9901.JPG)
++ Rafting  
++ Kayaking to Status of Liberty
+![](https://lh5.googleusercontent.com/-g_2b5M84WcE/UOOCg5eM0SI/AAAAAAAABRE/3L0CVPxxJHw/s860/P1020739.JPG)
++ Bartender bootcamp
+
+### Concerts and games
+
++ JayZ
++ Orion festivel, Metalica
+<iframe width="560" height="315" src="http://www.youtube.com/embed/iPDGI9jh4KI?rel=0" frameborder="0" allowfullscreen></iframe>
++ Slipknot
+![](https://lh4.googleusercontent.com/-m6dnGiyycGw/UOOCjS159HI/AAAAAAAABRk/2uzGq7kx4hc/s860/IMG_2710.JPG)
++ Linkin Park
+![](https://lh3.googleusercontent.com/-G3vAdt-VFPo/UOOCiwG2FrI/AAAAAAAABRc/ZWO8l4FVx1w/s860/IMG_3013.JPG)
++ Off Spring
++ RHCP
++ Knicks vs Rockets
+![](https://lh4.googleusercontent.com/-Ow5UXENAiww/UOOCeVulLtI/AAAAAAAABQ0/Z5jSQco9KDA/s860/P1060665.JPG)
++ L'arc En Ciel
++ Live-In Theater Interactive Murder Mystery
++ Sleep No More
+![](http://3.bp.blogspot.com/-nQCriUAqtUo/T6X_AguLdvI/AAAAAAAAMLA/Czf2sqUKpQg/s640/IMG_9090.JPG)
++ Spiderman - Turn off the dark
+![](https://lh4.googleusercontent.com/-ML4vfiQnqZM/UOOCkaW5XMI/AAAAAAAABR0/bfF0IMkYhW8/s967/IMG_5461.JPG)
+
+## Plan for 2013
+
+### Code
+
+More coding!  
+Seriously, I need to concentrate and push myself more on coding.
+One of my problem is I can't keep my productivity in high gears,
+and spend too much time on reading fourm and online comics.
+Also need to code more efficiently with tools and learn from great programmers.
+
+### Project
+
+Currently trying to build a components based static html engine: Meteora,
+with components, theme and widget can be managed by dependencies and can be reused easily.
+Main target is to complete this and use it to rebuild my blog, playdiary.tw and my brother's blog.
+
+### One blog every week
+
+Also, improve my blogging and English writing. Have to keep the blog speed to 1~2 hour and keep writing.
+However, a high quality blog like Source code odyssey series will take about 3~4 days to finish.
+So how to keep quality and speed might be a problem but, I have to keep the tempo of writing blog.
+
+some blog ideas for 2013:
+
++ Event loop
++ Hadoop
++ Build your Iaas : AppHouse
++ Meteor
++ Jquery deffered
++ Advence Git
++ Chef
++ Source code odyssey : Railsway.js
++ Source code odyssey : Pow
++ Source code odyssey : Hubot
++ Source code odyssey : Redis
+
+### Reading
+
+Read more non-fiction and technical books:
+
++ Machine Learning for Hackers
++ Enterprise application patterns
++ Continuously delivery
++ Javascript Ninja
++ Big data
++ Rails essential patterns
++ Create your own programming language
+
+### Novel
+
+Finish a novel is one of my dreams, and should be a goal in 2013.
+Some drafts in my dropbox need to be completed.
+
+### Travel
+
+Probally not as much as 2012, but I want to visit Europe and Japan again if I have chance in 2013.
+and meet my friend in San Francisco and developers in Silicon Valley.
+Also a weekend trip to Chicago will be great too.
+
+### And...
+
+![](https://www.evernote.com/shard/s77/sh/5df0206c-85c2-43b8-ba2f-c2a2aebc9cc3/8f06e41d6aaf0945662eaa673140825a/res/bd4dfc5a-4847-4b0f-996b-2f814f278982/skitch.png?resizeSmall&width=832)
+I don't know this project will works or not, but I will try my best on it.
+Wait and see in 2013...

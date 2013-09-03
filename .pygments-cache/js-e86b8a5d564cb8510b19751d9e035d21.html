@@ -1,0 +1,18 @@
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">methods</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;methods&#39;</span><span class="p">)</span>
+
+<span class="err">…</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Delegate `.VERB(...)` calls to `.route(VERB, ...)`.</span>
+<span class="cm"> */</span>
+
+<span class="nx">methods</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">method</span><span class="p">){</span>
+  <span class="nx">app</span><span class="p">[</span><span class="nx">method</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">path</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;get&#39;</span> <span class="o">==</span> <span class="nx">method</span> <span class="o">&amp;&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span> 
+    <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">[</span><span class="nx">method</span><span class="p">].</span><span class="nx">concat</span><span class="p">([].</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">_usedRoutnner</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_router</span><span class="p">.</span><span class="nx">route</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_router</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre>
+</div>

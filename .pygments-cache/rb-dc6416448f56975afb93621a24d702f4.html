@@ -1,0 +1,18 @@
+<div class="highlight"><pre>  <span class="c1"># Run the block with &#39;throw :halt&#39; support and apply result to the response.</span>
+  <span class="k">def</span> <span class="nf">invoke</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;pre&gt;&lt;code&gt;res = catch(:halt) { yield }</span>
+<span class="sr">res = [res] if Fixnum === res or String === res</span>
+<span class="sr">if Array === res and Fixnum === res.first</span>
+<span class="sr">  status(res.shift)</span>
+<span class="sr">  body(res.pop)</span>
+<span class="sr">  headers(*res)</span>
+<span class="sr">elsif res.respond_to? :each</span>
+<span class="sr">  body res</span>
+<span class="sr">end</span>
+<span class="sr">nil # avoid double setting the same response tuple twice</span>
+<span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+
+<span class="sr">&lt;p&gt;  end</span>
+</pre>
+</div>

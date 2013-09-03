@@ -1,0 +1,18 @@
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">connect</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;connect&#39;</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">proto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./application&#39;</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./request&#39;</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./response&#39;</span><span class="p">)</span>
+  
+<span class="err">…</span>
+<span class="err">…</span>
+
+<span class="kd">function</span> <span class="nx">createApplication</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">connect</span><span class="p">();</span>
+  <span class="nx">utils</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="nx">proto</span><span class="p">);</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">request</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">__proto__</span><span class="o">:</span> <span class="nx">req</span> <span class="p">};</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">response</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">__proto__</span><span class="o">:</span> <span class="nx">res</span> <span class="p">};</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">app</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>

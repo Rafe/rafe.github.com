@@ -1,0 +1,38 @@
+<div class="highlight"><pre><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;h1&gt;Allows to start sending data to the client even though later parts of&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">the</span> <span class="n">response</span> <span class="n">body</span> <span class="n">have</span> <span class="ow">not</span> <span class="n">yet</span> <span class="n">been</span> <span class="n">generated</span><span class="o">.</span><span class="n">&lt;</span><span class="sr">/h1&gt;</span>
+
+<span class="sr">&lt;p&gt;#&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="no">The</span> <span class="n">close</span> <span class="n">parameter</span> <span class="n">specifies</span> <span class="n">whether</span> <span class="no">Stream</span><span class="c1">#close should be called&lt;/h1&gt;</span>
+
+<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">after</span> <span class="n">the</span> <span class="n">block</span> <span class="n">has</span> <span class="n">been</span> <span class="n">executed</span><span class="o">.</span> <span class="no">This</span> <span class="n">is</span> <span class="n">only</span> <span class="n">relevant</span> <span class="k">for</span> <span class="n">evented</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span>
+
+<span class="sr">&lt;h1&gt;servers like Thin or Rainbows.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="n">keep_open</span> <span class="o">=</span> <span class="kp">false</span><span class="p">)</span>
+  <span class="n">scheduler</span> <span class="o">=</span> <span class="n">env</span><span class="o">[</span><span class="s1">&#39;async.callback&#39;</span><span class="o">]</span> <span class="p">?</span> <span class="no">EventMachine</span> <span class="p">:</span> <span class="no">Stream</span>
+  <span class="n">current</span>   <span class="o">=</span> <span class="vi">@params</span><span class="o">.</span><span class="n">dup</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;p&gt;  block     = proc do |out|&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">begin</span>
+  <span class="n">original</span><span class="p">,</span> <span class="vi">@params</span> <span class="o">=</span> <span class="vi">@params</span><span class="p">,</span> <span class="n">current</span>
+  <span class="k">yield</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="k">ensure</span>
+  <span class="vi">@params</span> <span class="o">=</span> <span class="n">original</span> <span class="k">if</span> <span class="n">original</span>
+<span class="k">end</span>
+<span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;p&gt;  out = Stream.new(scheduler, keep_open, &amp;amp;block)</span>
+<span class="sr">  ...</span>
+<span class="sr">  body out</span>
+<span class="sr">end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>
+</pre>
+</div>

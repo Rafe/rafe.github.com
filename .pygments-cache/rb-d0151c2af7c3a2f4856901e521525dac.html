@@ -1,0 +1,19 @@
+<div class="highlight"><pre><span class="n">exports</span><span class="o">.</span><span class="n">hashUrl</span> <span class="o">=</span> <span class="n">hashUrl</span> <span class="o">=</span> <span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">digits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="s1">&#39;md5&#39;</span><span class="p">)</span><span class="o">-&gt;</span>
+  <span class="n">symbols</span> <span class="o">=</span> <span class="s1">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&#39;</span>
+  <span class="n">length</span> <span class="o">=</span> <span class="n">symbols</span><span class="o">.</span><span class="n">length</span>
+  <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+  <span class="nb">hash</span> <span class="o">=</span> <span class="n">crypto</span><span class="o">.</span><span class="n">createHash</span><span class="p">(</span><span class="n">algorithm</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">digest</span><span class="p">(</span><span class="s1">&#39;hex&#39;</span><span class="p">)</span>
+
+  <span class="n">hash_number</span> <span class="o">=</span> <span class="n">parseInt</span><span class="p">(</span><span class="nb">hash</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">%</span> <span class="no">Math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">digits</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">while</span> <span class="n">hash_number</span> <span class="o">&gt;=</span> <span class="n">length</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">hash_number</span> <span class="o">%</span> <span class="n">length</span>
+    <span class="n">code</span> <span class="o">+=</span> <span class="n">symbols</span><span class="o">[</span><span class="n">n</span><span class="o">]</span>
+    <span class="n">hash_number</span> <span class="o">=</span> <span class="n">parseInt</span><span class="p">(</span><span class="n">hash_number</span> <span class="o">/</span> <span class="n">length</span><span class="p">)</span>
+
+  <span class="n">code</span>
+</pre>
+</div>

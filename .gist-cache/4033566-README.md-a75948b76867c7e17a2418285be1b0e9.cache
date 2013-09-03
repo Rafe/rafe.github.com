@@ -1,0 +1,54 @@
+# Minispec
+#### minispec is a mini bdd test framework example
+    # npm install git://gist.github.com/4033566.git
+
+    # require('minispec') in your project
+    require('./minispec')
+
+    # use expect.js for assertion (http://n37.co/aemDq)
+    expect = require('expect.js')
+
+    user = ""
+    describe "Minispec", ->
+      before ->
+        user = name: "Jimmy"
+
+      it 'can success', ->
+        expect(true).to.be.ok()
+
+      it 'can fail', ->
+        expect().fail ->
+
+      it 'have before', ->
+        expect(user.name).to.equal "Jimmy"
+
+      describe 'after', ->
+
+        after ->
+          throw new Error('in after')
+
+        it 'will be executed', ->
+          expect(true).to.be.ok()
+
+      describe 'nested describe', ->
+        before ->
+          user.password = '123'
+
+        it 'with nested before', ->
+          expect(user.password).to.be '123'
+
+        it 'with nested after', ->
+          expect(user.password).to.be '123'
+
+        it 'can also have error', ->
+          expect().fail ->
+
+        describe 'nested in nested', ->
+          it 'is nested', ->
+            expect(1).to.be.ok()
+
+      describe 'async function', ->
+
+        it 'have callback', (done)->
+          expect(1).to.be.ok()
+          done()

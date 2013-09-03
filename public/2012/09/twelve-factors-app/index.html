@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Twelve factors app - Neethack</title>
+  <meta name="author" content="Jimmy Chao">
+
+  
+  <meta name="description" content="The Twelve Factors App is a methodology that a web application should follow to be able to easily deploy and scale on today&#8217;s SAAS platform &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://neethack.com/2012/09/twelve-factors-app">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/neethack" rel="alternate" title="Neethack" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-9904130-4']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Neethack</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/neethack" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:neethack.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://github.com/rafe">Github</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Twelve Factors App</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-11T12:33:00-04:00" pubdate data-updated="true">Sep 11<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The Twelve Factors App is a methodology that a web application should follow to be able to easily deploy and scale on today&#8217;s SAAS platform like Heroku. This methodolgy is announced by the Heroku Founder Adam Wiggins. The content is the based on their experience of deploying millions of applications.</p>
+
+<p>When I first saw this declaration, I just feel that this might be extract from rails and herokus best practices, but actually this declaration is more then practices but a methodology to improve the maintainbility and scalability of web application. so I like to share Heroku engineer&#8217;s slide about 12 factors app:</p>
+
+<!-- more -->
+
+
+
+
+<script async class="speakerdeck-embed" data-id="50254cb6af597c0002005bf3"
+  data-ratio="1.3333333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+
+
+<h2><a href="http://www.12factor.net/">The Twelve-Factor App</a></h2>
+
+<h3>I. Codebase</h3>
+
+<blockquote><p>One codebase tracked in revision control, many deploys</p></blockquote>
+
+<h3>II. Dependencies</h3>
+
+<blockquote><p>Explicitly declare and isolate dependencies</p></blockquote>
+
+<h3>III. Config</h3>
+
+<blockquote><p>Store config in the environment</p></blockquote>
+
+<h3>IV. Backing Services</h3>
+
+<blockquote><p>Treat backing services as attacked resources</p></blockquote>
+
+<h3>V. Build, release, run</h3>
+
+<blockquote><p>Strictly separate build and run stages</p></blockquote>
+
+<h3>VI. Processes</h3>
+
+<blockquote><p>Execute the app as one or more stateless processes</p></blockquote>
+
+<h3>VII. Port binding</h3>
+
+<blockquote><p>Export services via port binding</p></blockquote>
+
+<h3>Concurrency</h3>
+
+<blockquote><p>Scale out via the process model</p></blockquote>
+
+<h3>IX. Disposability</h3>
+
+<blockquote><p>Maximize robustness with fast startup and graceful shutdown</p></blockquote>
+
+<h3>X. Dev/prod parity</h3>
+
+<blockquote><p>Keep development, staging, and production as similar as possible</p></blockquote>
+
+<h3>XI. Logs</h3>
+
+<blockquote><p>Treat logs as event streams</p></blockquote>
+
+<h3>XII. Admin processes</h3>
+
+<blockquote><p>Run admin/management tasks as one-off processes</p></blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jimmy Chao</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-11T12:33:00-04:00" pubdate data-updated="true">Sep 11<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/programming/'>programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://neethack.com/2012/09/twelve-factors-app/" data-via="jimchaos" data-counturl="http://neethack.com/2012/09/twelve-factors-app/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/09/bootstrap-your-ember-dot-js-application/" title="Previous Post: Bootstrap your Ember.js application">&laquo; Bootstrap your Ember.js application</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/09/reading-the-lean-startup/" title="next Post: Reading: The Lean Startup">Reading: The Lean Startup &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section id="about">
+  <h1>About Me</h1>
+  <div class="avator">
+    <img src="/images/JimmyChao.jpg" width="85" alt="Jimchao"/>
+  </div>
+  <div class="bio clear">
+    <p>
+      Jimmy Chao, A programmer, newbie hacker and web developer live in New York.
+      You can contact me at daizenga[at]gmail.com. Or follow my code at 
+      <a href="https://github.com/Rafe">Github</a>.
+    </p>
+  </div>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/04/announcing-code-warrior/">Announcing Code-Warrior</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/bacon-dot-js-for-dummies/">Bacon.js for dummies</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/01/express-bigpipe-experiment/">express bigpipe experiment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/01/understand-event-loops/">Understand event loops</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/12/review-2012/">Review of 2012</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("jimchaos", 5, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/jimchaos" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @jimchaos</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Jimmy Chao -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neethack';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://neethack.com/2012/09/twelve-factors-app/';
+        var disqus_url = 'http://neethack.com/2012/09/twelve-factors-app/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

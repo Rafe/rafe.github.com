@@ -1,0 +1,22 @@
+<div class="highlight"><pre><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;h1&gt;Dispatch a request with error handling.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">dispatch!</span>
+  <span class="n">invoke</span> <span class="k">do</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;pre&gt;&lt;code&gt;static! if settings.static? &amp;amp;&amp;amp; (request.get? || request.head?)</span>
+<span class="sr">filter! :before</span>
+<span class="sr">route!</span>
+<span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+
+<span class="sr">&lt;p&gt;  end</span>
+<span class="sr">rescue ::Exception =&gt; boom</span>
+<span class="sr">  invoke { handle_exception!(boom) }</span>
+<span class="sr">ensure</span>
+<span class="sr">  filter! :after unless env[&#39;sinatra.static_file&#39;]</span>
+<span class="sr">end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>
+</pre>
+</div>

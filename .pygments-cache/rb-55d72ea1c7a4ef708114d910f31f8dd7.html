@@ -1,0 +1,39 @@
+<div class="highlight"><pre><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;h1&gt;Sets an option to the given value.  If the value is a proc,&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">the</span> <span class="nb">proc</span> <span class="n">will</span> <span class="n">be</span> <span class="n">called</span> <span class="n">every</span> <span class="n">time</span> <span class="n">the</span> <span class="n">option</span> <span class="n">is</span> <span class="n">accessed</span><span class="o">.</span><span class="n">&lt;</span><span class="sr">/h1&gt;</span>
+
+<span class="sr">&lt;p&gt;def self.set(option, value = (not_set = true), ignore_setter = false, &amp;amp;block)</span>
+<span class="sr">  ...</span>
+<span class="sr">  setter = proc { |val| set option, val, true }</span>
+<span class="sr">  getter = proc { value }&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">case</span> <span class="n">value</span>
+  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+  <span class="k">when</span> <span class="no">Symbol</span><span class="p">,</span> <span class="no">Fixnum</span><span class="p">,</span> <span class="no">FalseClass</span><span class="p">,</span> <span class="no">TrueClass</span><span class="p">,</span> <span class="no">NilClass</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;pre&gt;&lt;code&gt;# we have a lot of enable and disable calls, let&#39;s optimize those</span>
+<span class="sr">class_eval &quot;def self.</span><span class="si">#{</span><span class="n">option</span><span class="si">}</span><span class="sr">() </span><span class="si">#{</span><span class="n">value</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="sr"> end&quot;</span>
+<span class="sr">getter = nil</span>
+<span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+
+<span class="sr">&lt;p&gt;  ...</span>
+<span class="sr">  end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="p">(</span><span class="k">class</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="nb">self</span><span class="p">;</span> <span class="nb">self</span><span class="p">;</span> <span class="k">end</span><span class="p">)</span><span class="o">.</span><span class="n">class_eval</span> <span class="k">do</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+
+<span class="sr">&lt;pre&gt;&lt;code&gt;define_method(&quot;</span><span class="si">#{</span><span class="n">option</span><span class="si">}</span><span class="sr">=&quot;, &amp;amp;setter) if setter</span>
+<span class="sr">define_method(option,       &amp;amp;getter) if getter</span>
+<span class="sr">unless method_defined? &quot;</span><span class="si">#{</span><span class="n">option</span><span class="si">}</span><span class="sr">?&quot;</span>
+<span class="sr">  class_eval &quot;def </span><span class="si">#{</span><span class="n">option</span><span class="si">}</span><span class="sr">?() !!</span><span class="si">#{</span><span class="n">option</span><span class="si">}</span><span class="sr"> end&quot;</span>
+<span class="sr">end</span>
+<span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+
+<span class="sr">&lt;p&gt;  end</span>
+<span class="sr">  self</span>
+<span class="sr">end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>
+</pre>
+</div>

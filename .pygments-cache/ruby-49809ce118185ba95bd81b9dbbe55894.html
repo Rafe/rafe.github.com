@@ -1,0 +1,13 @@
+<div class="highlight"><pre><span class="no">Module</span> <span class="no">Delegator</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">delegate</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
+    <span class="n">define_method</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span> <span class="k">do</span> <span class="o">|*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="o">|</span>
+      <span class="no">Delegator</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">method_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="k">end</span>
+    <span class="kp">private</span> <span class="n">method_name</span>
+  <span class="k">end</span>
+
+  <span class="n">delegate</span> <span class="ss">:get</span>
+
+<span class="k">end</span>
+</pre>
+</div>

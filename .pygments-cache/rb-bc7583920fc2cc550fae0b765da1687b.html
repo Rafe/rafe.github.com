@@ -1,0 +1,25 @@
+<div class="highlight"><pre><span class="c1"># Allows to start sending data to the client even though later parts of</span>
+<span class="c1"># the response body have not yet been generated.</span>
+<span class="c1">#</span>
+<span class="c1"># The close parameter specifies whether Stream#close should be called</span>
+<span class="c1"># after the block has been executed. This is only relevant for evented</span>
+<span class="c1"># servers like Thin or Rainbows.</span>
+<span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="n">keep_open</span> <span class="o">=</span> <span class="kp">false</span><span class="p">)</span>
+  <span class="n">scheduler</span> <span class="o">=</span> <span class="n">env</span><span class="o">[</span><span class="s1">&#39;async.callback&#39;</span><span class="o">]</span> <span class="p">?</span> <span class="no">EventMachine</span> <span class="p">:</span> <span class="no">Stream</span>
+  <span class="n">current</span>   <span class="o">=</span> <span class="vi">@params</span><span class="o">.</span><span class="n">dup</span>
+
+  <span class="n">block</span>     <span class="o">=</span> <span class="nb">proc</span> <span class="k">do</span> <span class="o">|</span><span class="n">out</span><span class="o">|</span>
+    <span class="k">begin</span>
+      <span class="n">original</span><span class="p">,</span> <span class="vi">@params</span> <span class="o">=</span> <span class="vi">@params</span><span class="p">,</span> <span class="n">current</span>
+      <span class="k">yield</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="k">ensure</span>
+      <span class="vi">@params</span> <span class="o">=</span> <span class="n">original</span> <span class="k">if</span> <span class="n">original</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">out</span> <span class="o">=</span> <span class="no">Stream</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">scheduler</span><span class="p">,</span> <span class="n">keep_open</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+  <span class="n">body</span> <span class="n">out</span>
+<span class="k">end</span>
+</pre>
+</div>

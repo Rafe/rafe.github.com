@@ -1,0 +1,17 @@
+<div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">HelloView</span> <span class="o">=</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+      <span class="nx">template</span><span class="o">:</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">Handlebars</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="s1">&#39;Hello &#39;</span><span class="p">)</span>
+    <span class="p">});</span>
+
+    <span class="nx">App</span><span class="p">.</span><span class="nx">usersView</span> <span class="o">=</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">CollectionView</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+      <span class="nx">content</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;Jimmy&quot;</span><span class="p">,</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;Jack&quot;</span><span class="p">],</span>
+      <span class="nx">itemViewClass</span><span class="o">:</span> <span class="nx">HelloView</span>
+    <span class="p">});</span>
+
+    <span class="nx">App</span><span class="p">.</span><span class="nx">usersView</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">App</span><span class="p">.</span><span class="nx">rootElement</span><span class="p">);</span>
+
+    <span class="c1">//Append:</span>
+    <span class="c1">//&lt;div class=&#39;ember-view&#39;&gt; Hello Jimmy&lt;/div&gt;</span>
+    <span class="c1">//&lt;div class=&#39;ember-view&#39;&gt; Hello Bob&lt;/div&gt;</span>
+    <span class="c1">//&lt;div class=&#39;ember-view&#39;&gt; Hello Jack&lt;/div&gt;</span>
+</pre>
+</div>

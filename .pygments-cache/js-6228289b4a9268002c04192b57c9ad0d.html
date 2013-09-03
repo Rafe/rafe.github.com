@@ -1,0 +1,21 @@
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">Article</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">Articles</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">model</span><span class="o">:</span> <span class="nx">Article</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">articles</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Articles</span><span class="p">();</span>
+
+<span class="nx">articles</span><span class="p">.</span><span class="nx">add</span><span class="p">([{</span>
+  <span class="nx">author</span><span class="o">:</span><span class="s2">&quot;Joe&quot;</span><span class="p">,</span>
+  <span class="nx">content</span><span class="o">:</span> <span class="s2">&quot;testing&quot;</span>
+<span class="p">},{</span>
+  <span class="nx">author</span><span class="o">:</span><span class="s2">&quot;John&quot;</span><span class="p">,</span>
+  <span class="nx">content</span><span class="o">:</span> <span class="s2">&quot;developing&quot;</span>
+<span class="p">}]);</span>
+
+<span class="nx">articles</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">article</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;author&quot;</span><span class="p">));</span>
+<span class="p">})</span>
+</pre>
+</div>
