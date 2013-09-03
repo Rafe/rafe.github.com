@@ -4,7 +4,7 @@
 #
 # Outputs a span with a data-pullquote attribute set from the marked pullquote. Example:
 #
-#   {% pullquote %} 
+#   {% pullquote %}
 #     When writing longform posts, I find it helpful to include pullquotes, which help those scanning a post discern whether or not a post is helpful.
 #     It is important to note, {" pullquotes are merely visual in presentation and should not appear twice in the text. "} That is why it is prefered
 #     to use a CSS only technique for styling pullquotes.
@@ -32,9 +32,15 @@ module Jekyll
 
     def render(context)
       output = super
+<<<<<<< HEAD
       if output.join =~ /\{"\s*(.+)\s*"\}/
         @quote = $1
         "<span class='pullquote-#{@align}' data-pullquote='#{@quote}'>#{output.join.gsub(/\{"\s*|\s*"\}/, '')}</span>"
+=======
+      if output =~ /\{"\s*(.+?)\s*"\}/m
+        @quote = RubyPants.new($1).to_html
+        "<span class='pullquote-#{@align}' data-pullquote='#{@quote}'>#{output.gsub(/\{"\s*|\s*"\}/, '')}</span>"
+>>>>>>> 3e1707d289b557d794bfaacbb6682a008223d4c9
       else
         return "Surround your pullquote like this {\" text to be quoted \"}"
       end
