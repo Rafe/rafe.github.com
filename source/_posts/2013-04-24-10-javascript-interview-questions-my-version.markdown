@@ -4,7 +4,7 @@ title: "10 javascript interview questions (my version)"
 date: 2013-04-24 00:00
 comments: true
 categories: javascript
-publish: false
+published: false
 ---
 
 1. varible space
