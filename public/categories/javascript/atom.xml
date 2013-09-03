@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Neethack]]></title>
   <link href="http://neethack.com/categories/javascript/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-04-23T00:47:20-04:00</updated>
+  <updated>2013-09-03T00:13:04-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[source code odyssey - Amazon Aws Sdk]]></title>
+    <link href="http://neethack.com/2013/04/source-code-odyssey-amazon-aws-sdk/"/>
+    <updated>2013-04-28T20:48:00-04:00</updated>
+    <id>http://neethack.com/2013/04/source-code-odyssey-amazon-aws-sdk</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[10 javascript interview questions (my version)]]></title>
+    <link href="http://neethack.com/2013/04/10-javascript-interview-questions-my-version/"/>
+    <updated>2013-04-24T00:00:00-04:00</updated>
+    <id>http://neethack.com/2013/04/10-javascript-interview-questions-my-version</id>
+    <content type="html"><![CDATA[<ol>
+<li><p>varible space</p></li>
+<li><p>prototype inheritance</p></li>
+<li><p>this</p></li>
+<li><p>event emitter</p></li>
+<li><p>closure</p></li>
+<li><p>Javascript type and if check</p></li>
+<li><p>different of promise and callback</p></li>
+<li></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Announcing Code-Warrior]]></title>
@@ -128,7 +156,7 @@ Actually it is nothing special, it is just an event listener that listen to spec
 <pre><code>$("#clickme").on('click', function(event){ alert(event.target)})
 </code></pre>
 
-<p>Can transfer to event stream by Bacon.js's asEventStream helper:</p>
+<p>Can transfer to event stream by Bacon.js&rsquo;s asEventStream helper:</p>
 
 <pre><code>clicked = $("#clickme").asEventStream('click')
 </code></pre>
@@ -141,7 +169,7 @@ Actually it is nothing special, it is just an event listener that listen to spec
 <!-- more -->
 
 
-<h3>So what's the different?</h3>
+<h3>So what&rsquo;s the different?</h3>
 
 <p>Remember what I said in the beginning, event stream is functional.
 Which means it provide functional interface to manipulate events:</p>
@@ -247,11 +275,11 @@ increase their page rendering speed.</p>
 what Bigpipe do is using http streaming to load the page seperatly.
 When the page load, Facebook will return basic layout, css and assets manager(bootLoader) to user first.
 Then other slower content like news feeds, notification will returned later on the same request as Pagelet.
-A pagelet contain it's own css, javascripts and contents,
+A pagelet contain it&rsquo;s own css, javascripts and contents,
 after pagelet loaded, it will render itself to page,
-and resources dependencies is managed by bootLoader so it won't load duplicated resources.</p>
+and resources dependencies is managed by bootLoader so it won&rsquo;t load duplicated resources.</p>
 
-<p>The adventage of this approach is that the slower part of the request won't block the whole page rendering.
+<p>The adventage of this approach is that the slower part of the request won&rsquo;t block the whole page rendering.
 User can get response for the completed part first, than receive the slower part.</p>
 
 <h2>experiments on express</h2>
@@ -268,34 +296,35 @@ npm install
 npm start
 </code></pre>
 
-<p><div><script src='https://gist.github.com/4589002.js?file='></script>
-<noscript><pre><code>var express = require('express')
-  , async = require('async')
-  , path = require('path')
-  , jade = require('jade')
-  , fs = require('fs');
+<p><div><script src='https://gist.github.com/4589002.js'></script>
+<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
+<noscript><pre><code>var express = require(&#39;express&#39;)
+  , async = require(&#39;async&#39;)
+  , path = require(&#39;path&#39;)
+  , jade = require(&#39;jade&#39;)
+  , fs = require(&#39;fs&#39;);
 
 var app = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set(&#39;port&#39;, process.env.PORT || 3000);
   app.use(express.favicon());
-  app.use(express.logger('dev'));
+  app.use(express.logger(&#39;dev&#39;));
 });
 
-app.configure('development', function(){
+app.configure(&#39;development&#39;, function(){
   app.use(express.errorHandler());
 });
 
 var loadView = function(name, locals) {
-  var template = fs.readFileSync(path.join(__dirname, name + '.jade')).toString();
+  var template = fs.readFileSync(path.join(__dirname, name + &#39;.jade&#39;)).toString();
   return jade.compile(template)(locals);
 };
 
 var db = {
   search: function(callback) {
     setTimeout(function() {
-      callback({items: ['test', 'test1', 'test2', 'test3']});
+      callback({items: [&#39;test&#39;, &#39;test1&#39;, &#39;test2&#39;, &#39;test3&#39;]});
     }, 2000);
   },
   slowQuery: function(callback) {
@@ -306,31 +335,31 @@ var db = {
 };
 
 var renderLayout = function(req, res, next) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.write('&lt;html&gt;&lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt;&lt;body&gt;');
-  res.write(loadView('layout', {}));
+  res.writeHead(200, {&#39;Content-Type&#39;: &#39;text/html&#39;});
+  res.write(&#39;&lt;html&gt;&lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&#39;);
+  res.write(loadView(&#39;layout&#39;, {}));
   next();
 };
 
 
 var renderSidebar = function (req, res, next) {
   db.search(function(items) {
-    var content = loadView('sidebar', items);
-    res.write('&lt;script&gt;$(&quot;.content-sidebar&quot;).html(\'' + content + '\');&lt;/script&gt;');
+    var content = loadView(&#39;sidebar&#39;, items);
+    res.write(&#39;&lt;script&gt;$(&quot;.content-sidebar&quot;).html(\&#39;&#39; + content + &#39;\&#39;);&lt;/script&gt;&#39;);
     next();
   });
 };
 
 var renderContent = function (req, res, next) {
-  var content = loadView('main', {title: 'Bigpipe!'});
-  res.write('&lt;script&gt;$(&quot;.content-main&quot;).html(\'' + content + '\');&lt;/script&gt;');
+  var content = loadView(&#39;main&#39;, {title: &#39;Bigpipe!&#39;});
+  res.write(&#39;&lt;script&gt;$(&quot;.content-main&quot;).html(\&#39;&#39; + content + &#39;\&#39;);&lt;/script&gt;&#39;);
   next();
 };
 
 var renderExtra = function (req, res, next) {
   db.slowQuery(function() {
-    var extra = loadView('extra', {});
-    res.write('&lt;script&gt;$(&quot;.content-extra&quot;).html(\'' + extra + '\');&lt;/script&gt;');
+    var extra = loadView(&#39;extra&#39;, {});
+    res.write(&#39;&lt;script&gt;$(&quot;.content-extra&quot;).html(\&#39;&#39; + extra + &#39;\&#39;);&lt;/script&gt;&#39;);
     next();
   });
 };
@@ -342,32 +371,16 @@ var renderBody = function (req, res, next) {
 };
 
 var renderEnd = function (req, res, next) {
-  res.write('&lt;/body&gt;&lt;/html&gt;');
+  res.write(&#39;&lt;/body&gt;&lt;/html&gt;&#39;);
   res.end();
 };
 
-app.get('/', renderLayout, renderBody, renderEnd );
+app.get(&#39;/&#39;, renderLayout, renderBody, renderEnd );
 
 app.listen(3000);
-console.log(&quot;Express server listening on port &quot; + app.get('port'));
+console.log(&quot;Express server listening on port &quot; + app.get(&#39;port&#39;));
 </code></pre></noscript></div>
 </p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Announcing Papercut]]></title>
-    <link href="http://neethack.com/2012/12/announcing-papercut/"/>
-    <updated>2012-12-21T00:55:00-05:00</updated>
-    <id>http://neethack.com/2012/12/announcing-papercut</id>
-    <content type="html"><![CDATA[<p>Inspiring by <a href="https://github.com/jnicklas/carrierwave">carrierwave</a> on Rails.
-I wrote a image processing framework to handle images with different versions on node.js and express.
-Integrate with node-imagemagick and can upload image to Amazon S3.
-It is just a simple version of carrierwave with similiar Api.
-But I am comfortable with the features, which is enough for my requirement right now.
-I will try to improve the image processing efficiency, and add more processing options for future usage.</p>
-
-<p>You can check this project on <a href="https://github.com/Rafe/papercut">Github</a></p>
 ]]></content>
   </entry>
   

@@ -35,18 +35,15 @@ module Jekyll
       code = CGI.escapeHTML code
       <<-HTML
 <div><script src='#{script_url}'></script>
+<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code>#{code}</code></pre></noscript></div>
       HTML
     end
 
     def script_url_for(gist_id, filename)
-<<<<<<< HEAD
-      "https://gist.github.com/#{gist_id}.js?file=#{filename}"
-=======
       url = "https://gist.github.com/#{gist_id}.js"
       url = "#{url}?file=#{filename}" unless filename.nil? or filename.empty?
       url
->>>>>>> 3e1707d289b557d794bfaacbb6682a008223d4c9
     end
 
     def get_gist_url_for(gist, file)
@@ -88,12 +85,9 @@ module Jekyll
       https.verify_mode = OpenSSL::SSL::VERIFY_NONE
       request           = Net::HTTP::Get.new raw_uri.request_uri
       data              = https.request request
-<<<<<<< HEAD
-=======
       if data.code.to_i != 200
         raise RuntimeError, "Gist replied with #{data.code} for #{gist_url}"
       end
->>>>>>> 3e1707d289b557d794bfaacbb6682a008223d4c9
       data              = data.body
       cache gist, file, data unless @cache_disabled
       data

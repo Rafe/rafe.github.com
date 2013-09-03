@@ -4,7 +4,7 @@
   <title><![CDATA[Neethack]]></title>
   <link href="http://neethack.com/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-04-23T00:47:20-04:00</updated>
+  <updated>2013-09-03T00:13:04-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[source code odyssey - Amazon Aws Sdk]]></title>
+    <link href="http://neethack.com/2013/04/source-code-odyssey-amazon-aws-sdk/"/>
+    <updated>2013-04-28T20:48:00-04:00</updated>
+    <id>http://neethack.com/2013/04/source-code-odyssey-amazon-aws-sdk</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[10 javascript interview questions (my version)]]></title>
+    <link href="http://neethack.com/2013/04/10-javascript-interview-questions-my-version/"/>
+    <updated>2013-04-24T00:00:00-04:00</updated>
+    <id>http://neethack.com/2013/04/10-javascript-interview-questions-my-version</id>
+    <content type="html"><![CDATA[<ol>
+<li><p>varible space</p></li>
+<li><p>prototype inheritance</p></li>
+<li><p>this</p></li>
+<li><p>event emitter</p></li>
+<li><p>closure</p></li>
+<li><p>Javascript type and if check</p></li>
+<li><p>different of promise and callback</p></li>
+<li></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Announcing Code-Warrior]]></title>
@@ -128,7 +156,7 @@ Actually it is nothing special, it is just an event listener that listen to spec
 <pre><code>$("#clickme").on('click', function(event){ alert(event.target)})
 </code></pre>
 
-<p>Can transfer to event stream by Bacon.js&#8217;s asEventStream helper:</p>
+<p>Can transfer to event stream by Bacon.js&rsquo;s asEventStream helper:</p>
 
 <pre><code>clicked = $("#clickme").asEventStream('click')
 </code></pre>
@@ -141,7 +169,7 @@ Actually it is nothing special, it is just an event listener that listen to spec
 <!-- more -->
 
 
-<h3>So what&#8217;s the different?</h3>
+<h3>So what&rsquo;s the different?</h3>
 
 <p>Remember what I said in the beginning, event stream is functional.
 Which means it provide functional interface to manipulate events:</p>
@@ -247,11 +275,11 @@ increase their page rendering speed.</p>
 what Bigpipe do is using http streaming to load the page seperatly.
 When the page load, Facebook will return basic layout, css and assets manager(bootLoader) to user first.
 Then other slower content like news feeds, notification will returned later on the same request as Pagelet.
-A pagelet contain it&#8217;s own css, javascripts and contents,
+A pagelet contain it&rsquo;s own css, javascripts and contents,
 after pagelet loaded, it will render itself to page,
-and resources dependencies is managed by bootLoader so it won&#8217;t load duplicated resources.</p>
+and resources dependencies is managed by bootLoader so it won&rsquo;t load duplicated resources.</p>
 
-<p>The adventage of this approach is that the slower part of the request won&#8217;t block the whole page rendering.
+<p>The adventage of this approach is that the slower part of the request won&rsquo;t block the whole page rendering.
 User can get response for the completed part first, than receive the slower part.</p>
 
 <h2>experiments on express</h2>
@@ -268,34 +296,35 @@ npm install
 npm start
 </code></pre>
 
-<div><script src='https://gist.github.com/4589002.js?file='></script>
-<noscript><pre><code>var express = require('express')
-  , async = require('async')
-  , path = require('path')
-  , jade = require('jade')
-  , fs = require('fs');
+<div><script src='https://gist.github.com/4589002.js'></script>
+<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
+<noscript><pre><code>var express = require(&#39;express&#39;)
+  , async = require(&#39;async&#39;)
+  , path = require(&#39;path&#39;)
+  , jade = require(&#39;jade&#39;)
+  , fs = require(&#39;fs&#39;);
 
 var app = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set(&#39;port&#39;, process.env.PORT || 3000);
   app.use(express.favicon());
-  app.use(express.logger('dev'));
+  app.use(express.logger(&#39;dev&#39;));
 });
 
-app.configure('development', function(){
+app.configure(&#39;development&#39;, function(){
   app.use(express.errorHandler());
 });
 
 var loadView = function(name, locals) {
-  var template = fs.readFileSync(path.join(__dirname, name + '.jade')).toString();
+  var template = fs.readFileSync(path.join(__dirname, name + &#39;.jade&#39;)).toString();
   return jade.compile(template)(locals);
 };
 
 var db = {
   search: function(callback) {
     setTimeout(function() {
-      callback({items: ['test', 'test1', 'test2', 'test3']});
+      callback({items: [&#39;test&#39;, &#39;test1&#39;, &#39;test2&#39;, &#39;test3&#39;]});
     }, 2000);
   },
   slowQuery: function(callback) {
@@ -306,31 +335,31 @@ var db = {
 };
 
 var renderLayout = function(req, res, next) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.write('&lt;html&gt;&lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt;&lt;body&gt;');
-  res.write(loadView('layout', {}));
+  res.writeHead(200, {&#39;Content-Type&#39;: &#39;text/html&#39;});
+  res.write(&#39;&lt;html&gt;&lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&#39;);
+  res.write(loadView(&#39;layout&#39;, {}));
   next();
 };
 
 
 var renderSidebar = function (req, res, next) {
   db.search(function(items) {
-    var content = loadView('sidebar', items);
-    res.write('&lt;script&gt;$(&quot;.content-sidebar&quot;).html(\'' + content + '\');&lt;/script&gt;');
+    var content = loadView(&#39;sidebar&#39;, items);
+    res.write(&#39;&lt;script&gt;$(&quot;.content-sidebar&quot;).html(\&#39;&#39; + content + &#39;\&#39;);&lt;/script&gt;&#39;);
     next();
   });
 };
 
 var renderContent = function (req, res, next) {
-  var content = loadView('main', {title: 'Bigpipe!'});
-  res.write('&lt;script&gt;$(&quot;.content-main&quot;).html(\'' + content + '\');&lt;/script&gt;');
+  var content = loadView(&#39;main&#39;, {title: &#39;Bigpipe!&#39;});
+  res.write(&#39;&lt;script&gt;$(&quot;.content-main&quot;).html(\&#39;&#39; + content + &#39;\&#39;);&lt;/script&gt;&#39;);
   next();
 };
 
 var renderExtra = function (req, res, next) {
   db.slowQuery(function() {
-    var extra = loadView('extra', {});
-    res.write('&lt;script&gt;$(&quot;.content-extra&quot;).html(\'' + extra + '\');&lt;/script&gt;');
+    var extra = loadView(&#39;extra&#39;, {});
+    res.write(&#39;&lt;script&gt;$(&quot;.content-extra&quot;).html(\&#39;&#39; + extra + &#39;\&#39;);&lt;/script&gt;&#39;);
     next();
   });
 };
@@ -342,14 +371,14 @@ var renderBody = function (req, res, next) {
 };
 
 var renderEnd = function (req, res, next) {
-  res.write('&lt;/body&gt;&lt;/html&gt;');
+  res.write(&#39;&lt;/body&gt;&lt;/html&gt;&#39;);
   res.end();
 };
 
-app.get('/', renderLayout, renderBody, renderEnd );
+app.get(&#39;/&#39;, renderLayout, renderBody, renderEnd );
 
 app.listen(3000);
-console.log(&quot;Express server listening on port &quot; + app.get('port'));
+console.log(&quot;Express server listening on port &quot; + app.get(&#39;port&#39;));
 </code></pre></noscript></div>
 
 
@@ -407,7 +436,7 @@ var data = fs.readFileSync('file.txt')
 console.log(data)
 </code></pre>
 
-<p>But with event loop, the program don&#8217;t need to wait for the I/O but can handle next task directly.</p>
+<p>But with event loop, the program don&rsquo;t need to wait for the I/O but can handle next task directly.</p>
 
 <pre><code>fs = require('fs')
 
@@ -447,7 +476,7 @@ int uv_run2(uv_loop_t* loop, uv_run_mode mode) {
 <p>We can know the event loop is just a while loop, what it do is keep polling I/O for avalible fd(<a href="http://en.wikipedia.org/wiki/File_descriptor">file descriptor</a>)
 and trigger event callback while the fd is ready.</p>
 
-<p>in unix, there&#8217;s multiple way to polling fd:</p>
+<p>in unix, there&rsquo;s multiple way to polling fd:</p>
 
 <ul>
 <li>select</li>
@@ -489,7 +518,7 @@ console.log('return')
 //&gt;&gt; return
 </code></pre>
 
-<p>-</p>
+<p>&ndash;</p>
 
 <pre><code>//Async:
 
@@ -535,7 +564,7 @@ what I can improve and my expectation for the incoming year.</p>
 <h3>Ruby, python and coffeescript</h3>
 
 <p>In 2012, I mainly work on three different languages:
-I was working on Rails from last year&#8217;s project, and join spling.com afterward.
+I was working on Rails from last year&rsquo;s project, and join spling.com afterward.
 Start to accomondate with django and celery. And write some side project with coffeescript in my offtime.
 Derive from those experience of side projects. Now I am mainly working on node.js.
 The build-in event loop of node.js is really powerful,
@@ -550,7 +579,7 @@ But so far I feel pretty comfortable on this platform, I will continue to write 
 Start with Sinatra, I took the class of <a href="http://owningrails.com/">reading source code of Rails</a>, and read through express, railsway.js and Tower.js,
 some client side framework like ember.js and angular.js.
 Other than web frameworks, I randomly read the source of some interesting projects too.
-Although I don&#8217;t feel my coding speed is faster, but I learned something from design and code details in those projects.
+Although I don&rsquo;t feel my coding speed is faster, but I learned something from design and code details in those projects.
 Also it largely improved my code reading speed and ability to work on existing project.</p>
 
 <h3>Messaging queue</h3>
@@ -571,7 +600,7 @@ I think it is a powerful concept, and I am going to build a new project base on 
 <h3>Projects</h3>
 
 <p>In last year, I was planning to more involved in open source development.
-But in the end didn&#8217;t contribute any valuable code to big projects :(
+But in the end didn&rsquo;t contribute any valuable code to big projects :(
 However, I still fork and patch some projects for my own requirement and create some projects on github. included:</p>
 
 <ul>
@@ -590,16 +619,16 @@ However, I still fork and patch some projects for my own requirement and create 
 <li>tilio : node pinterest clone.</li>
 <li>masxaro : Rails application that parse receipts email and display what user have bought.</li>
 <li><a href="http://getflow.herokuapp.com/">getflow</a> : My attempt for Pomodoro, but I am still fighting to produce more quality concentration time.</li>
-<li><a href="http://playdiary.tw">playdiary.tw</a> : A wordpress blog that aggregate my friend&#8217;s travel and food articles,
+<li><a href="http://playdiary.tw">playdiary.tw</a> : A wordpress blog that aggregate my friend&rsquo;s travel and food articles,
 the purpose of this blog is to learn facebook fan page and ad. Right now I stop posting new article on it,
-Because posting other people&#8217;s article is not that fun.
+Because posting other people&rsquo;s article is not that fun.
 However I am still planing to rebuild this blog with static content generator and my own articles.</li>
 </ul>
 
 
 <p>Other than those, thanks <a href="https://twitter.com/amonter5">@amonter5</a> teach me the basic of iOS development.</p>
 
-<p>Overall, although I created numbers of projects, those project&#8217;s quality is not good enough.
+<p>Overall, although I created numbers of projects, those project&rsquo;s quality is not good enough.
 Need to improve completeness, have more documents for projects in 2013.
 Also trying to maintain an open source package may be a good way to learn how to create popular projects.</p>
 
@@ -615,11 +644,11 @@ Also trying to maintain an open source package may be a good way to learn how to
 Back to the home after 2 years. Meet friends and reunion with family.</p></li>
 <li><p>Gwan<br/>
 <img src="https://lh6.googleusercontent.com/-lHXVAr0yb8M/UOOCnsaWjrI/AAAAAAAABSM/jA116KOMsNw/s860/P1010615.JPG" alt="" />
-For my brother&#8217;s wedding, it&#8217;s an unforgetable one. Well arranged, the church there is really beautiful.</p></li>
+For my brother&rsquo;s wedding, it&rsquo;s an unforgetable one. Well arranged, the church there is really beautiful.</p></li>
 <li><p>Japan<br/>
 <img src="https://lh6.googleusercontent.com/-RMKFXejdEFY/UOOCpCfkmEI/AAAAAAAABSU/KtGrNh3a10s/s860/P1010864.JPG" alt="" />
 For snowboard and meet with my friend. Great trip, hot spring after snowboard is the best.
-Stay with one of my best friend in highschool in sendai and watch K-ON movie is very&#8230;Otakuness.</p></li>
+Stay with one of my best friend in highschool in sendai and watch K-ON movie is very&hellip;Otakuness.</p></li>
 <li><p>Vegas and Grand Canyon<br/>
 <img src="https://lh5.googleusercontent.com/-KhTr3hCPZCo/UOOCwUDC1hI/AAAAAAAABS0/EKC4cpEYUIw/s860/P1020532.JPG" alt="" />
 With my parents, treval with parents is one of my most meaningful memory.
@@ -632,7 +661,7 @@ Jet Pack rules, the coolest water activity I ever have. another great trip inclu
 Treveled around Cusco, walked through Inca trail in a 4 days 3 nights hike and visited Maccu Picchu.
 Than went to Puno and lake Titicaca, Back to Lima and watch Nasca line and sandboarding in dessert.
 Fly to Amazon Jungle and live in Jungle launge for Safari. Try the best 2 restaurants in Peru.
-To much memory there. It&#8217;s the best trip ever.</p></li>
+To much memory there. It&rsquo;s the best trip ever.</p></li>
 </ul>
 
 
@@ -675,7 +704,7 @@ To much memory there. It&#8217;s the best trip ever.</p></li>
 <li>Live-In Theater Interactive Murder Mystery</li>
 <li>Sleep No More
 <img src="http://3.bp.blogspot.com/-nQCriUAqtUo/T6X_AguLdvI/AAAAAAAAMLA/Czf2sqUKpQg/s640/IMG_9090.JPG" alt="" /></li>
-<li>Spiderman - Turn off the dark
+<li>Spiderman &ndash; Turn off the dark
 <img src="https://lh4.googleusercontent.com/-ML4vfiQnqZM/UOOCkaW5XMI/AAAAAAAABR0/bfF0IMkYhW8/s967/IMG_5461.JPG" alt="" /></li>
 </ul>
 
@@ -686,7 +715,7 @@ To much memory there. It&#8217;s the best trip ever.</p></li>
 
 <p>More coding!<br/>
 Seriously, I need to concentrate and push myself more on coding.
-One of my problem is I can&#8217;t keep my productivity in high gears,
+One of my problem is I can&rsquo;t keep my productivity in high gears,
 and spend too much time on reading fourm and online comics.
 Also need to code more efficiently with tools and learn from great programmers.</p>
 
@@ -694,7 +723,7 @@ Also need to code more efficiently with tools and learn from great programmers.<
 
 <p>Currently trying to build a components based static html engine: Meteora,
 with components, theme and widget can be managed by dependencies and can be reused easily.
-Main target is to complete this and use it to rebuild my blog, playdiary.tw and my brother&#8217;s blog.</p>
+Main target is to complete this and use it to rebuild my blog, playdiary.tw and my brother&rsquo;s blog.</p>
 
 <h3>One blog every week</h3>
 
@@ -745,11 +774,11 @@ Some drafts in my dropbox need to be completed.</p>
 and meet my friend in San Francisco and developers in Silicon Valley.
 Also a weekend trip to Chicago will be great too.</p>
 
-<h3>And&#8230;</h3>
+<h3>And&hellip;</h3>
 
 <p><img src="https://www.evernote.com/shard/s77/sh/5df0206c-85c2-43b8-ba2f-c2a2aebc9cc3/8f06e41d6aaf0945662eaa673140825a/res/bd4dfc5a-4847-4b0f-996b-2f814f278982/skitch.png?resizeSmall&amp;width=832" alt="" />
-I don&#8217;t know this project will works or not, but I will try my best on it.
-Wait and see in 2013&#8230;</p>
+I don&rsquo;t know this project will works or not, but I will try my best on it.
+Wait and see in 2013&hellip;</p>
 ]]></content>
   </entry>
   
@@ -780,7 +809,7 @@ I will try to improve the image processing efficiency, and add more processing o
 And I need to find something to do except eating, surfing internet and boardgame.
 So I just wrote another test framework.</p>
 
-<p>Inspired by Zach Holoman&#8217;s <a href="https://gist.github.com/1806986">gist</a>
+<p>Inspired by Zach Holoman&rsquo;s <a href="https://gist.github.com/1806986">gist</a>
 I try to host the framework in the gist form. Because every gist is also a git repository.</p>
 
 <p><a href="https://gist.github.com/4033566">gist source</a></p>
@@ -799,58 +828,59 @@ run</p>
 <p>in project can execute the spec</p>
 
 <div><script src='https://gist.github.com/4033566.js?file=README.md'></script>
+<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code># Minispec
 #### minispec is a mini bdd test framework example
     # npm install git://gist.github.com/4033566.git
 
-    # require('minispec') in your project
-    require('./minispec')
+    # require(&#39;minispec&#39;) in your project
+    require(&#39;./minispec&#39;)
 
     # use expect.js for assertion (http://n37.co/aemDq)
-    expect = require('expect.js')
+    expect = require(&#39;expect.js&#39;)
 
     user = &quot;&quot;
     describe &quot;Minispec&quot;, -&gt;
       before -&gt;
         user = name: &quot;Jimmy&quot;
 
-      it 'can success', -&gt;
+      it &#39;can success&#39;, -&gt;
         expect(true).to.be.ok()
 
-      it 'can fail', -&gt;
+      it &#39;can fail&#39;, -&gt;
         expect().fail -&gt;
 
-      it 'have before', -&gt;
+      it &#39;have before&#39;, -&gt;
         expect(user.name).to.equal &quot;Jimmy&quot;
 
-      describe 'after', -&gt;
+      describe &#39;after&#39;, -&gt;
 
         after -&gt;
-          throw new Error('in after')
+          throw new Error(&#39;in after&#39;)
 
-        it 'will be executed', -&gt;
+        it &#39;will be executed&#39;, -&gt;
           expect(true).to.be.ok()
 
-      describe 'nested describe', -&gt;
+      describe &#39;nested describe&#39;, -&gt;
         before -&gt;
-          user.password = '123'
+          user.password = &#39;123&#39;
 
-        it 'with nested before', -&gt;
-          expect(user.password).to.be '123'
+        it &#39;with nested before&#39;, -&gt;
+          expect(user.password).to.be &#39;123&#39;
 
-        it 'with nested after', -&gt;
-          expect(user.password).to.be '123'
+        it &#39;with nested after&#39;, -&gt;
+          expect(user.password).to.be &#39;123&#39;
 
-        it 'can also have error', -&gt;
+        it &#39;can also have error&#39;, -&gt;
           expect().fail -&gt;
 
-        describe 'nested in nested', -&gt;
-          it 'is nested', -&gt;
+        describe &#39;nested in nested&#39;, -&gt;
+          it &#39;is nested&#39;, -&gt;
             expect(1).to.be.ok()
 
-      describe 'async function', -&gt;
+      describe &#39;async function&#39;, -&gt;
 
-        it 'have callback', (done)-&gt;
+        it &#39;have callback&#39;, (done)-&gt;
           expect(1).to.be.ok()
           done()
 </code></pre></noscript></div>
@@ -859,7 +889,7 @@ run</p>
 <h2>Global delegation</h2>
 
 <p>One of the problem is the format of syntax.
-Because I want to write syntax without extra <code>this</code> keyword, so instead of calling the test block with &#8216;call&#8217;,
+Because I want to write syntax without extra <code>this</code> keyword, so instead of calling the test block with &lsquo;call&rsquo;,
 I have to declare test syntax globally.</p>
 
 <pre><code>#Instead this
@@ -881,7 +911,7 @@ describe "syntax", -&gt;
   it "have no this keyword", -&gt;
 </code></pre>
 
-<p>But there&#8217;s 2 problem of declaring global, one is the confrontation of global keywords, which is a tradeoff for simpler syntax.
+<p>But there&rsquo;s 2 problem of declaring global, one is the confrontation of global keywords, which is a tradeoff for simpler syntax.
 Another problem is when implementing nested block, test need to be delegated into right suite.
 Using a stack to track the current suite can solve this problem.</p>
 
@@ -935,16 +965,17 @@ It will detect the function param, if there is a specific callback param in func
 <h2>Source</h2>
 
 <div><script src='https://gist.github.com/4033566.js?file=minispec.coffee'></script>
-<noscript><pre><code>{EventEmitter} = require 'events'
-async = require 'async'
+<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
+<noscript><pre><code>{EventEmitter} = require &#39;events&#39;
+async = require &#39;async&#39;
 
 #utils
-color = (code)-&gt; (text = &quot;&quot;)-&gt; code + text + '\u001b[0m'
-red = color('\u001b[31m')
-green = color('\u001b[32m')
-yellow = color('\u001b[33m')
-pluralize = (count, noun)-&gt; if count &gt; 1 then noun + 's' else noun
-indent = (level)-&gt; ('  ' for i in [0...level]).join('')
+color = (code)-&gt; (text = &quot;&quot;)-&gt; code + text + &#39;\u001b[0m&#39;
+red = color(&#39;\u001b[31m&#39;)
+green = color(&#39;\u001b[32m&#39;)
+yellow = color(&#39;\u001b[33m&#39;)
+pluralize = (count, noun)-&gt; if count &gt; 1 then noun + &#39;s&#39; else noun
+indent = (level)-&gt; (&#39;  &#39; for i in [0...level]).join(&#39;&#39;)
 
 class Suite extends EventEmitter
   constructor: (@title, @parent)-&gt;
@@ -954,15 +985,15 @@ class Suite extends EventEmitter
     @parent?.childs.push @
     @level = @parent?.level + 1 or 0
 
-    @on 'start', =&gt; @report yellow @title
-    @delegate ['before', 'after'] if @parent?
-    @on 'result', (test, err)=&gt;
+    @on &#39;start&#39;, =&gt; @report yellow @title
+    @delegate [&#39;before&#39;, &#39;after&#39;] if @parent?
+    @on &#39;result&#39;, (test, err)=&gt;
       if err?
         @errors += 1
         @report red &quot;  ✗ #{test.title} (#{err})&quot;
       else
         @report green &quot;  ✓ #{test.title}&quot;
-    @on 'end', =&gt;
+    @on &#39;end&#39;, =&gt;
       count = @tests.length
       errors = @errors
 
@@ -973,7 +1004,7 @@ class Suite extends EventEmitter
           reduce suite.childs if suite.childs?
       )(@childs)
 
-      console.log yellow &quot;run #{count} #{pluralize(count, 'test') } , #{count - errors} success, #{errors} failed&quot;
+      console.log yellow &quot;run #{count} #{pluralize(count, &#39;test&#39;) } , #{count - errors} success, #{errors} failed&quot;
 
   delegate: (events)-&gt;
     events.forEach (event)=&gt;
@@ -982,26 +1013,26 @@ class Suite extends EventEmitter
   report: (text)-&gt; console.log indent(@level) + text
 
   run: -&gt;
-    @emit 'start'
+    @emit &#39;start&#39;
     async.forEachSeries @tests, (test, next)=&gt;
       callback = =&gt;
-        @emit('after')
-        @emit('result', test)
+        @emit(&#39;after&#39;)
+        @emit(&#39;result&#39;, test)
         next()
 
       try
-        @emit('before')
+        @emit(&#39;before&#39;)
         if test.isAsync
           test.fn callback
         else
           test.fn()
           callback()
       catch err
-        @emit('result', test, err)
+        @emit(&#39;result&#39;, test, err)
         next()
     , =&gt;
       @childs.forEach (spec)-&gt; spec.run()
-      @emit 'end' unless @parent?
+      @emit &#39;end&#39; unless @parent?
 
 class Runner
   constructor: (context)-&gt;
@@ -1009,9 +1040,9 @@ class Runner
     context.it = (desc, fn)-&gt;
       suites[0].tests.push title: desc, fn: fn, isAsync: !!fn.length
     context.before = (fn)-&gt;
-      suites[0].on 'before', fn
+      suites[0].on &#39;before&#39;, fn
     context.after = (fn)-&gt;
-      suites[0].on 'after', fn
+      suites[0].on &#39;after&#39;, fn
     context.describe = (title, block)-&gt;
       suite = new Suite(title, suites[0])
       suites.unshift(suite)
@@ -1025,7 +1056,7 @@ new Runner(global or window)
 
 <h2>Summary</h2>
 
-<p>Credit to VisionMedia&#8217;s <a href="https://github.com/visionmedia/mocha">mocha</a> framework, lots of solution is comming from there.</p>
+<p>Credit to VisionMedia&rsquo;s <a href="https://github.com/visionmedia/mocha">mocha</a> framework, lots of solution is comming from there.</p>
 
 <p>But still this is an intersting small project to do in the storm days.</p>
 
@@ -1060,7 +1091,7 @@ Include finding market fit, testing hypothesis and validate growth.</p>
 Or, When the team finish up a feature. But you have no idea if it will make any change to your low customer conversion rate.
 That is the most depressing thing a startup can have.</p>
 
-<p>Those waste of productivity will draining team&#8217;s energy, depress the passion and most important, burning money.</p>
+<p>Those waste of productivity will draining team&rsquo;s energy, depress the passion and most important, burning money.</p>
 
 <p>Eric Ries, as an entrepreneur and consultant of startup. Knowing this problem and lean startup is the book focusing on
 how to use scientific management skills and matric to valuate decision to make team be able to learning from those waste.</p>
@@ -1089,7 +1120,7 @@ In my opinion that Pivot should be pulled out from a failed hypothesis, and shou
 <h2>Engineering</h2>
 
 <p>In engineering side, a team should focus on create product with minimal feature, and continous deployment with small batch
-and testing continously too. Other than that this book doesn&#8217;t focus on technical too much. But follow the best practice,
+and testing continously too. Other than that this book doesn&rsquo;t focus on technical too much. But follow the best practice,
 doing testing and continous integration. Code review can increase the maintainability of product. Also, try not to reuse all codes when Pivot,
 The old code will only drag the productivity but not fit the new requirement.</p>
 
@@ -1101,21 +1132,21 @@ Same as designer, operator and product manager. Team need to lower the obstacle 
 <h2>Team</h2>
 
 <p>How to build the team for lean startup? In lean startup it focus on educate the team to fit the requirement.
-Its true that it is hard to hire the &#8216;Ninja&#8217; or &#8216;Rockstar&#8217; in startup. Find people smart and get things done.
+Its true that it is hard to hire the &lsquo;Ninja&rsquo; or &lsquo;Rockstar&rsquo; in startup. Find people smart and get things done.
 Teach them to fit the team is much easier.</p>
 
 <h2>Culture</h2>
 
-<p>Lean startup doesn&#8217;t mention this too much, but I think the culture is an important part of a company.
+<p>Lean startup doesn&rsquo;t mention this too much, but I think the culture is an important part of a company.
 A culture is defined by how the founder and team work, It can be a small work habit or development methology.
 So a startup need to caucious what culture they want to build, and work toward that way.
 Like the hacker culture in Facebook, Startup culture in Apple, 20% time culture in Google, etc.</p>
 
 <h2>Conclusion</h2>
 
-<p>This book is based on author&#8217;s experience and is really informative. Although all the method aren&#8217;t nessassary fit into all startup.
-But some of the concept like the data based decision, small batch and all the concept can boarden the entrepreneur&#8217;s view
-The startup isn&#8217;t nessassary to be a chaos of intuition and vision.  It is a managable and repeatable process of new company.</p>
+<p>This book is based on author&rsquo;s experience and is really informative. Although all the method aren&rsquo;t nessassary fit into all startup.
+But some of the concept like the data based decision, small batch and all the concept can boarden the entrepreneur&rsquo;s view
+The startup isn&rsquo;t nessassary to be a chaos of intuition and vision.  It is a managable and repeatable process of new company.</p>
 ]]></content>
   </entry>
   
@@ -1124,9 +1155,9 @@ The startup isn&#8217;t nessassary to be a chaos of intuition and vision.  It is
     <link href="http://neethack.com/2012/09/twelve-factors-app/"/>
     <updated>2012-09-11T12:33:00-04:00</updated>
     <id>http://neethack.com/2012/09/twelve-factors-app</id>
-    <content type="html"><![CDATA[<p>The Twelve Factors App is a methodology that a web application should follow to be able to easily deploy and scale on today&#8217;s SAAS platform like Heroku. This methodolgy is announced by the Heroku Founder Adam Wiggins. The content is the based on their experience of deploying millions of applications.</p>
+    <content type="html"><![CDATA[<p>The Twelve Factors App is a methodology that a web application should follow to be able to easily deploy and scale on today&rsquo;s SAAS platform like Heroku. This methodolgy is announced by the Heroku Founder Adam Wiggins. The content is the based on their experience of deploying millions of applications.</p>
 
-<p>When I first saw this declaration, I just feel that this might be extract from rails and herokus best practices, but actually this declaration is more then practices but a methodology to improve the maintainbility and scalability of web application. so I like to share Heroku engineer&#8217;s slide about 12 factors app:</p>
+<p>When I first saw this declaration, I just feel that this might be extract from rails and herokus best practices, but actually this declaration is more then practices but a methodology to improve the maintainbility and scalability of web application. so I like to share Heroku engineer&rsquo;s slide about 12 factors app:</p>
 
 <!-- more -->
 
@@ -1345,8 +1376,8 @@ We can also bind other object with property binding:</p>
 </span><span class='line'>&lt;/script></span></code></pre></td></tr></table></div></figure>
 
 
-<p>Then when user click link, it will trigger both &#8216;click&#8217; and &#8216;sayHello&#8217; event.
-The view template and view is connected together and will always be sync, so we don&#8217;t have to rerender or trigger change event when value changed. this is the different of Ember.js view and other view templates. But the cons is you can only use handlebar.js to have autoupdate template.</p>
+<p>Then when user click link, it will trigger both &lsquo;click&rsquo; and &lsquo;sayHello&rsquo; event.
+The view template and view is connected together and will always be sync, so we don&rsquo;t have to rerender or trigger change event when value changed. this is the different of Ember.js view and other view templates. But the cons is you can only use handlebar.js to have autoupdate template.</p>
 
 <h2>Combounded View</h2>
 
@@ -1484,7 +1515,7 @@ The view template and view is connected together and will always be sync, so we 
 
 <h2>Application</h2>
 
-<p>Here is what magic happened, and is the most confusing part of Ember.js when I started learning. Because the documentation and Guide doesn&#8217;t mention lots of things on controller and router. But the code document is great. Strongly recommend to read the source code of Ember.js.</p>
+<p>Here is what magic happened, and is the most confusing part of Ember.js when I started learning. Because the documentation and Guide doesn&rsquo;t mention lots of things on controller and router. But the code document is great. Strongly recommend to read the source code of Ember.js.</p>
 
 <p>Application, inherit Ember.Namespace, is the starting point of every Ember.js application.</p>
 
@@ -1503,7 +1534,7 @@ App.UserController = Ember.Controller.extend()
 
 <h2>Controller</h2>
 
-<p>In Ember.js, controller is the place to put model manipulation codes and binding model with views. We can call the &#8216;connectOutlet&#8217; function to application controller and pass the name and content to invoke corresponding controllers and views to <code>{ {outlet}}</code> in ApplicationView. Like Rails, Ember.js have naming convention on Controllers and Views, the UsersController and UsersView will automatically bind together when calling connectOutlet. Controller will be avaliable in view by property &#8216;controller&#8217;.</p>
+<p>In Ember.js, controller is the place to put model manipulation codes and binding model with views. We can call the &lsquo;connectOutlet&rsquo; function to application controller and pass the name and content to invoke corresponding controllers and views to <code>{ {outlet}}</code> in ApplicationView. Like Rails, Ember.js have naming convention on Controllers and Views, the UsersController and UsersView will automatically bind together when calling connectOutlet. Controller will be avaliable in view by property &lsquo;controller&rsquo;.</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -1812,7 +1843,7 @@ for demostration.</p>
 <h2>Conclusion</h2>
 
 <p>After reading this article, I hope you can have a common understanding of Ember.js and what problem it is trying to solve.
-Ember.js, unlike Backbone concentrate on simple and minimal code, it is a very opinion framework. Therefore it has steeper learning curve than Backbone. Also the document can&#8217;t cover all topics of Ember.js. So read the comment in codes is actually a very useful way to understand how Ember.js work.</p>
+Ember.js, unlike Backbone concentrate on simple and minimal code, it is a very opinion framework. Therefore it has steeper learning curve than Backbone. Also the document can&rsquo;t cover all topics of Ember.js. So read the comment in codes is actually a very useful way to understand how Ember.js work.</p>
 
 <p>Comparing these 2 frameworks. Backbone.js is simple, easy to use and Integrate RESTful Api by model. But when codes grow. You have to be careful about the repeating code and logics. Also might need some plugin like layoutManager to maitain better structure.</p>
 
@@ -1848,25 +1879,26 @@ Ember.js, unlike Backbone concentrate on simple and minimal code, it is a very o
 <!--more-->
 
 
-<p>What the application do is actually pretty simple, they store the url in the table and set a id for it. When user request the id, redirect user to the url. The problem here is: how to make the id shorter? The obvious solution is to use the character as id but not integer id. So most url shortener will use the code like &#8216;aSgY2&#8217;, which combine the upper, lower case letters and numbers as id. With this method, one character can present 26+26+10=62 choice. A 5-letter code can present 62<sup>5=916,132,832</sup> of urls. far better then just use 5 numbers.</p>
+<p>What the application do is actually pretty simple, they store the url in the table and set a id for it. When user request the id, redirect user to the url. The problem here is: how to make the id shorter? The obvious solution is to use the character as id but not integer id. So most url shortener will use the code like &lsquo;aSgY2&rsquo;, which combine the upper, lower case letters and numbers as id. With this method, one character can present 26+26+10=62 choice. A 5-letter code can present 62<sup>5</sup>=916,132,832 of urls. far better then just use 5 numbers.</p>
 
-<p>There are two methods to map the long url into short code, one is to convert the increment interger id into code. Which is easier and can use up all of the space. However, the space (of 5-6 digits code) will be running out eventially because there are billions of urls on internet. So it have to increase code length to increase the storage of url. Or it have to expire the unused url and reuse these code. But when it comes to expire, The incremental id will become more complex since it need to track the smaller free id first. Also, the application have to maintain a index of url -> id to increase the search speed, and it will have to maintain index often if the url will expire.</p>
+<p>There are two methods to map the long url into short code, one is to convert the increment interger id into code. Which is easier and can use up all of the space. However, the space (of 5-6 digits code) will be running out eventially because there are billions of urls on internet. So it have to increase code length to increase the storage of url. Or it have to expire the unused url and reuse these code. But when it comes to expire, The incremental id will become more complex since it need to track the smaller free id first. Also, the application have to maintain a index of url &ndash;> id to increase the search speed, and it will have to maintain index often if the url will expire.</p>
 
-<p>Another solution is to hash the url address, so the url will match to a code generated by url string that same url will always map to same code. This method works well with the expire method because application doesn&#8217;t need to track which code is free. However, this method won&#8217;t be able to use up all of the available codes and the hash will collision(which is, two different url generate the same code) when numbers of url increase.</p>
+<p>Another solution is to hash the url address, so the url will match to a code generated by url string that same url will always map to same code. This method works well with the expire method because application doesn&rsquo;t need to track which code is free. However, this method won&rsquo;t be able to use up all of the available codes and the hash will collision(which is, two different url generate the same code) when numbers of url increase.</p>
 
 <h2>Hash</h2>
 
 <p>For the project, I choose the hash method to generate code. Because this method works well with redis hash map data type. Lets bring some code in the project:</p>
 
 <div><script src='https://gist.github.com/3232892.js?file=hashUrl.coffee'></script>
-<noscript><pre><code>exports.hashUrl = hashUrl = (url, digits = 5, algorithm = 'md5')-&gt;
-  symbols = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
+<noscript><pre><code>exports.hashUrl = hashUrl = (url, digits = 5, algorithm = &#39;md5&#39;)-&gt;
+  symbols = &#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&#39;
   length = symbols.length
   code = &quot;&quot;
 
   hash = crypto.createHash(algorithm)
     .update(url)
-    .digest('hex')
+    .digest(&#39;hex&#39;)
 
   hash_number = parseInt(hash, 16) % Math.pow(length, digits + 1)
 
@@ -1887,11 +1919,11 @@ Ember.js, unlike Backbone concentrate on simple and minimal code, it is a very o
 
 <p><strong>(Warning, this section include some math!)</strong></p>
 
-<p>The hash collision problem, can be seen as a <a href="http://n37.co/O5Gxm">generalize birthday problem</a>. Which is: what&#8217;s the probability of two people have same birthday for N people?</p>
+<p>The hash collision problem, can be seen as a <a href="http://n37.co/O5Gxm">generalize birthday problem</a>. Which is: what&rsquo;s the probability of two people have same birthday for N people?</p>
 
 <p>Lets solve the birthday problem first:</p>
 
-<p>First, the number of days in a year is 365 (exclude the leap year). So the probability of at lease 2 people have same birthday equal to 1 - probability of all people have unique birthday.</p>
+<p>First, the number of days in a year is 365 (exclude the leap year). So the probability of at lease 2 people have same birthday equal to 1 &ndash; probability of all people have unique birthday.</p>
 
 <pre><code>Probability_of_same_birthday(N) = 1 - Probability_of_unique_birthday(N)
 
@@ -1927,10 +1959,11 @@ P(N) = 0.50, N ~= 35638
 
 <p>So to solve the collision problem, I choose to use the other hash method when collision happen. The node.js crypto module have md5, sha1, sha256, sha512 can generate different code. So if collision happened, it will switch to another hash method. If all four hash collide, the code will increase one digit to hold the new hash. And start with md5 to generate hash again.</p>
 
-<p>Here&#8217;s the code that rehash url:</p>
+<p>Here&rsquo;s the code that rehash url:</p>
 
 <div><script src='https://gist.github.com/3232892.js?file=generateCode.coffee'></script>
-<noscript><pre><code>getAlgorithms = -&gt; ['md5', 'sha1', 'sha256', 'sha512']
+<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
+<noscript><pre><code>getAlgorithms = -&gt; [&#39;md5&#39;, &#39;sha1&#39;, &#39;sha256&#39;, &#39;sha512&#39;]
 
 generateCode = (url, algorithms, digits, callback)-&gt;
   #increase code digits if all codes are registered
@@ -1949,7 +1982,7 @@ generateCode = (url, algorithms, digits, callback)-&gt;
     else generateCode(url, algorithms, digits, callback)</code></pre></noscript></div>
 
 
-<p>With this method, I set the expire time as one month, and the application don&#8217;t need to track the expiration of url and will automatically reuse the empty spot. There might have duplication of url, but the probabillity is small, since the url used often will always occupy the first or second hash spot.</p>
+<p>With this method, I set the expire time as one month, and the application don&rsquo;t need to track the expiration of url and will automatically reuse the empty spot. There might have duplication of url, but the probabillity is small, since the url used often will always occupy the first or second hash spot.</p>
 
 <h2>Conclusion</h2>
 
@@ -1971,7 +2004,7 @@ generateCode = (url, algorithms, digits, callback)-&gt;
 
 <h2>Usage</h2>
 
-<p>Here&#8217;s the hello world sample of express. It assign a callback for get request on root &#8216;/&#8217;, and start the server to listen port 3000. More example can be found on <a href="https://github.com/visionmedia/express/tree/master/examples">express/examples</a> and <a href="http://expressjs.com">Documentation of express</a>.</p>
+<p>Here&rsquo;s the hello world sample of express. It assign a callback for get request on root &lsquo;/&rsquo;, and start the server to listen port 3000. More example can be found on <a href="https://github.com/visionmedia/express/tree/master/examples">express/examples</a> and <a href="http://expressjs.com">Documentation of express</a>.</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -2142,7 +2175,7 @@ We can see that it return a method that parse the req.url with qs.parse function
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Will be invoked when route params have &#8216;user_id&#8217;:</p>
+<p>Will be invoked when route params have &lsquo;user_id&rsquo;:</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -2264,7 +2297,7 @@ We can see that it return a method that parse the req.url with qs.parse function
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The route function take the Http method (like &#8216;get&#8217;), path and callback. normalize them and create Route object. add to the <strong>map[method]</strong> array in Router.</p>
+<p>The route function take the Http method (like &lsquo;get&rsquo;), path and callback. normalize them and create Route object. add to the <strong>map[method]</strong> array in Router.</p>
 
 <p>Also, it use the meta programming skill to generate public helper for user, so we can call the <strong>app.get</strong> or <strong>app.post</strong> method to assign route.</p>
 
@@ -2456,7 +2489,7 @@ it call the <strong>route.matchRequest</strong> method to get the matched route,
 
 <p>Request and Response object in express is inheritate http.IncomingMessage and http.ServerResponse from node. Request provide helpers for http header, content-type, URL and param parsing.</p>
 
-<p>Response is providing helpers for status and results too. Also provide the send function from &#8216;response-send&#8217; module. Which detect response type and set corresponding content-type.</p>
+<p>Response is providing helpers for status and results too. Also provide the send function from &lsquo;response-send&rsquo; module. Which detect response type and set corresponding content-type.</p>
 
 <h2>View</h2>
 
@@ -2613,7 +2646,7 @@ it call the <strong>route.matchRequest</strong> method to get the matched route,
 
 <p>Express is a lightweight web framework and it is a good entry point to know how to build a web framework in Node.js. Hope this walkthrough can help you understand how express work. And can be more comfortable with new framework like meteor.</p>
 
-<p>Also it is a well styled and documented project, so when you find some problem in developing express application, don&#8217;t be hesitate to use the source code (luke!) and the Guide of <a href="http://expressjs.com/">Express</a></p>
+<p>Also it is a well styled and documented project, so when you find some problem in developing express application, don&rsquo;t be hesitate to use the source code (luke!) and the Guide of <a href="http://expressjs.com/">Express</a></p>
 ]]></content>
   </entry>
   
@@ -2624,12 +2657,12 @@ it call the <strong>route.matchRequest</strong> method to get the matched route,
     <id>http://neethack.com/2012/04/go-programming</id>
     <content type="html"><![CDATA[<h2>GO v1</h2>
 
-<p>Recently, the Go language release it&#8217;s version 1.0, which have a more constant api that aiming on
+<p>Recently, the Go language release it&rsquo;s version 1.0, which have a more constant api that aiming on
 attracting enterprise developers to use go as part of their solution.</p>
 
-<p>I read the tutorial when it&#8217;s first release. At that time, Go was positioned as a new system language, Like C or C++. But right now it become more powerful that can be use on any general programming topic that require efficiency and concurrency.</p>
+<p>I read the tutorial when it&rsquo;s first release. At that time, Go was positioned as a new system language, Like C or C++. But right now it become more powerful that can be use on any general programming topic that require efficiency and concurrency.</p>
 
-<p>As a language, Go has pretty weird syntax such as postfix type decleration and interface oriented. But other then that, Go is more like a compiled version scripting language. Which is pretty easy to write, and focusing on making threading easier through It&#8217;s Go routine.</p>
+<p>As a language, Go has pretty weird syntax such as postfix type decleration and interface oriented. But other then that, Go is more like a compiled version scripting language. Which is pretty easy to write, and focusing on making threading easier through It&rsquo;s Go routine.</p>
 
 <!--more-->
 
@@ -2680,7 +2713,7 @@ attracting enterprise developers to use go as part of their solution.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>It&#8217;s equivalent to Java:</p>
+<p>It&rsquo;s equivalent to Java:</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -2709,7 +2742,7 @@ attracting enterprise developers to use go as part of their solution.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>While using go routine, the function will fork to run on different thread. Which won&#8217;t block the main process and can be efficient on multicore.</p>
+<p>While using go routine, the function will fork to run on different thread. Which won&rsquo;t block the main process and can be efficient on multicore.</p>
 
 <p>Although there are other framework that can make threading easy too, but Go provide language level support and another useful feature: Channel</p>
 
@@ -2843,7 +2876,7 @@ attracting enterprise developers to use go as part of their solution.</p>
 There are 2 counter routine running in thread, invoke by go counter(channel, closer).
 In the main process, the for loop wait to read the channel until it is closed.</p>
 
-<p>What happened here is the cpu core will switch between threads, and main process can be run when there&#8217;s data in channel, if not, switch to other threads. Until the channel is closed.</p>
+<p>What happened here is the cpu core will switch between threads, and main process can be run when there&rsquo;s data in channel, if not, switch to other threads. Until the channel is closed.</p>
 
 <p>Example in 5 count:</p>
 
@@ -3118,11 +3151,11 @@ The most famous example is Google. When Google build the index of web pages. Bec
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>I use the type &#8220;Object&#8221; to reference an empty interface. Because the Go don&#8217;t have generic type.</p>
+<p>I use the type &ldquo;Object&rdquo; to reference an empty interface. Because the Go don&rsquo;t have generic type.</p>
 
-<p>The first section send input to mapper, and receive worker_outputs as the collection of each worker&#8217;s result channel. Afterward, second section of the code send worker_output to reducer. Reducer return the result of calculation.</p>
+<p>The first section send input to mapper, and receive worker_outputs as the collection of each worker&rsquo;s result channel. Afterward, second section of the code send worker_output to reducer. Reducer return the result of calculation.</p>
 
-<p>For example, we can try to calculate PI by some amounts of random points. Assume there&#8217;s a circle with radius 1. we get a random point on the square of 1. The PI will be the number of points in circle / total points. That the more points we collect, the more accurate the result will be.</p>
+<p>For example, we can try to calculate PI by some amounts of random points. Assume there&rsquo;s a circle with radius 1. we get a random point on the square of 1. The PI will be the number of points in circle / total points. That the more points we collect, the more accurate the result will be.</p>
 
 <p>For example, we can distribute the calculate of 2000 points to 2000 worker, and the PI will be equal to the result / total points</p>
 
@@ -3208,7 +3241,7 @@ The most famous example is Google. When Google build the index of web pages. Bec
 
 <p>Will execute all *_test.go files as test cases.</p>
 
-<p>Let&#8217;s write some test for the MapReduce mapper and reducer we have:</p>
+<p>Let&rsquo;s write some test for the MapReduce mapper and reducer we have:</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -3278,7 +3311,7 @@ There is no extra syntax like assert to learn. Just use simple ==, != to check t
 
 <h2>Conclusion</h2>
 
-<p>Go is a very interesting language. On the first hand, it might be awkward because of it&#8217;s syntax and no object oriented support. But once you know the simplicity and concurrency of Go. It would be a handy tool for the need fast calculation. However, we&#8217;re still waiting for a more complete eco system for developer and successful usecase for Go language.</p>
+<p>Go is a very interesting language. On the first hand, it might be awkward because of it&rsquo;s syntax and no object oriented support. But once you know the simplicity and concurrency of Go. It would be a handy tool for the need fast calculation. However, we&rsquo;re still waiting for a more complete eco system for developer and successful usecase for Go language.</p>
 ]]></content>
   </entry>
   
@@ -3376,11 +3409,11 @@ There is no extra syntax like assert to learn. Just use simple ==, != to check t
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>OK, it&#8217;s seen like a completely overwork, that&#8217;s my first thought when I saw a clientside MVC framework too, but we have to dig further to understand why people create it.</p>
+<p>OK, it&rsquo;s seen like a completely overwork, that&rsquo;s my first thought when I saw a clientside MVC framework too, but we have to dig further to understand why people create it.</p>
 
 <h2>Event Binding</h2>
 
-<p>First, it separate the data model and view - which include event handle and DOM element, we can easily bind data model in view like:</p>
+<p>First, it separate the data model and view &ndash; which include event handle and DOM element, we can easily bind data model in view like:</p>
 
 <pre><code>this.model.bind('change', this.updateContent, this);
 </code></pre>
@@ -3394,13 +3427,13 @@ There is no extra syntax like assert to learn. Just use simple ==, != to check t
 }
 </code></pre>
 
-<p>which bind the &#8220;click&#8221; event to &#8220;.content&#8221; class, trigger &#8220;updateContent&#8221; function in current view.
-It&#8217;s useful when binding multiple events.</p>
+<p>which bind the &ldquo;click&rdquo; event to &ldquo;.content&rdquo; class, trigger &ldquo;updateContent&rdquo; function in current view.
+It&rsquo;s useful when binding multiple events.</p>
 
 <h2>Restful synchronization</h2>
 
 <p>Furthermore, the backbone provide a RESTful format API for synchronize data model with server.
-every model class in backbone have a corresponding url for synchronize, and when the &#8220;model.save&#8221; or &#8220;model.fetch&#8221; method is called, the model will make an Ajax request to update data with server.
+every model class in backbone have a corresponding url for synchronize, and when the &ldquo;model.save&rdquo; or &ldquo;model.fetch&rdquo; method is called, the model will make an Ajax request to update data with server.
 For example:</p>
 
 <pre><code>article.save({author:"John"});
@@ -3412,10 +3445,10 @@ The sync method will make an ajax request to server, and update model, trigger e
 <p>the url of model is defined by RESTful API:</p>
 
 <ul>
-<li>create -> POST /model</li>
-<li>read   -> GET /model[/id]</li>
-<li>update -> PUT /model/id</li>
-<li>delete -> DELETE /model/id</li>
+<li>create &ndash;> POST /model</li>
+<li>read   &ndash;> GET /model[/id]</li>
+<li>update &ndash;> PUT /model/id</li>
+<li>delete &ndash;> DELETE /model/id</li>
 </ul>
 
 
@@ -3470,7 +3503,7 @@ The sync method will make an ajax request to server, and update model, trigger e
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>the Router in backbone is like the route map in MVC framework, it provide clientside fragment url routing, eg. route &#8220;/#article/12&#8221; to match method &#8220;article(id)&#8221;. So the url can be recorded and bookmarked by browser.</p>
+<p>the Router in backbone is like the route map in MVC framework, it provide clientside fragment url routing, eg. route &ldquo;/#article/12&rdquo; to match method &ldquo;article(id)&rdquo;. So the url can be recorded and bookmarked by browser.</p>
 
 <h2>Template</h2>
 
@@ -3525,7 +3558,7 @@ But whether to use it depend on how much script in your application, for small p
 
 <h2>Invitation</h2>
 
-<p>  After handing out my resume on school&#8217;s career fair, I got an email from Amazon campus recruiter that they have an interview event for campus hire hold on Amazon campus in Seattle, and they would like to pay me the trip to the interview. That really surprise me because what I heard is they will usually have one or two phone interview before you get to the on-site interview. However, this is a great oppurtunity, and also a free trip visiting Seattle. So I just go for it.</p>
+<p>  After handing out my resume on school&rsquo;s career fair, I got an email from Amazon campus recruiter that they have an interview event for campus hire hold on Amazon campus in Seattle, and they would like to pay me the trip to the interview. That really surprise me because what I heard is they will usually have one or two phone interview before you get to the on-site interview. However, this is a great oppurtunity, and also a free trip visiting Seattle. So I just go for it.</p>
 
 <!-- more -->
 
@@ -3534,7 +3567,7 @@ But whether to use it depend on how much script in your application, for small p
 
 <p>  My sister in law live in Seattle, and she introduced me a friend who work in Amazon. I got lots of great advices about how to prepare the interview with Amazon. The position I applied for is general software engineer so I will not inteview with specific team members. Therefore I just prepare for general questions.</p>
 
-<p>  First, for technical interview. There&#8217;re two books that really explain the process and questions they will ask:</p>
+<p>  First, for technical interview. There&rsquo;re two books that really explain the process and questions they will ask:</p>
 
 <ul>
 <li><a href="http://www.amazon.com/Cracking-Coding-Interview-Fourth-Programming/dp/145157827X">Cracking the code interviews</a></li>
@@ -3572,7 +3605,7 @@ But whether to use it depend on how much script in your application, for small p
   <img src="https://lh6.googleusercontent.com/-QboFdHY-fnk/T0sp9MSy43I/AAAAAAAABPc/uDJWErDFpuA/s640/P1010165.JPG" alt="South Lake Union Park" /></p>
 
 <p>  On 11:00, the interview began with a lunch with Amazon engineers, who will also be the interviewer afterward. It is not part of the interview, but a chance to let you understand more about Amazon. I sit on the table with an engineer who work in customer service team. I asked some questions about software development and life in Amazon. The interesting thing is, Amazon is composed by lots of small and medium teams running Agile, each team using the languages and services by their requirements and scale, the stack is differ from team to team. The culture looks pretty Engineer driven. And he said the life and workload balance is reasonable in Amazon.
-  After lunch, we was taken to different rooms with whiteboard, which is the place we will stay in the rest of the interview. There&#8217;s four sessions, each is 45 minutes and no rest netween sessions. It seens like a really hard schedule for both side.</p>
+  After lunch, we was taken to different rooms with whiteboard, which is the place we will stay in the rest of the interview. There&rsquo;s four sessions, each is 45 minutes and no rest netween sessions. It seens like a really hard schedule for both side.</p>
 
 <hr />
 
@@ -3582,15 +3615,15 @@ But whether to use it depend on how much script in your application, for small p
 
 <p>  Third session was from an engineer in wireless team. He asked a tricky question about data structure. After answer that, he asked about the pro and cons of my implmentation and the design decision. I made a small mistake when answering a design question. I said I put the method in class just to keep code concise for interview, but I should rather talked more about the pro and cons about how I made the decision.</p>
 
-<p>  Last session was from kindle team. He asked a practical question that he solved in Amazon website before. In the beginning I wrote the pseudo code in python, and he suggest me just wrote in python. But I got confused with Python api of folder. And didn&#8217;t answer well on the optimize question afterward. So the lesson is, just make sure you are familier with API of the language you use.</p>
+<p>  Last session was from kindle team. He asked a practical question that he solved in Amazon website before. In the beginning I wrote the pseudo code in python, and he suggest me just wrote in python. But I got confused with Python api of folder. And didn&rsquo;t answer well on the optimize question afterward. So the lesson is, just make sure you are familier with API of the language you use.</p>
 
 <p>  Afterward, they escorted me to the lobby and I took taxi back to meet my sister in law. Having some authentic Taiwanese dinner and met some friends who works in Amazon and Microsoft. I took to flight back to New York in the next morning.</p>
 
 <h2>Conclusion</h2>
 
-<p>  In the end I didn&#8217;t get the job, and they encouraging me to try again in half year. But I learned a lot through the preparation of the interview. The interview process is pretty fun - solving different problems with engineers on whiteboard - is like playing a big quiz game. Not every programmer like these pop questions, but at least I think it is pretty interesting and challenging to solve. I will definatlly have more technical interview in future. And this experience will help a lot.</p>
+<p>  In the end I didn&rsquo;t get the job, and they encouraging me to try again in half year. But I learned a lot through the preparation of the interview. The interview process is pretty fun &ndash; solving different problems with engineers on whiteboard &ndash; is like playing a big quiz game. Not every programmer like these pop questions, but at least I think it is pretty interesting and challenging to solve. I will definatlly have more technical interview in future. And this experience will help a lot.</p>
 
-<p>  Thanks for the friends who help me on the interview. And for this oppurtunity to visit Seattle - it is a nice city to live. Wish I can visit there again in near future.</p>
+<p>  Thanks for the friends who help me on the interview. And for this oppurtunity to visit Seattle &ndash; it is a nice city to live. Wish I can visit there again in near future.</p>
 ]]></content>
   </entry>
   
@@ -3608,7 +3641,7 @@ But whether to use it depend on how much script in your application, for small p
 
 
 <p>  That is, Bootstrap is not only just a css framework, but actually an UI framework base
-on HTML, CSS and Javascripts. It includes the basic css framework that handle details like css reset, typography and grid system. Moreover, it includes the base UI elements like navigation bar, button, form and paginition&#8230; and the interaction
+on HTML, CSS and Javascripts. It includes the basic css framework that handle details like css reset, typography and grid system. Moreover, it includes the base UI elements like navigation bar, button, form and paginition&hellip; and the interaction
 UI elements like dropdown, popover and tooltips. Evenmore, all of the color and elements is customizable because the css is generated by <a href="http://lesscss.org">less</a>, all setting is in varibles.less file and allow user to change the variables or reuse the elements class in less.</p>
 
 <!--more-->
@@ -3650,8 +3683,8 @@ Makefile             #build script on bootstrap, use lessc to compile all .less 
 <h2>Reset</h2>
 
 <p>  CSS reset is an important topic to display unify layout among all browsers and devices. It reset the layout by overwriting the different default style on browser.
-There are also a lot of reset framework that we can choose beside bootstrap, like <a href="http://yuilibrary.com/yui/docs/cssreset/">YUI reset</a> or <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer&#8217;s Reset</a>
-Twitter&#8217;s reset is adapted from <a href="http://github.com/necolas/normalize.css">normalize.css</a></p>
+There are also a lot of reset framework that we can choose beside bootstrap, like <a href="http://yuilibrary.com/yui/docs/cssreset/">YUI reset</a> or <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer&rsquo;s Reset</a>
+Twitter&rsquo;s reset is adapted from <a href="http://github.com/necolas/normalize.css">normalize.css</a></p>
 
 <h2>Grid System</h2>
 
@@ -3735,7 +3768,7 @@ Twitter&#8217;s reset is adapted from <a href="http://github.com/necolas/normali
 
 <p>  The Bootstrap provide decent style for html elements like button, form and table.
 Also, It provide some popular UI elements such as navigation bar, tooltip, popover,
-modal&#8230;, Here we will just pick some popular UI elements.</p>
+modal&hellip;, Here we will just pick some popular UI elements.</p>
 
 <h3>Button</h3>
 
@@ -3749,7 +3782,7 @@ modal&#8230;, Here we will just pick some popular UI elements.</p>
 
 <p><img src="http://neethack.com/images/bootstrap/button_example1.png" alt="Button1" /></p>
 
-<p>Here&#8217;s part of the buttons source:</p>
+<p>Here&rsquo;s part of the buttons source:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -3924,7 +3957,7 @@ bootstrap-responsive.css, the nav-bar can automatic correspond with mobile devic
 
 <p><img src="http://neethack.com/images/bootstrap/form_example1.png" alt="form" /></p>
 
-<p>Here&#8217;s only a few examples of UI elements, check more UI elements on the <a href="http://twitter.github.com/bootstrap/components.html">components page</a>.</p>
+<p>Here&rsquo;s only a few examples of UI elements, check more UI elements on the <a href="http://twitter.github.com/bootstrap/components.html">components page</a>.</p>
 
 <h2>Responsive</h2>
 
@@ -4057,7 +4090,7 @@ Using npm to install less.js(you can also install by rubygem, bug less.rb have s
 
 <p>  We can start to use our own version of bootstrap.css. With bootstrap-responsive.css, bootstrap.min.js</p>
 
-<p>  Here&#8217;s some <a href="http://neethack.com/examples/bootstrap.html">Sample Page</a> that build with different color scheme.</p>
+<p>  Here&rsquo;s some <a href="http://neethack.com/examples/bootstrap.html">Sample Page</a> that build with different color scheme.</p>
 
 <p>  Moreover, you can also start to build your own new css framework from <a href="http://markdotto.com/bootstrap/">preboot.less</a> includes basic grids and mixins.</p>
 
@@ -4080,7 +4113,7 @@ and explain the structure and interesting pieces that I found in the source.</p>
 <h2><a href="http://www.sinatrarb.com">Sinatra</a></h2>
 
 <p><a href="http://www.sinatrarb.com">Sinatra</a> is a rack-base , lightweight web framework implemented in ruby.
-Written and desinged by <a href="https://github.com/bmizerany">Blake Mizerany</a>. Famous for it&#8217;s dsl syntax and simpliness.</p>
+Written and desinged by <a href="https://github.com/bmizerany">Blake Mizerany</a>. Famous for it&rsquo;s dsl syntax and simpliness.</p>
 
 <!--more-->
 
@@ -4108,7 +4141,7 @@ Gemfile.gem
 
 <p>2.Helper Module :
   Helper methods that available in routes, filters and views ,
-  handle tasks like redirect, status code, url, html header, session, mime type, http stearming&#8230; etc</p>
+  handle tasks like redirect, status code, url, html header, session, mime type, http stearming&hellip; etc</p>
 
 <p>3.Template Module :
   Handle multiple template engines using <a href="https://github.com/rtomayko/tilt">tilt</a></p>
@@ -4180,7 +4213,7 @@ For example:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Execute this file will run Sinatra application handle route &#8220;/&#8221; with GET request.
+<p>Execute this file will run Sinatra application handle route &ldquo;/&rdquo; with GET request.
 But how do Sinatra do this?</p>
 
 <p>Take a look at the source of Delegator:</p>
@@ -4275,7 +4308,7 @@ But how do Sinatra do this?</p>
 
 
 <p>But how would we do if we have lots of method to delegate? In Sinatra, it has lots of methods and Http verbs to be delegated. The code will be pretty ugly if we have to implement all these repeated methods.
-The answer here is metaprogramming: We can use ruby&#8217;s ability of metaprogramming to create repeated methods in a few lines of code:</p>
+The answer here is metaprogramming: We can use ruby&rsquo;s ability of metaprogramming to create repeated methods in a few lines of code:</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -4304,7 +4337,7 @@ The answer here is metaprogramming: We can use ruby&#8217;s ability of metaprogr
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>In ruby, we can use &#8220;define_method&#8221; to create method programmically, and use &#8220;send(method_name, *args, &amp;block)&#8221; To call the target method by the method_name. This makes the code a lot cleaner in Sinatra</p>
+<p>In ruby, we can use &ldquo;define_method&rdquo; to create method programmically, and use &ldquo;send(method_name, *args, &amp;block)&rdquo; To call the target method by the method_name. This makes the code a lot cleaner in Sinatra</p>
 
 <h2>Routes</h2>
 
@@ -4313,9 +4346,9 @@ the HTTP verbs ,path and code block will be registered in application,
 And will be executed when receiving matched request.</p>
 
 <p>When the dsl method get called, the Application will generate a Proc with the name of
-HttpVerb and path (like &#8220;get /&#8221;) save the Proc, url path (include the keys, pattern and conditions on paths, like &#8220;/:id&#8221; ) in @routes.</p>
+HttpVerb and path (like &ldquo;get /&rdquo;) save the Proc, url path (include the keys, pattern and conditions on paths, like &ldquo;/:id&rdquo; ) in @routes.</p>
 
-<p>Here&#8217;s the simplify version of routes :</p>
+<p>Here&rsquo;s the simplify version of routes :</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -4469,7 +4502,7 @@ First, as a Rack application, all request will invoke the call(env) function
 Sinatra application will duplicate an instance, invoke the call!(env) on new instance (because HTTP is stateless)
 in the call! function, sinatra will new the Rack::Request and Rack::Response object by env, than set the params.</p>
 
-<p>After all object is set, it will start to invoke the routes by &#8220;invoke{ dispatch! }&#8221;, the result will be store
+<p>After all object is set, it will start to invoke the routes by &ldquo;invoke{ dispatch! }&rdquo;, the result will be store
 on @response, and return to user by call the @response.finish</p>
 
 <figure class='code'><figcaption><span>base.rb </span></figcaption>
@@ -4601,7 +4634,7 @@ than set the result to @response.</p>
 
 <h2>Template</h2>
 
-<p>Sinatra is compatible with a lots of different templates, from erb, haml, markdown to sass, less&#8230;
+<p>Sinatra is compatible with a lots of different templates, from erb, haml, markdown to sass, less&hellip;
 almost any kind of templates that you can find, but how do Sinatra handle all of these different format?
 It turns out using <a href="https://github.com/rtomayko/tilt">Tilt</a> gem that includes all kinds of template engines.</p>
 
@@ -4633,7 +4666,7 @@ It turns out using <a href="https://github.com/rtomayko/tilt">Tilt</a> gem that 
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>In application, we can call &#8220;erb&#8221; method to render erb template:</p>
+<p>In application, we can call &ldquo;erb&rdquo; method to render erb template:</p>
 
 <pre><code>get "/" do
   #render erb template in views/index.html.erb
@@ -4772,7 +4805,7 @@ and render method compile the template and return output, than output will be ca
 and set to @response.</p>
 
 <p>In compile_template, the Tilt engine will be called and return correct Tilt::Template instance.
-here&#8217;s the digest version:</p>
+here&rsquo;s the digest version:</p>
 
 <figure class='code'><figcaption><span>base.rb </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -4948,14 +4981,14 @@ and body helper will send stream to Rack::Response.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>According to Rack interface, the response body need to respond to &#8220;each&#8221; method.
+<p>According to Rack interface, the response body need to respond to &ldquo;each&rdquo; method.
 The each method will be called with &amp;front block, which can sent result to user.
 Stream class use the EventMachine.schedule to call codeblock asynchronizly,
 and the &lt;&lt; method will sent data to @front with EventMachine.schedule.</p>
 
 <h2>Configure</h2>
 
-<p>In sinatra, we can set configuration by &#8220;set&#8221; or &#8220;configure&#8221; method.</p>
+<p>In sinatra, we can set configuration by &ldquo;set&rdquo; or &ldquo;configure&rdquo; method.</p>
 
 <pre><code>set :server , :thin 
 
@@ -5038,11 +5071,11 @@ end
 
 <h2>Conclusion</h2>
 
-<p>Sinatra is a very simple and delegate web framework. It takes lots of advantage on ruby&#8217;s metaprogramming feature
-to make code more digest and clean. Also with decent features support.(Template, Streaming, Filter, Route&#8230;)</p>
+<p>Sinatra is a very simple and delegate web framework. It takes lots of advantage on ruby&rsquo;s metaprogramming feature
+to make code more digest and clean. Also with decent features support.(Template, Streaming, Filter, Route&hellip;)</p>
 
 <p>The dsl syntax and delegator makes learning Sinatra application become very easy.
-It will be great for implement api service or small website when you don&#8217;t need the heavy stacks like Rails.</p>
+It will be great for implement api service or small website when you don&rsquo;t need the heavy stacks like Rails.</p>
 ]]></content>
   </entry>
   

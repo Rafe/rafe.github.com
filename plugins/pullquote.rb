@@ -32,15 +32,9 @@ module Jekyll
 
     def render(context)
       output = super
-<<<<<<< HEAD
-      if output.join =~ /\{"\s*(.+)\s*"\}/
-        @quote = $1
-        "<span class='pullquote-#{@align}' data-pullquote='#{@quote}'>#{output.join.gsub(/\{"\s*|\s*"\}/, '')}</span>"
-=======
       if output =~ /\{"\s*(.+?)\s*"\}/m
         @quote = RubyPants.new($1).to_html
         "<span class='pullquote-#{@align}' data-pullquote='#{@quote}'>#{output.gsub(/\{"\s*|\s*"\}/, '')}</span>"
->>>>>>> 3e1707d289b557d794bfaacbb6682a008223d4c9
       else
         return "Surround your pullquote like this {\" text to be quoted \"}"
       end

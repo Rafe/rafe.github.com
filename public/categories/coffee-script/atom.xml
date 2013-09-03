@@ -4,7 +4,7 @@
   <title><![CDATA[Category: coffee-script | Neethack]]></title>
   <link href="http://neethack.com/categories/coffee-script/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-04-23T00:47:20-04:00</updated>
+  <updated>2013-09-03T00:13:04-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -24,7 +24,7 @@
 And I need to find something to do except eating, surfing internet and boardgame.
 So I just wrote another test framework.</p>
 
-<p>Inspired by Zach Holoman's <a href="https://gist.github.com/1806986">gist</a>
+<p>Inspired by Zach Holoman&rsquo;s <a href="https://gist.github.com/1806986">gist</a>
 I try to host the framework in the gist form. Because every gist is also a git repository.</p>
 
 <p><a href="https://gist.github.com/4033566">gist source</a></p>
@@ -43,58 +43,59 @@ run</p>
 <p>in project can execute the spec</p>
 
 <p><div><script src='https://gist.github.com/4033566.js?file=README.md'></script>
+<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
 <noscript><pre><code># Minispec
 #### minispec is a mini bdd test framework example
     # npm install git://gist.github.com/4033566.git
 
-    # require('minispec') in your project
-    require('./minispec')
+    # require(&#39;minispec&#39;) in your project
+    require(&#39;./minispec&#39;)
 
     # use expect.js for assertion (http://n37.co/aemDq)
-    expect = require('expect.js')
+    expect = require(&#39;expect.js&#39;)
 
     user = &quot;&quot;
     describe &quot;Minispec&quot;, -&gt;
       before -&gt;
         user = name: &quot;Jimmy&quot;
 
-      it 'can success', -&gt;
+      it &#39;can success&#39;, -&gt;
         expect(true).to.be.ok()
 
-      it 'can fail', -&gt;
+      it &#39;can fail&#39;, -&gt;
         expect().fail -&gt;
 
-      it 'have before', -&gt;
+      it &#39;have before&#39;, -&gt;
         expect(user.name).to.equal &quot;Jimmy&quot;
 
-      describe 'after', -&gt;
+      describe &#39;after&#39;, -&gt;
 
         after -&gt;
-          throw new Error('in after')
+          throw new Error(&#39;in after&#39;)
 
-        it 'will be executed', -&gt;
+        it &#39;will be executed&#39;, -&gt;
           expect(true).to.be.ok()
 
-      describe 'nested describe', -&gt;
+      describe &#39;nested describe&#39;, -&gt;
         before -&gt;
-          user.password = '123'
+          user.password = &#39;123&#39;
 
-        it 'with nested before', -&gt;
-          expect(user.password).to.be '123'
+        it &#39;with nested before&#39;, -&gt;
+          expect(user.password).to.be &#39;123&#39;
 
-        it 'with nested after', -&gt;
-          expect(user.password).to.be '123'
+        it &#39;with nested after&#39;, -&gt;
+          expect(user.password).to.be &#39;123&#39;
 
-        it 'can also have error', -&gt;
+        it &#39;can also have error&#39;, -&gt;
           expect().fail -&gt;
 
-        describe 'nested in nested', -&gt;
-          it 'is nested', -&gt;
+        describe &#39;nested in nested&#39;, -&gt;
+          it &#39;is nested&#39;, -&gt;
             expect(1).to.be.ok()
 
-      describe 'async function', -&gt;
+      describe &#39;async function&#39;, -&gt;
 
-        it 'have callback', (done)-&gt;
+        it &#39;have callback&#39;, (done)-&gt;
           expect(1).to.be.ok()
           done()
 </code></pre></noscript></div>
@@ -103,7 +104,7 @@ run</p>
 <h2>Global delegation</h2>
 
 <p>One of the problem is the format of syntax.
-Because I want to write syntax without extra <code>this</code> keyword, so instead of calling the test block with 'call',
+Because I want to write syntax without extra <code>this</code> keyword, so instead of calling the test block with &lsquo;call&rsquo;,
 I have to declare test syntax globally.</p>
 
 <pre><code>#Instead this
@@ -125,7 +126,7 @@ describe "syntax", -&gt;
   it "have no this keyword", -&gt;
 </code></pre>
 
-<p>But there's 2 problem of declaring global, one is the confrontation of global keywords, which is a tradeoff for simpler syntax.
+<p>But there&rsquo;s 2 problem of declaring global, one is the confrontation of global keywords, which is a tradeoff for simpler syntax.
 Another problem is when implementing nested block, test need to be delegated into right suite.
 Using a stack to track the current suite can solve this problem.</p>
 
@@ -179,16 +180,17 @@ It will detect the function param, if there is a specific callback param in func
 <h2>Source</h2>
 
 <p><div><script src='https://gist.github.com/4033566.js?file=minispec.coffee'></script>
-<noscript><pre><code>{EventEmitter} = require 'events'
-async = require 'async'
+<script type="text/javascript">$(".gist-file table tr td.line-numbers").remove();</script>
+<noscript><pre><code>{EventEmitter} = require &#39;events&#39;
+async = require &#39;async&#39;
 
 #utils
-color = (code)-&gt; (text = &quot;&quot;)-&gt; code + text + '\u001b[0m'
-red = color('\u001b[31m')
-green = color('\u001b[32m')
-yellow = color('\u001b[33m')
-pluralize = (count, noun)-&gt; if count &gt; 1 then noun + 's' else noun
-indent = (level)-&gt; ('  ' for i in [0...level]).join('')
+color = (code)-&gt; (text = &quot;&quot;)-&gt; code + text + &#39;\u001b[0m&#39;
+red = color(&#39;\u001b[31m&#39;)
+green = color(&#39;\u001b[32m&#39;)
+yellow = color(&#39;\u001b[33m&#39;)
+pluralize = (count, noun)-&gt; if count &gt; 1 then noun + &#39;s&#39; else noun
+indent = (level)-&gt; (&#39;  &#39; for i in [0...level]).join(&#39;&#39;)
 
 class Suite extends EventEmitter
   constructor: (@title, @parent)-&gt;
@@ -198,15 +200,15 @@ class Suite extends EventEmitter
     @parent?.childs.push @
     @level = @parent?.level + 1 or 0
 
-    @on 'start', =&gt; @report yellow @title
-    @delegate ['before', 'after'] if @parent?
-    @on 'result', (test, err)=&gt;
+    @on &#39;start&#39;, =&gt; @report yellow @title
+    @delegate [&#39;before&#39;, &#39;after&#39;] if @parent?
+    @on &#39;result&#39;, (test, err)=&gt;
       if err?
         @errors += 1
         @report red &quot;  ✗ #{test.title} (#{err})&quot;
       else
         @report green &quot;  ✓ #{test.title}&quot;
-    @on 'end', =&gt;
+    @on &#39;end&#39;, =&gt;
       count = @tests.length
       errors = @errors
 
@@ -217,7 +219,7 @@ class Suite extends EventEmitter
           reduce suite.childs if suite.childs?
       )(@childs)
 
-      console.log yellow &quot;run #{count} #{pluralize(count, 'test') } , #{count - errors} success, #{errors} failed&quot;
+      console.log yellow &quot;run #{count} #{pluralize(count, &#39;test&#39;) } , #{count - errors} success, #{errors} failed&quot;
 
   delegate: (events)-&gt;
     events.forEach (event)=&gt;
@@ -226,26 +228,26 @@ class Suite extends EventEmitter
   report: (text)-&gt; console.log indent(@level) + text
 
   run: -&gt;
-    @emit 'start'
+    @emit &#39;start&#39;
     async.forEachSeries @tests, (test, next)=&gt;
       callback = =&gt;
-        @emit('after')
-        @emit('result', test)
+        @emit(&#39;after&#39;)
+        @emit(&#39;result&#39;, test)
         next()
 
       try
-        @emit('before')
+        @emit(&#39;before&#39;)
         if test.isAsync
           test.fn callback
         else
           test.fn()
           callback()
       catch err
-        @emit('result', test, err)
+        @emit(&#39;result&#39;, test, err)
         next()
     , =&gt;
       @childs.forEach (spec)-&gt; spec.run()
-      @emit 'end' unless @parent?
+      @emit &#39;end&#39; unless @parent?
 
 class Runner
   constructor: (context)-&gt;
@@ -253,9 +255,9 @@ class Runner
     context.it = (desc, fn)-&gt;
       suites[0].tests.push title: desc, fn: fn, isAsync: !!fn.length
     context.before = (fn)-&gt;
-      suites[0].on 'before', fn
+      suites[0].on &#39;before&#39;, fn
     context.after = (fn)-&gt;
-      suites[0].on 'after', fn
+      suites[0].on &#39;after&#39;, fn
     context.describe = (title, block)-&gt;
       suite = new Suite(title, suites[0])
       suites.unshift(suite)
@@ -269,7 +271,7 @@ new Runner(global or window)
 
 <h2>Summary</h2>
 
-<p>Credit to VisionMedia's <a href="https://github.com/visionmedia/mocha">mocha</a> framework, lots of solution is comming from there.</p>
+<p>Credit to VisionMedia&rsquo;s <a href="https://github.com/visionmedia/mocha">mocha</a> framework, lots of solution is comming from there.</p>
 
 <p>But still this is an intersting small project to do in the storm days.</p>
 

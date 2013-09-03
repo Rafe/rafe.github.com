@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Odyssey | Neethack]]></title>
   <link href="http://neethack.com/categories/odyssey/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-04-23T00:47:20-04:00</updated>
+  <updated>2013-09-03T00:13:04-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -25,7 +25,7 @@ and explain the structure and interesting pieces that I found in the source.</p>
 <h2><a href="http://www.sinatrarb.com">Sinatra</a></h2>
 
 <p><a href="http://www.sinatrarb.com">Sinatra</a> is a rack-base , lightweight web framework implemented in ruby.
-Written and desinged by <a href="https://github.com/bmizerany">Blake Mizerany</a>. Famous for it's dsl syntax and simpliness.</p>
+Written and desinged by <a href="https://github.com/bmizerany">Blake Mizerany</a>. Famous for it&rsquo;s dsl syntax and simpliness.</p>
 
 <!--more-->
 
@@ -53,7 +53,7 @@ Gemfile.gem
 
 <p>2.Helper Module :
   Helper methods that available in routes, filters and views ,
-  handle tasks like redirect, status code, url, html header, session, mime type, http stearming... etc</p>
+  handle tasks like redirect, status code, url, html header, session, mime type, http stearming&hellip; etc</p>
 
 <p>3.Template Module :
   Handle multiple template engines using <a href="https://github.com/rtomayko/tilt">tilt</a></p>
@@ -98,20 +98,20 @@ Which is pretty clean and easy to understand:</p>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;h1&gt;external dependencies&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="nb">require</span> <span class="s1">&#39;rack&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;tilt&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;rack/protection&quot;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="nb">require</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">rack</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span>
+</span><span class='line'><span class="nb">require</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">tilt</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span>
+</span><span class='line'><span class="nb">require</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">rack</span><span class="o">/</span><span class="n">protection</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;h1&gt;stdlib dependencies&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="nb">require</span> <span class="s1">&#39;thread&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;time&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;uri&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="nb">require</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">thread</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span>
+</span><span class='line'><span class="nb">require</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">time</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span>
+</span><span class='line'><span class="nb">require</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">uri</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;h1&gt;other files we need&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="nb">require</span> <span class="s1">&#39;sinatra/showexceptions&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra/version&#39;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="nb">require</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">sinatra</span><span class="o">/</span><span class="n">showexceptions</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span>
+</span><span class='line'><span class="nb">require</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">sinatra</span><span class="o">/</span><span class="n">version</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>Delegator</h2>
@@ -132,14 +132,14 @@ For example:</p>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;h1&gt;myapp.rb&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="nb">require</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">sinatra</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;get &#39;/</span><span class="s1">&#39; do</span>
-</span><span class='line'><span class="s1">  &#39;</span><span class="no">Hello</span> <span class="n">world!</span><span class="err">&#39;</span>
+</span><span class='line'><span class="sr">&lt;p&gt;get &amp;lsquo;/</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="no">Hello</span> <span class="n">world!</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Execute this file will run Sinatra application handle route "/" with GET request.
+<p>Execute this file will run Sinatra application handle route &ldquo;/&rdquo; with GET request.
 But how do Sinatra do this?</p>
 
 <p>Take a look at the source of Delegator:
@@ -265,17 +265,17 @@ But how do Sinatra do this?</p>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="kp">include</span> <span class="no">Delegator</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;h1&gt;then we can call &#39;get&#39; method in file and delegate to target&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'><span class="sr">&lt;h1&gt;then we can call &amp;lsquo;get&amp;rsquo; method in file and delegate to target&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="s2">&quot;Hello delegator!!&quot;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">get</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="o">/&amp;</span><span class="n">rsquo</span><span class="p">;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="no">Hello</span> <span class="n">delegator!</span><span class="o">!&amp;</span><span class="n">rdquo</span><span class="p">;</span>
 </span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;p&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>But how would we do if we have lots of method to delegate? In Sinatra, it has lots of methods and Http verbs to be delegated. The code will be pretty ugly if we have to implement all these repeated methods.
-The answer here is metaprogramming: We can use ruby's ability of metaprogramming to create repeated methods in a few lines of code:</p>
+The answer here is metaprogramming: We can use ruby&rsquo;s ability of metaprogramming to create repeated methods in a few lines of code:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -317,7 +317,7 @@ The answer here is metaprogramming: We can use ruby's ability of metaprogramming
 </span><span class='line'><span class="sr">&lt;p&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>In ruby, we can use "define_method" to create method programmically, and use "send(method_name, *args, &amp;block)" To call the target method by the method_name. This makes the code a lot cleaner in Sinatra</p>
+<p>In ruby, we can use &ldquo;define_method&rdquo; to create method programmically, and use &ldquo;send(method_name, *args, &amp;block)&rdquo; To call the target method by the method_name. This makes the code a lot cleaner in Sinatra</p>
 
 <h2>Routes</h2>
 
@@ -326,9 +326,9 @@ the HTTP verbs ,path and code block will be registered in application,
 And will be executed when receiving matched request.</p>
 
 <p>When the dsl method get called, the Application will generate a Proc with the name of
-HttpVerb and path (like "get /") save the Proc, url path (include the keys, pattern and conditions on paths, like "/:id" ) in @routes.</p>
+HttpVerb and path (like &ldquo;get /&rdquo;) save the Proc, url path (include the keys, pattern and conditions on paths, like &ldquo;/:id&rdquo; ) in @routes.</p>
 
-<p>Here's the simplify version of routes :</p>
+<p>Here&rsquo;s the simplify version of routes :</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -413,15 +413,15 @@ HttpVerb and path (like "get /") save the Proc, url path (include the keys, patt
 </span><span class='line'><span class="sr">&lt;p&gt;  end</span>
 </span><span class='line'><span class="sr">end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="no">App</span><span class="o">.</span><span class="n">get</span> <span class="s2">&quot;/&quot;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="s2">&quot;Hello world&quot;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="no">App</span><span class="o">.</span><span class="n">get</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">/&amp;</span><span class="n">rdquo</span><span class="p">;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="no">Hello</span> <span class="n">world</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span>
 </span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;p&gt;base = App.new&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="no">App</span><span class="o">.</span><span class="n">routes</span><span class="o">[</span><span class="s2">&quot;GET&quot;</span><span class="o">][</span><span class="mi">0</span><span class="o">][</span><span class="mi">1</span><span class="o">].</span><span class="n">call</span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="no">App</span><span class="o">.</span><span class="n">routes</span><span class="o">[&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="no">GET</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">][</span><span class="mi">0</span><span class="o">][</span><span class="mi">1</span><span class="o">].</span><span class="n">call</span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;h1&gt;print:: &quot;Hello world&quot;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'><span class="sr">&lt;h1&gt;print:: &amp;ldquo;Hello world&amp;rdquo;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
@@ -484,11 +484,11 @@ The entry point of all request is the <a href="http://chneukirchen.org/blog/arch
 </span><span class='line'>  <span class="n">template_cache</span><span class="o">.</span><span class="n">clear</span> <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">reload_templates</span>
 </span><span class='line'>  <span class="n">force_encoding</span><span class="p">(</span><span class="vi">@params</span><span class="p">)</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;  @response[&#39;Content-Type&#39;] = nil</span>
+</span><span class='line'><span class="sr">&lt;p&gt;  @response[&amp;lsquo;Content-Type&amp;rsquo;] = nil</span>
 </span><span class='line'><span class="sr">  invoke { dispatch!}</span>
 </span><span class='line'><span class="sr">  invoke { error_block!(response.status) }&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">unless</span> <span class="vi">@response</span><span class="o">[</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">]&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">unless</span> <span class="vi">@response</span><span class="o">[&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="no">Content</span><span class="o">-</span><span class="no">Type</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span><span class="o">]&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;if Array === body and body[0].respond_to? :content_type</span>
 </span><span class='line'><span class="sr">  content_type body[0].content_type</span>
@@ -510,7 +510,7 @@ First, as a Rack application, all request will invoke the call(env) function
 Sinatra application will duplicate an instance, invoke the call!(env) on new instance (because HTTP is stateless)
 in the call! function, sinatra will new the Rack::Request and Rack::Response object by env, than set the params.</p>
 
-<p>After all object is set, it will start to invoke the routes by "invoke{ dispatch! }", the result will be store
+<p>After all object is set, it will start to invoke the routes by &ldquo;invoke{ dispatch! }&rdquo;, the result will be store
 on @response, and return to user by call the @response.finish</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>base.rb </span></figcaption>
@@ -530,7 +530,7 @@ on @response, and return to user by call the @response.finish</p>
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'>  <span class="c1"># Run the block with &#39;throw :halt&#39; support and apply result to the response.</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'>  <span class="c1"># Run the block with &amp;lsquo;throw :halt&amp;rsquo; support and apply result to the response.</span>
 </span><span class='line'>  <span class="k">def</span> <span class="nf">invoke</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;res = catch(:halt) { yield }</span>
@@ -598,7 +598,7 @@ end
 </span><span class='line'><span class="sr">rescue ::Exception =&gt; boom</span>
 </span><span class='line'><span class="sr">  invoke { handle_exception!(boom) }</span>
 </span><span class='line'><span class="sr">ensure</span>
-</span><span class='line'><span class="sr">  filter! :after unless env[&#39;sinatra.static_file&#39;]</span>
+</span><span class='line'><span class="sr">  filter! :after unless env[&amp;lsquo;sinatra.static_file&amp;rsquo;]</span>
 </span><span class='line'><span class="sr">end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>
@@ -683,7 +683,7 @@ than set the result to @response.</p>
 
 <h2>Template</h2>
 
-<p>Sinatra is compatible with a lots of different templates, from erb, haml, markdown to sass, less...
+<p>Sinatra is compatible with a lots of different templates, from erb, haml, markdown to sass, less&hellip;
 almost any kind of templates that you can find, but how do Sinatra handle all of these different format?
 It turns out using <a href="https://github.com/rtomayko/tilt">Tilt</a> gem that includes all kinds of template engines.</p>
 
@@ -711,7 +711,7 @@ It turns out using <a href="https://github.com/rtomayko/tilt">Tilt</a> gem that 
 <span class='line-number'>19</span>
 </pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;require &quot;tilt&quot;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="sr">&lt;p&gt;require &amp;ldquo;tilt&amp;rdquo;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">template</span> <span class="o">=</span> <span class="no">Tilt</span><span class="o">[</span><span class="ss">:erb</span><span class="o">]&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
@@ -719,18 +719,18 @@ It turns out using <a href="https://github.com/rtomayko/tilt">Tilt</a> gem that 
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">pass</span> <span class="n">the</span> <span class="n">file</span> <span class="n">path</span> <span class="ow">or</span> <span class="n">pass</span> <span class="n">content</span> <span class="n">body</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;compiled_template = template.new(&quot;path/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="s2">&quot;) { &quot;</span><span class="n">hello</span> <span class="n">world</span><span class="s2">&quot; }&lt;/p&gt;</span>
+</span><span class='line'><span class="sr">&lt;p&gt;compiled_template = template.new(&amp;ldquo;path/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;)</span> <span class="p">{</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">hello</span> <span class="n">world</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span> <span class="p">}</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="s2">&lt;h1&gt;=&gt; &amp;lt;Tilt::ErubisTemplate: ... @path=&quot;</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="s2">&quot; @data = &quot;</span><span class="n">hello</span> <span class="n">world</span><span class="s2">&quot;&gt;&lt;/h1&gt;</span>
+</span><span class='line'><span class="sr">&lt;h1&gt;=&gt; &amp;lt;Tilt::ErubisTemplate: &amp;hellip; @path=&amp;ldquo;path/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span> <span class="vi">@data</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">hello</span> <span class="n">world</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&gt;&lt;</span><span class="sr">/h1&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="s2">&lt;p&gt;compiled_template.render()&lt;/p&gt;</span>
+</span><span class='line'><span class="sr">&lt;p&gt;compiled_template.render()&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="s2">&lt;h1&gt;=&gt; &quot;</span><span class="n">hello</span> <span class="n">world</span><span class="s2">&quot;&lt;/h1&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;=&gt;</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">hello</span> <span class="n">world</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="s2">&lt;p&gt;</span>
+</span><span class='line'><span class="sr">&lt;p&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>In application, we can call "erb" method to render erb template:</p>
+<p>In application, we can call &ldquo;erb&rdquo; method to render erb template:</p>
 
 <pre><code>get "/" do
   #render erb template in views/index.html.erb
@@ -820,11 +820,11 @@ end
 </span><span class='line'><span class="sr">  render :erb, template, options, locals</span>
 </span><span class='line'><span class="sr">end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;.</span><span class="n">.</span><span class="o">.</span><span class="n">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&amp;</span><span class="n">hellip</span><span class="p">;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;p&gt;def render(engine, data, options={}, locals={}, &amp;amp;block)</span>
 </span><span class='line'><span class="sr">  # merge app-level options</span>
-</span><span class='line'><span class="sr">  ...&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="sr">  &amp;hellip;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="c1"># compile and render template</span>
 </span><span class='line'>  <span class="k">begin</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
@@ -843,7 +843,7 @@ end
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;p&gt;  # render layout</span>
-</span><span class='line'><span class="sr">  ...&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="sr">  &amp;hellip;&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="n">output</span>
 </span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
@@ -894,7 +894,7 @@ and render method compile the template and return output, than output will be ca
 and set to @response.</p>
 
 <p>In compile_template, the Tilt engine will be called and return correct Tilt::Template instance.
-here's the digest version:</p>
+here&rsquo;s the digest version:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>base.rb </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1019,7 +1019,7 @@ For doing that, it use the EventMachine.defer , EventMachine.schedule to create 
 </span><span class='line'><span class="sr">&lt;h1&gt;servers like Thin or Rainbows.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="n">keep_open</span> <span class="o">=</span> <span class="kp">false</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">scheduler</span> <span class="o">=</span> <span class="n">env</span><span class="o">[</span><span class="s1">&#39;async.callback&#39;</span><span class="o">]</span> <span class="p">?</span> <span class="no">EventMachine</span> <span class="p">:</span> <span class="no">Stream</span>
+</span><span class='line'>  <span class="n">scheduler</span> <span class="o">=</span> <span class="n">env</span><span class="o">[&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">async</span><span class="o">.</span><span class="n">callback</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span><span class="o">]</span> <span class="p">?</span> <span class="no">EventMachine</span> <span class="p">:</span> <span class="no">Stream</span>
 </span><span class='line'>  <span class="n">current</span>   <span class="o">=</span> <span class="vi">@params</span><span class="o">.</span><span class="n">dup</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;p&gt;  block     = proc do |out|&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
@@ -1035,7 +1035,7 @@ For doing that, it use the EventMachine.defer , EventMachine.schedule to create 
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;p&gt;  out = Stream.new(scheduler, keep_open, &amp;amp;block)</span>
-</span><span class='line'><span class="sr">  ...</span>
+</span><span class='line'><span class="sr">  &amp;hellip;</span>
 </span><span class='line'><span class="sr">  body out</span>
 </span><span class='line'><span class="sr">end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
@@ -1088,7 +1088,7 @@ and body helper will send stream to Rack::Response.</p>
 </pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;p&gt;class Stream</span>
-</span><span class='line'><span class="sr">  ...</span>
+</span><span class='line'><span class="sr">  &amp;hellip;</span>
 </span><span class='line'><span class="sr">  def initialize(scheduler = self.class, keep_open = false, &amp;amp;back)&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="vi">@back</span><span class="p">,</span> <span class="vi">@scheduler</span><span class="p">,</span> <span class="vi">@keep_open</span> <span class="o">=</span> <span class="n">back</span><span class="o">.</span><span class="n">to_proc</span><span class="p">,</span> <span class="n">scheduler</span><span class="p">,</span> <span class="n">keep_open</span>
@@ -1096,7 +1096,7 @@ and body helper will send stream to Rack::Response.</p>
 </span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span>
-</span><span class='line'>  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>  <span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span>
 </span><span class='line'>  <span class="k">def</span> <span class="nf">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">front</span><span class="p">)</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;@front = front</span>
@@ -1119,20 +1119,20 @@ and body helper will send stream to Rack::Response.</p>
 </span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;p&gt;  end</span>
-</span><span class='line'><span class="sr">  ...</span>
+</span><span class='line'><span class="sr">  &amp;hellip;</span>
 </span><span class='line'><span class="sr">end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>According to Rack interface, the response body need to respond to "each" method.
+<p>According to Rack interface, the response body need to respond to &ldquo;each&rdquo; method.
 The each method will be called with &amp;front block, which can sent result to user.
 Stream class use the EventMachine.schedule to call codeblock asynchronizly,
 and the &lt;&lt; method will sent data to @front with EventMachine.schedule.</p>
 
 <h2>Configure</h2>
 
-<p>In sinatra, we can set configuration by "set" or "configure" method.</p>
+<p>In sinatra, we can set configuration by &ldquo;set&rdquo; or &ldquo;configure&rdquo; method.</p>
 
 <pre><code>set :server , :thin 
 
@@ -1204,12 +1204,12 @@ end
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">the</span> <span class="nb">proc</span> <span class="n">will</span> <span class="n">be</span> <span class="n">called</span> <span class="n">every</span> <span class="n">time</span> <span class="n">the</span> <span class="n">option</span> <span class="n">is</span> <span class="n">accessed</span><span class="o">.</span><span class="n">&lt;</span><span class="sr">/h1&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;p&gt;def self.set(option, value = (not_set = true), ignore_setter = false, &amp;amp;block)</span>
-</span><span class='line'><span class="sr">  ...</span>
+</span><span class='line'><span class="sr">  &amp;hellip;</span>
 </span><span class='line'><span class="sr">  setter = proc { |val| set option, val, true }</span>
 </span><span class='line'><span class="sr">  getter = proc { value }&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">case</span> <span class="n">value</span>
-</span><span class='line'>  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>  <span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span>
 </span><span class='line'>  <span class="k">when</span> <span class="no">Symbol</span><span class="p">,</span> <span class="no">Fixnum</span><span class="p">,</span> <span class="no">FalseClass</span><span class="p">,</span> <span class="no">TrueClass</span><span class="p">,</span> <span class="no">NilClass</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;# we have a lot of enable and disable calls, let&#39;s optimize those</span>
@@ -1217,7 +1217,7 @@ end
 </span><span class='line'><span class="sr">getter = nil</span>
 </span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="sr">&lt;p&gt;  ...</span>
+</span><span class='line'><span class="sr">&lt;p&gt;  &amp;hellip;</span>
 </span><span class='line'><span class="sr">  end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="p">(</span><span class="k">class</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="nb">self</span><span class="p">;</span> <span class="nb">self</span><span class="p">;</span> <span class="k">end</span><span class="p">)</span><span class="o">.</span><span class="n">class_eval</span> <span class="k">do</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
@@ -1238,11 +1238,11 @@ end
 
 <h2>Conclusion</h2>
 
-<p>Sinatra is a very simple and delegate web framework. It takes lots of advantage on ruby's metaprogramming feature
-to make code more digest and clean. Also with decent features support.(Template, Streaming, Filter, Route...)</p>
+<p>Sinatra is a very simple and delegate web framework. It takes lots of advantage on ruby&rsquo;s metaprogramming feature
+to make code more digest and clean. Also with decent features support.(Template, Streaming, Filter, Route&hellip;)</p>
 
 <p>The dsl syntax and delegator makes learning Sinatra application become very easy.
-It will be great for implement api service or small website when you don't need the heavy stacks like Rails.</p>
+It will be great for implement api service or small website when you don&rsquo;t need the heavy stacks like Rails.</p>
 ]]></content>
   </entry>
   

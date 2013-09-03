@@ -37,8 +37,4 @@ module Jekyll
   end
 end
 
-<<<<<<< HEAD
 Liquid::Template.register_tag('jsfiddle', Jekyll::JsFiddle)
-=======
-Liquid::Template.register_tag('jsfiddle', Jekyll::JsFiddle)
->>>>>>> 3e1707d289b557d794bfaacbb6682a008223d4c9

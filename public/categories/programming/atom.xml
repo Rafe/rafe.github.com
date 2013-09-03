@@ -4,7 +4,7 @@
   <title><![CDATA[Category: programming | Neethack]]></title>
   <link href="http://neethack.com/categories/programming/atom.xml" rel="self"/>
   <link href="http://neethack.com/"/>
-  <updated>2013-04-23T00:47:20-04:00</updated>
+  <updated>2013-09-03T00:13:04-04:00</updated>
   <id>http://neethack.com/</id>
   <author>
     <name><![CDATA[Jimmy Chao]]></name>
@@ -18,9 +18,9 @@
     <link href="http://neethack.com/2012/09/twelve-factors-app/"/>
     <updated>2012-09-11T12:33:00-04:00</updated>
     <id>http://neethack.com/2012/09/twelve-factors-app</id>
-    <content type="html"><![CDATA[<p>The Twelve Factors App is a methodology that a web application should follow to be able to easily deploy and scale on today's SAAS platform like Heroku. This methodolgy is announced by the Heroku Founder Adam Wiggins. The content is the based on their experience of deploying millions of applications.</p>
+    <content type="html"><![CDATA[<p>The Twelve Factors App is a methodology that a web application should follow to be able to easily deploy and scale on today&rsquo;s SAAS platform like Heroku. This methodolgy is announced by the Heroku Founder Adam Wiggins. The content is the based on their experience of deploying millions of applications.</p>
 
-<p>When I first saw this declaration, I just feel that this might be extract from rails and herokus best practices, but actually this declaration is more then practices but a methodology to improve the maintainbility and scalability of web application. so I like to share Heroku engineer's slide about 12 factors app:</p>
+<p>When I first saw this declaration, I just feel that this might be extract from rails and herokus best practices, but actually this declaration is more then practices but a methodology to improve the maintainbility and scalability of web application. so I like to share Heroku engineer&rsquo;s slide about 12 factors app:</p>
 
 <!-- more -->
 
@@ -97,7 +97,7 @@
 
 <h2>Usage</h2>
 
-<p>Here's the hello world sample of express. It assign a callback for get request on root '/', and start the server to listen port 3000. More example can be found on <a href="https://github.com/visionmedia/express/tree/master/examples">express/examples</a> and <a href="http://expressjs.com">Documentation of express</a>.</p>
+<p>Here&rsquo;s the hello world sample of express. It assign a callback for get request on root &lsquo;/&rsquo;, and start the server to listen port 3000. More example can be found on <a href="https://github.com/visionmedia/express/tree/master/examples">express/examples</a> and <a href="http://expressjs.com">Documentation of express</a>.</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -115,16 +115,16 @@
 <span class='line-number'>14</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">express</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
-</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="err">/&amp;rsquo;, function(req, res){</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Hello</span> <span class="nx">World</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
 </span><span class='line'><span class="p">});</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Express started on port 3000&#39;</span><span class="p">);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Express</span> <span class="nx">started</span> <span class="nx">on</span> <span class="nx">port</span> <span class="mi">3000</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
@@ -160,18 +160,18 @@
 </span><span class='line'>  <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="c1">// default settings</span>
-</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">||</span> <span class="s1">&#39;development&#39;</span><span class="p">);</span>
-</span><span class='line'>  <span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;booting in %s mode&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;env&#39;</span><span class="p">));</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">env</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">||</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">development</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span><span class='line'>  <span class="nx">debug</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">booting</span> <span class="k">in</span> <span class="o">%</span><span class="nx">s</span> <span class="nx">mode</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">env</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;));</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="c1">// implicit middleware</span>
 </span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">connect</span><span class="p">.</span><span class="nx">query</span><span class="p">());</span>
 </span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">middleware</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="k">this</span><span class="p">));</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">...</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="o">&amp;</span><span class="nx">hellip</span><span class="p">;</span>
 </span><span class='line'>  <span class="c1">// router</span>
 </span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Router</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 </span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">routes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/em&gt;router.map;</span>
-</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'>  <span class="o">&amp;</span><span class="nx">hellip</span><span class="p">;</span>
 </span><span class='line'><span class="p">};</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
@@ -239,21 +239,21 @@ We can see that it return a method that parse the req.url with qs.parse function
 <span class='line-number'>19</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">express</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
-</span><span class='line'>  <span class="nx">req</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s1">&#39;Hello world&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">req</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Hello</span> <span class="nx">world</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;;</span>
 </span><span class='line'>  <span class="nx">next</span><span class="p">();</span>
 </span><span class='line'><span class="p">});</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="err">/&amp;rsquo;, function(req, res){</span>
 </span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
 </span><span class='line'><span class="p">});</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Express started on port 3000&#39;</span><span class="p">);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Express</span> <span class="nx">started</span> <span class="nx">on</span> <span class="nx">port</span> <span class="mi">3000</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
@@ -272,8 +272,8 @@ We can see that it return a method that parse the req.url with qs.parse function
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
-</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">flash</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">flash</span> <span class="o">||</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">flash</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">flash</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">flash</span> <span class="o">||</span> <span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;;</span>
+</span><span class='line'>  <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">flash</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;;</span>
 </span><span class='line'>  <span class="nx">next</span><span class="p">();</span>
 </span><span class='line'><span class="p">});</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
@@ -303,7 +303,7 @@ We can see that it return a method that parse the req.url with qs.parse function
 <span class='line-number'>19</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">param</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">,</span> <span class="nx">id</span><span class="p">){</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">param</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">user_id</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">,</span> <span class="nx">id</span><span class="p">){</span>
 </span><span class='line'>  <span class="nx">User</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">user</span><span class="p">){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
@@ -322,7 +322,7 @@ We can see that it return a method that parse the req.url with qs.parse function
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Will be invoked when route params have 'user_id':</p>
+<p>Will be invoked when route params have &lsquo;user_id&rsquo;:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -333,8 +333,8 @@ We can see that it return a method that parse the req.url with qs.parse function
 <span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:user_id&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
-</span><span class='line'>  <span class="nx">send</span><span class="p">(</span><span class="s1">&#39;User name is&#39;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span> <span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="err">/:user_id&amp;rsquo;, function(req, res){</span>
+</span><span class='line'>  <span class="nx">send</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">User</span> <span class="nx">name</span> <span class="nx">is</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span> <span class="p">);</span>
 </span><span class='line'><span class="p">});</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
@@ -366,10 +366,10 @@ We can see that it return a method that parse the req.url with qs.parse function
 <span class='line-number'>20</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">connect</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;connect&#39;</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">,</span> <span class="nx">proto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./application&#39;</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">,</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./request&#39;</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">,</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./response&#39;</span><span class="p">)</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">connect</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">connect</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span>
+</span><span class='line'>  <span class="p">,</span> <span class="nx">proto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;.</span><span class="o">/</span><span class="nx">application</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span>
+</span><span class='line'>  <span class="p">,</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;.</span><span class="o">/</span><span class="nx">request</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span>
+</span><span class='line'>  <span class="p">,</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;.</span><span class="o">/</span><span class="nx">response</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="err">…</span>
 </span><span class='line'><span class="err">…</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
@@ -439,7 +439,7 @@ We can see that it return a method that parse the req.url with qs.parse function
 </span><span class='line'> <span class="o">*</span>
 </span><span class='line'> <span class="o">*</span> <span class="err">@</span><span class="nx">param</span> <span class="p">{</span><span class="nb">String</span><span class="p">}</span> <span class="nx">method</span>
 </span><span class='line'> <span class="o">*</span> <span class="err">@</span><span class="nx">param</span> <span class="p">{</span><span class="nb">String</span><span class="p">}</span> <span class="nx">path</span>
-</span><span class='line'> <span class="o">*</span> <span class="err">@</span><span class="nx">param</span> <span class="p">{</span><span class="nb">Function</span><span class="p">}</span> <span class="nx">callback</span><span class="p">...</span>
+</span><span class='line'> <span class="o">*</span> <span class="err">@</span><span class="nx">param</span> <span class="p">{</span><span class="nb">Function</span><span class="p">}</span> <span class="nx">callback</span><span class="o">&amp;</span><span class="nx">hellip</span><span class="p">;</span>
 </span><span class='line'> <span class="o">*</span> <span class="err">@</span><span class="k">return</span> <span class="p">{</span><span class="nx">Router</span><span class="p">}</span> <span class="k">for</span> <span class="nx">chaining</span>
 </span><span class='line'> <span class="o">*</span> <span class="err">@</span><span class="nx">api</span> <span class="kr">private</span>
 </span><span class='line'> <span class="o">&lt;</span><span class="sr">/em&gt;/</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
@@ -451,10 +451,10 @@ We can see that it return a method that parse the req.url with qs.parse function
 </span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="c1">// ensure path was given</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">path</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Router#&#39;</span> <span class="o">+</span> <span class="nx">method</span> <span class="o">+</span> <span class="s1">&#39;() requires a path&#39;</span><span class="p">);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">path</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Router</span><span class="err">#</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span> <span class="o">+</span> <span class="nx">method</span> <span class="o">+</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;()</span> <span class="nx">requires</span> <span class="nx">a</span> <span class="nx">path</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="c1">// create the route</span>
-</span><span class='line'>  <span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;defined %s %s&#39;</span><span class="p">,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">path</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">debug</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">defined</span> <span class="o">%</span><span class="nx">s</span> <span class="o">%</span><span class="nx">s</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">path</span><span class="p">);</span>
 </span><span class='line'>  <span class="kd">var</span> <span class="nx">route</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">(</span><span class="nx">method</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">callbacks</span><span class="p">,</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span>  <span class="nx">sensitive</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">caseSensitive</span>
@@ -471,7 +471,7 @@ We can see that it return a method that parse the req.url with qs.parse function
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>The route function take the Http method (like 'get'), path and callback. normalize them and create Route object. add to the <strong>map[method]</strong> array in Router.</p>
+<p>The route function take the Http method (like &lsquo;get&rsquo;), path and callback. normalize them and create Route object. add to the <strong>map[method]</strong> array in Router.</p>
 
 <p>Also, it use the meta programming skill to generate public helper for user, so we can call the <strong>app.get</strong> or <strong>app.post</strong> method to assign route.</p>
 
@@ -497,7 +497,7 @@ We can see that it return a method that parse the req.url with qs.parse function
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
 <span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">methods</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;methods&#39;</span><span class="p">)</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">methods</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">methods</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="err">…</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
@@ -538,7 +538,7 @@ We can see that it return a method that parse the req.url with qs.parse function
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;.middleware&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">describe</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;.</span><span class="nx">middleware</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="kd">function</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should dispatch&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">){</span>
 </span><span class='line'>  <span class="nx">router</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="s1">&#39;/foo&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
@@ -630,7 +630,7 @@ it call the <strong>route.matchRequest</strong> method to get the matched route,
 </span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
 </span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;dispatching %s %s (%s)&#39;</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">originalUrl</span><span class="p">);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="nx">debug</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">dispatching</span> <span class="o">%</span><span class="nx">s</span> <span class="o">%</span><span class="nx">s</span> <span class="p">(</span><span class="o">%</span><span class="nx">s</span><span class="p">)</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">originalUrl</span><span class="p">);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="c1">// route dispatch</span>
 </span><span class='line'>  <span class="p">(</span><span class="kd">function</span> <span class="nx">pass</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">err</span><span class="p">){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
@@ -691,7 +691,7 @@ it call the <strong>route.matchRequest</strong> method to get the matched route,
 
 <p>Request and Response object in express is inheritate http.IncomingMessage and http.ServerResponse from node. Request provide helpers for http header, content-type, URL and param parsing.</p>
 
-<p>Response is providing helpers for status and results too. Also provide the send function from 'response-send' module. Which detect response type and set corresponding content-type.</p>
+<p>Response is providing helpers for status and results too. Also provide the send function from &lsquo;response-send&rsquo; module. Which detect response type and set corresponding content-type.</p>
 
 <h2>View</h2>
 
@@ -727,7 +727,7 @@ it call the <strong>route.matchRequest</strong> method to get the matched route,
 </span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">exists</span><span class="p">(</span><span class="nx">path</span><span class="p">))</span> <span class="k">return</span> <span class="nx">path</span><span class="p">;</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="c1">// &lt;path&gt;/index.&lt;engine&gt;</span>
-</span><span class='line'>  <span class="nx">path</span> <span class="o">=</span> <span class="nx">join</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">),</span> <span class="nx">basename</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="nx">ext</span><span class="p">),</span> <span class="s1">&#39;index&#39;</span> <span class="o">+</span> <span class="nx">ext</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">path</span> <span class="o">=</span> <span class="nx">join</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">),</span> <span class="nx">basename</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="nx">ext</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">index</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span> <span class="o">+</span> <span class="nx">ext</span><span class="p">);</span>
 </span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">exists</span><span class="p">(</span><span class="nx">path</span><span class="p">))</span> <span class="k">return</span> <span class="nx">path</span><span class="p">;</span>
 </span><span class='line'><span class="p">};</span>
 </span><span class='line'><span class="err">…</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
@@ -891,7 +891,7 @@ it call the <strong>route.matchRequest</strong> method to get the matched route,
 
 <p>Express is a lightweight web framework and it is a good entry point to know how to build a web framework in Node.js. Hope this walkthrough can help you understand how express work. And can be more comfortable with new framework like meteor.</p>
 
-<p>Also it is a well styled and documented project, so when you find some problem in developing express application, don't be hesitate to use the source code (luke!) and the Guide of <a href="http://expressjs.com/">Express</a></p>
+<p>Also it is a well styled and documented project, so when you find some problem in developing express application, don&rsquo;t be hesitate to use the source code (luke!) and the Guide of <a href="http://expressjs.com/">Express</a></p>
 ]]></content>
   </entry>
   
