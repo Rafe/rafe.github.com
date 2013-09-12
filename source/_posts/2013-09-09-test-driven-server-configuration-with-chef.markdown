@@ -24,13 +24,25 @@ package('git')
 
 {% endcodeblock %}
 
-## Modular configuration by Cookbooks & Berkshelf
+## idempotent
 
-## Testing your infrustrature
+Chef is like unittest/spec for infrustracture
 
-### Chef spec
+## install knife with chef server
 
-### Minitest handler
+## manage and use community cookbooks with Berkshelf
 
-### Serverspec
+## testing recipes with test-kitchen and kitchen-vagrant
 
+## converging your node on AWS
+
+#part2
+
+## Unit test your reciep by Chef spec, foodcritic and strainer
+unit test
+
+## Collect tests from cookbooks and run minitest at end of converge by minitest-handler
+integration test
+
+## Testing your server by serverspec
+functional test
