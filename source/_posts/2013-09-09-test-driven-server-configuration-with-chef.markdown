@@ -7,42 +7,39 @@ categories: ruby, devops
 published: false
 ---
 
-I haven't update my the blog for almost 5 months.
-Part of the reason is because I am switching between Jobs.
-I the new job I am currently working in the devops team. 
-mosting working on chef script and system admin.
-
 ## Chef!
 
 Chef is a system configuration dsl.
 For the software devloper who used to domain specific language,
 chef turns system infrustracture into a software language that can develop and manage by source control
 
-{% codeblock lang:ruby %}
-
-package('git')
-
-{% endcodeblock %}
-
-## idempotent
-
-Chef is like unittest/spec for infrustracture
++ idempotent
++ script replacement
++ unittest
++ integration test
 
 ## install knife with chef server
 
 ## manage and use community cookbooks with Berkshelf
 
-## testing recipes with test-kitchen and kitchen-vagrant
+## build a redis / unicorn and nginx / postgres
 
-## converging your node on AWS
++ write recipes with chef_spec, minitest-handler, test-kitchen and kitchen-vagrant
++ build 3 server cookbook, redis_server, web_server, database_server
++ attach web, redis and database role
++ why not put into role? cookbook is easier to track, version controller and set default value
++ also set roles to binding configuration
 
-#part2
++ use chefspec to unittest cookbook
++ use minispec handler to verified server work
++ use serverspec to verified server works correctlly
 
-## Unit test your reciep by Chef spec, foodcritic and strainer
-unit test
++ use role to connect rails, redis and database server
++ use databag to store server
++ add capistrano spec to deploy
 
-## Collect tests from cookbooks and run minitest at end of converge by minitest-handler
-integration test
+## deploy to amazon ec2!!
 
-## Testing your server by serverspec
-functional test
++ use knife-ec2 to create node
++ follow learnnode instruction
++ run serverspec according to the role
