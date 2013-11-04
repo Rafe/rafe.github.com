@@ -136,12 +136,12 @@ Include the code under library directory, and we can use our new resource and pr
 
 # Resource and Provider (Light version - LWRP)
 
-However, the full class implementation might be too hard for system admin don't have ruby background.
+However, the full class implementation might be too hard for system admins who don't have ruby background.
 So chef provide a resource and provider DSL, called light weight resource provider (LWRP)
 
-Using LWRP, upper code can be rephrase to
-```
+Using LWRP DSL, previous resource and provider can be written as:
 
+```
 # resources/github.rb
 
 action :upload
@@ -169,6 +169,33 @@ action :upload do
   new_resource.updated_by_last_action(true)
 end
 
+```
+
+Basically the DSL use dynamic programming to construct the method and create new resource and provider class.
+Take a look at the attribute method in chef/resource/lwrp_base.rb:
+
+```
+class Chef
+  class Resource
+    class LWRPBase < Resource
+      ...
+      def self.attribute(attr_name, validation_opts={})
+        # Ruby 1.8 doesn't support default arguments to blocks, but we have to
+        # use define_method with a block to capture +validation_opts+.
+        # Workaround this by defining two methods :(
+        class_eval(<<-SHIM, __FILE__, __LINE__)
+          def #{attr_name}(arg=nil)
+            _set_or_return_#{attr_name}(arg)
+          end
+        SHIM
+
+        define_method("_set_or_return_#{attr_name.to_s}".to_sym) do |arg|
+          set_or_return(attr_name.to_sym, arg, validation_opts)
+        end
+      end
+    end
+  end
+end
 ```
 
 # Testing LWRP
