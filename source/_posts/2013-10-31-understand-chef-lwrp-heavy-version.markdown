@@ -6,8 +6,9 @@ comments: true
 categories: ruby, devops
 ---
 
-Recently I am mainly working on devops works, including system admin and chef.
-So I think it would be good to share some experience working with chef:
+Recently I am mainly working on devops things, including system admin and chef.
+We are refactoring our old chef recipe into a more modulize shape with tests,
+So I think it's a good time to share some experience in this refactor:
 
 # Resource and Provider in Chef
 
@@ -36,7 +37,7 @@ Than the provider will take the action in resource, execute the corresponding ac
 which will install nginx package, create nginx config file, start and enable nginx service.
 
 So provider provide the method to achieve the state of resource.
-Take a look at the install action in package provider (simplfied):
+Take a look at the install action in package provider (simplfied for read):
 
 ```
 def action_install
@@ -53,7 +54,7 @@ end
 
 The provider will check current installed version and install package by install_package method,
 install_package method is implemented by different provider like Yum and Rpm.
-Will run command like 'yum install nginx' to install package.
+Will run command like `yum install nginx` to install package.
 
 # Resource and Provider (Heavy ver)
 
@@ -62,9 +63,112 @@ For example like `ruby '2.0.0-p247'` or `nginx_site 'www.example.com'`
 We have two way to implement it. One is using definition, which is like a helper method in chef.
 Other is writing custom resource and provider.
 
-We can create custom resource and provider by include the Chef::Resource and Chef::Provider
+For example, we use custom resorce and provider to upload ssh key to github
+```
 
+github key_name do
+  user github_user['name']
+  password github_user['password']
+  public_key key
+  action :upload
+end
+
+```
+
+We can create custom resource and provider by inherit the Chef::Resource and Chef::Provider:
+
+```
+class Chef
+  class Resource
+    class Github < Chef::Resource
+      identity_attr :name
+
+      def initialize(name, run_context=nil)
+        super
+        @resource_name = :github
+        @provider = Chef::Provider::Github
+        @action = 'upload'
+        @allowed_actions.push(:upload)
+        @name = name
+        @returns = 0
+      end
+
+      def user(arg=nil)
+        set_or_return(:user, arg, :kind_of => [String])
+      end
+
+      def password(arg=nil)
+        set_or_return(:password, arg, :kind_of => [String])
+      end
+
+      def public_key(arg=nil)
+        set_or_return(:public_key, arg, :kind_of => [String])
+      end
+    end
+  end
+end
+
+class Chef
+  class Provider
+    class Github < Chef::Provider
+      # implement load_current_resource method to set resource before action
+      def load_current_resource
+        @current_resource = Chef::Resource::Github.new(@new_resource.name)
+        @current_resource.name(@new_resource.name)
+        @current_resource.user(@new_resource.user)
+        @current_resource.password(@new_resource.password)
+        @current_resource
+      end
+
+      def action_upload
+        github = ::Github.new({
+          login:@new_resource.user,
+          password:@new_resource.password
+        })
+        github.users.keys.create({ title: title, key: public_key_content })
+        new_resource.updated_by_last_action(true)
+      end
+  end
+end
+```
+
+Include the code under library directory, and we can use our new resource and provider!
 
 # Resource and Provider (Light version - LWRP)
+
+However, the full class implementation might be too hard for system admin don't have ruby background.
+So chef provide a resource and provider DSL, called light weight resource provider (LWRP)
+
+Using LWRP, upper code can be rephrase to
+```
+
+# resources/github.rb
+
+action :upload
+
+attribute :user, :kind_of => String
+attribute :password, :kind_of => String
+attribute :public_key, :kind_of => String
+
+def initialize(*args)
+  super
+  @resource_name = :github
+  @action = :upload
+end
+
+# providers/github.rb
+
+action :upload do
+  title = new_resource.name
+  public_key_content = new_resource.public_key_content
+  github = ::Github.new({
+    login: new_resource.user,
+    password: new_resource.password
+  })
+  github.users.keys.create({ title: title, key: public_key_content })
+  new_resource.updated_by_last_action(true)
+end
+
+```
 
 # Testing LWRP
