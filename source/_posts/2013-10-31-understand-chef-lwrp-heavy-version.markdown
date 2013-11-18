@@ -7,13 +7,13 @@ categories: ruby, devops
 ---
 
 Recently I am mainly working on devops things, including system admin and chef.
-We are refactoring our old chef recipe into a more modulize shape with tests,
-So I think it's a good time to share some experience in this refactor:
+We are refactoring our old chef recipes into a more modulize shape with tests,
+So I think it's a good time to share some experience in this refactor!
 
 # Resource and Provider in Chef
 
 In chef, we use resource to describe the state of our system.
-And cookbook is a series of resources that describe a state of the system.
+And cookbook is a series of resources that describe the state of system.
 
 For example, the cookbook to install nginx on server:
 
@@ -121,6 +121,7 @@ class Chef
       end
 
       def action_upload
+        require 'github'
         github = ::Github.new({
           login:@new_resource.user,
           password:@new_resource.password
@@ -132,7 +133,7 @@ class Chef
 end
 ```
 
-Include the code under library directory, and we can use our new resource and provider!
+Include the code under libraries directory, and we can use our new resource and provider!
 
 # Resource and Provider (Light version - LWRP)
 
@@ -172,30 +173,61 @@ end
 ```
 
 Basically the DSL use dynamic programming to construct the method and create new resource and provider class.
-Take a look at the attribute method in chef/resource/lwrp_base.rb:
+The dsl syntax will generate into full resource and provider code as above heavy version.
+
+# Testing LWRP
+
+The reason we dig into how LWRP generate, is mainly because we want to know how to test LWRP better in our refactor
+We use chefspec to test the logic in our custom resource and provider
 
 ```
-class Chef
-  class Resource
-    class LWRPBase < Resource
-      ...
-      def self.attribute(attr_name, validation_opts={})
-        # Ruby 1.8 doesn't support default arguments to blocks, but we have to
-        # use define_method with a block to capture +validation_opts+.
-        # Workaround this by defining two methods :(
-        class_eval(<<-SHIM, __FILE__, __LINE__)
-          def #{attr_name}(arg=nil)
-            _set_or_return_#{attr_name}(arg)
-          end
-        SHIM
+require 'spec_helper'
 
-        define_method("_set_or_return_#{attr_name.to_s}".to_sym) do |arg|
-          set_or_return(attr_name.to_sym, arg, validation_opts)
-        end
-      end
-    end
+describe Chef::Resource::Github do
+  let(:github_resource) { described_class.new('user_key') }
+  it 'creates new resource with name' do
+    expect(github_resource.name).to eq('user_key')
+  end
+  ...
+end
+
+```
+
+For testing provider part, it's much harder because provider depends on node, resource and run_context
+to be avaliable. However, we can either throw the checspec run context to provider or mock everything,
+we choose to mock them all:
+
+```
+describe Chef::Provider::Github do
+  let(:node) { Chef::Node.new }
+
+  let(:run_context) { double(:run_context, node: node) }
+
+  let(:new_resource) do
+    double(:new_resource, name: 'github_key',
+        user: 'test@test.com',
+        password: 'password',
+        updated_by_last_action: false)
+  end
+
+  let(:provider) do
+    Chef::Provider::Github.new(new_resource, run_context)
+  end
+
+  let(:github) {double(users: { keys: {} } )}
+
+  it 'upload key to github' do
+    allow(Github).to receive(:new)
+      .with({login:'test@test.com',  password:'pass'})
+      .and_return(github)
+
+    expect(github.users.keys).to receive(:create)
+      .with({ title: 'autogen:casecommons@desktop', key: 'my key' })
+      .and_return(true)
+
+    provider.action_upload
   end
 end
 ```
 
-# Testing LWRP
+# Ending: also fix the resource naming
