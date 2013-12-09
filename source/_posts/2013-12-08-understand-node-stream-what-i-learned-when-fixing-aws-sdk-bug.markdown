@@ -62,30 +62,30 @@ For example, when we request a file from internet:
 ```
 var fs = require('fs');
 var request = require('request');
-var buffer = [];
 
 var stream = request('http://i.imgur.com/dmetFjf.jpg');
+var writeStream = fs.createWriteStream('test.jpg')
 
 stream.on('data', function(data) {
-  buffer.push(data)
+  writeStream.write(data)
 });
 
 stream.on('end', fucntion() {
-  fs.writeFile('./testimg.jpg', new Buffer(buffer), function() {
-    console.log('file saved');
-  });
+  writeStream.end();
 });
 
 stream.on('error', function(err) {
   console.log('something is wrong :( ');
+  writeStream.close();
 });
 ```
 
-This will store data to buffer and write out the result to file in the end.
+This will write the data to file when receive the parts of data.
 
 ## Pipe
 
-Pipe is another concept that can let you direct stream input to output
+Pipe is another concept that can let you direct input to output
+Above file download and writing code can be present as pipe:
 
 ```
 
@@ -98,6 +98,9 @@ var writeStream = fs.createWriteStream('./testimg.jpg');
 stream.pipe(writeStream);
 
 ```
+
+Which equal to the code above.
+What pipe function do is, it automatically connect the read and write events between streams.
 
 ## Stream2 (Readable and Writable stream)
 
