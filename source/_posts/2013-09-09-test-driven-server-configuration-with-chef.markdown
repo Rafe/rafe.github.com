@@ -34,7 +34,7 @@ template "/etc/profile.d/ps1.sh" do
   )
 end
 
-{{ endcodeblock }}
+{% endcodeblock %}
 
 In this script, we are calling the chef `template` resource to set a bash configuration file with variables.
 What this resource do is, it will install a erb template `ps1.sh.erb` from cookbook to `/etc/profile.d/ps1.sh` on server.
