@@ -14,6 +14,8 @@ Node.js can process other events when waiting for response, which we called it n
 Stream is an extend of this concept, it provides an event base I/O interface to
 save memory buffers and bandwidth.
 
+<!-- more -->
+
 ## Event Based I/O
 
 When reading from filesystem, node provides non-blocking method with callback:
