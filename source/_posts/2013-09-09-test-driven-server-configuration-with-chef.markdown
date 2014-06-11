@@ -8,8 +8,9 @@ published: false
 ---
 
 Recently I am working on Devops things, including server, network,
-deployment and chef scripts. In the Devops team, we are working hard on refactoring our old chef recipes into a more clean and modularize cookbook.
-So I think it's a good chance to talk about how we work to build a better cookbook and infrustrure:
+deployment and chef scripts. In the Devops team, we are working hard on refactoring
+our old chef recipes into more clean and modularize cookbooks.
+So I think it's a good chance to talk about how we work to build better recipes and cookbooks for our infrustrure:
 
 ## Chef!
 
@@ -33,7 +34,7 @@ template "/etc/profile.d/ps1.sh" do
   )
 end
 
-{{ endcodeblock }}
+{% endcodeblock %}
 
 In this script, we are calling the chef `template` resource to set a bash configuration file with variables.
 What this resource do is, it will install a erb template `ps1.sh.erb` from cookbook to `/etc/profile.d/ps1.sh` on server.
@@ -55,7 +56,7 @@ So chef script become a test of server configuration. We can run multiple times 
 Another reason is the community, the [Opscode](opscode.com) provide a community platform to let devops share their system configuration as cookbook,
 Those cookbook are already used by many company and is the `Best Practice` configuration. So we can reuse those community cookbook to easily build our own infrastructure.
 
-### Centralize Orchestration
+### Orchestration
 
 Chef provide a client-server structure to manage servers. you can config the server by ssh and command line, but what if you have to manage 10 server at once? how about 100?
 Chef server can store setting of servers as environments and roles. So we can make abstraction and reuse those settings as something like 'beta environment' and 'database role'.
@@ -143,10 +144,103 @@ cookbook "redisio"
 
 {% endcodeblock %}
 
+## serverspec
 
+{% codeblock lang:rb %}
+describe 'application server' do
 
+  describe service('nginx') do
+    it { should be_enabled }
+    it { should be_running }
+  end
 
-## build a redis / unicorn and nginx / postgres
+  describe service('unicorn') do
+    it { should be_running }
+  end
+
+  describe package('ruby') do
+    it { should be_installed }
+  end
+end
+
+{% endcodeblock %}
+
+{% codeblock lang:rb%}
+describe 'database server' do
+
+end
+{% endcodeblock %}
+
+{% codeblock lang:rb%}
+describe 'redis server' do
+
+end
+{% endcodeblock %}
+
+## Test kitchen
+
+## Minitest handler
+
+## Write Chefspec Master cookbook
+
+For managing different server roles, we create a master cookbook to include all nessassary cookbooks
+and setup the attributes.
+We use the master cookbook as runlist for server, becasuse we can versioning the cookbook,
+but we can't versioning the run list.
+
++ app_server
+
+{% codeblock lang:rb %}
+include_recipe 'rbenv::default'
+include_recipe 'rbenv::ruby_build'
+
+rbenv_ruby "2.0.0-p247" do
+  global true
+end
+
+include_recipe 'unicorn'
+
+unicorn_config "/etc/unicorn/app.rb" do
+  listen({ node[:unicorn][:port] => node[:unicorn][:options] })
+  working_directory ::File.join(app['deploy_to'], 'current')
+  worker_timeout node[:unicorn][:worker_timeout]
+  preload_app node[:unicorn][:preload_app]
+  worker_processes node[:unicorn][:worker_processes]
+  before_fork node[:unicorn][:before_fork]
+end
+
+include_recipe 'nginx'
+
+# set ssh_key for capistrano deploy
+include_recipe 'ssh_key'
+
+# set nginx site listen to unicorn pid
+template '/etc/nginx/sites_avaliable/app'
+nginx_site 'app' do
+  enable true
+end
+
+{% endcodeblock %}
+
++ db_server
+{% codeblock lang:rb %}
+
+include_recipe 'postgresql'
+
+{% endcodeblock %}
+
++ cache_server
+{% codeblock lang:rb %}
+
+include_recipe 'redisio'
+
+{% endcodeblock %}
+
+#Part 2
+
+create capistrano script to deploy application
+use discourse as example
+deploy to amazon EC2
 
 + write recipes with chef_spec, minitest-handler, test-kitchen and kitchen-vagrant
 + build 3 server cookbook, redis_server, web_server, database_server

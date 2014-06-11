@@ -1,23 +1,25 @@
 ---
 layout: post
-title: "understand chef lwrp (Heavy version)"
+title: "Understand chef lwrp (Heavy version)"
 date: 2013-10-31 22:08
 comments: true
 categories: ruby, devops
 ---
 
 Recently I am mainly working on devops things, including system admin and chef.
-We are refactoring our old chef recipe into a more modulize shape with tests,
-So I think it's a good time to share some experience in this refactor:
+We are refactoring our old chef recipes into a more modulize shape with tests,
+So I think it's a good time to share some experience in this refactor!
 
-# Resource and Provider in Chef
+## Resource and Provider in Chef
 
 In chef, we use resource to describe the state of our system.
-And cookbook is a series of resources that describe a state of the system.
+And cookbook is a series of resources that describe the server state.
 
-For example, the cookbook to install nginx on server:
+<!-- more -->
 
-```
+For example, the cookbook to install nginx on server is like this:
+
+{% codeblock lang:ruby %}
 package 'nginx' do
   action :install
 end
@@ -29,17 +31,17 @@ end
 service 'nginx' do
   action [:enable, :start]
 end
-```
+{% endcodeblock %}
 
 describe 3 resources, nginx package, nginx service and nginx config file.
 
 Than the provider will take the action in resource, execute the corresponding action,
 which will install nginx package, create nginx config file, start and enable nginx service.
 
-So provider provide the method to achieve the state of resource.
+So provider provide methods to achieve the state of resource.
 Take a look at the install action in package provider (simplfied for read):
 
-```
+{% codeblock lang:ruby %}
 def action_install
   if !@new_resource.version.nil? && !(target_version_already_installed?)
     install_version = @new_resource.version
@@ -50,34 +52,33 @@ def action_install
 
   install_package(@new_resource.package_name, install_version)
 end
-```
+{% endcodeblock %}
 
 The provider will check current installed version and install package by install_package method,
 install_package method is implemented by different provider like Yum and Rpm.
-Will run command like `yum install nginx` to install package.
+Which will run command like `yum install nginx` to install package.
 
-# Resource and Provider (Heavy ver)
+## Resource and Provider (Heavy ver)
 
-Sometime we want to define specific resource and provider for better describe the state of our server.
+Sometime we want to define specific resources and providers for better describe the state of our server.
 For example like `ruby '2.0.0-p247'` or `nginx_site 'www.example.com'`
 We have two way to implement it. One is using definition, which is like a helper method in chef.
-Other is writing custom resource and provider.
+Another is writing custom resource and provider.
 
-For example, we use custom resorce and provider to upload ssh key to github
-```
+In our cookbook, we use custom resorce and provider to upload our ssh key to github
 
+{% codeblock lang:ruby %}
 github key_name do
   user github_user['name']
   password github_user['password']
   public_key key
   action :upload
 end
+{% endcodeblock %}
 
-```
+We can create resource and provider by inherit the Chef::Resource and Chef::Provider:
 
-We can create custom resource and provider by inherit the Chef::Resource and Chef::Provider:
-
-```
+{% codeblock lang:ruby %}
 class Chef
   class Resource
     class Github < Chef::Resource
@@ -111,7 +112,7 @@ end
 class Chef
   class Provider
     class Github < Chef::Provider
-      # implement load_current_resource method to set resource before action
+      # implement load_current_resource method to load previous resource before action
       def load_current_resource
         @current_resource = Chef::Resource::Github.new(@new_resource.name)
         @current_resource.name(@new_resource.name)
@@ -120,7 +121,9 @@ class Chef
         @current_resource
       end
 
+      # use github gem to upload user key
       def action_upload
+        require 'github'
         github = ::Github.new({
           login:@new_resource.user,
           password:@new_resource.password
@@ -130,18 +133,19 @@ class Chef
       end
   end
 end
-```
+{% endcodeblock %}
 
-Include the code under library directory, and we can use our new resource and provider!
+Above code extend the chef to build custom resource and provider.
+Put the code under /libraries directory in cookbook, and then the custom resource and provider will be avaliable in cookbook!
 
-# Resource and Provider (Light version - LWRP)
+## Resource and Provider (Light version - LWRP)
 
-However, the full class implementation might be too hard for system admin don't have ruby background.
+However, the full class implementation is too complex for system admins who don't have ruby background.
 So chef provide a resource and provider DSL, called light weight resource provider (LWRP)
 
-Using LWRP, upper code can be rephrase to
-```
+Using LWRP DSL, previous resource and provider can be written as:
 
+{% codeblock lang:ruby %}
 # resources/github.rb
 
 action :upload
@@ -169,6 +173,69 @@ action :upload do
   new_resource.updated_by_last_action(true)
 end
 
-```
+{% endcodeblock %}
 
-# Testing LWRP
+Basically the DSL use dynamic programming to construct the method and create new resource and provider class.
+The dsl syntax will generate into full resource and provider code same as the heavy version.
+
+## Testing LWRP
+
+The reason we dig into how LWRP generate, is mainly because we want to know how to test LWRP better in our refactor
+We use chefspec to test the logic in our custom resource and provider
+
+{% codeblock lang:ruby %}
+require 'spec_helper'
+
+# lwrp default use cookbook name as namespace, here assume the cookbook is `workstation`
+describe 'github resource' do
+  let(:github_resource) { Chef::Resource::WorkstationGithub.new('user_key') }
+  it 'creates new resource with name' do
+    expect(github_resource.name).to eq('user_key')
+  end
+end
+
+{% endcodeblock %}
+
+For testing provider part, it's much harder because provider depends on node, resource and run_context
+However, we can either throw the checspec run context to provider or mock everything, and we choose the later one:
+
+{% codeblock lang:ruby %}
+describe 'github provider' do
+  let(:node) { Chef::Node.new }
+
+  let(:run_context) { double(:run_context, node: node) }
+
+  let(:new_resource) do
+    double(:new_resource, name: 'github_key',
+        user: 'test@test.com',
+        password: 'password',
+        updated_by_last_action: false)
+  end
+
+  let(:provider) do
+    Chef::Provider::WorkstationGithub.new(new_resource, run_context)
+  end
+
+  let(:github) {double(users: { keys: {} } )}
+
+  it 'upload key to github' do
+    allow(Github).to receive(:new)
+      .with({login:'test@test.com',  password:'pass'})
+      .and_return(github)
+
+    expect(github.users.keys).to receive(:create)
+      .with({ title: 'autogen:casecommons@desktop', key: 'my key' })
+      .and_return(true)
+
+    provider.action_upload
+  end
+end
+{% endcodeblock %}
+
+## Conclusion
+
+Resource and provider is the foundamental concept of Chef.
+while we refactor the cookbook, we found a lot of recipes is written like bash script.
+Recipe should describe the state of our server but not the action taken,
+and the action logic need to be seperate into provider.
+This is also the target we want to achieve in the refactor. I will share more experience on how to test and build the infrastructure with chef later.
