@@ -13,16 +13,20 @@ As a web developer, jQuery is our day to day tool. However, sometimes it just to
 we forget how to make web page without it. It is important to go back to see how jQuery handle and wrap
 the DOM api and provide the simple interface for us.
 
-## jqLite
+## JQLite
 
-Angular.js comes with a simple compatible implementation of jQuery, called jqLite.
-jqLite is used internally for angular.element if user doesn't include jQuery, as a
+[JQLite](https://github.com/angular/angular.js/blob/master/src/jqLite.js)
+
+Angular.js comes with a simple compatible implementation of jQuery, called JQLite.
+JQLite is used internally for angular.element if user doesn't include jQuery, as a
 replacement for jQuery. It only have 1000 lines of code with lots comments,
 So it's a good starting point to understand how jQuery works.
 
+<!-- more -->
+
 ## initialize element
 
-jQuery wrap the html DOM with jQuery object, as in jqLite:
+jQuery wrap the html DOM with jQuery object, as in JQLite:
 
 ```
 function JQLite(element) {
@@ -37,7 +41,7 @@ function JQLite(element) {
   // and if element is html tag, create new jquery object with it.
   if (!(this instanceof JQLite)) {
     if (isString(element) && element.charAt(0) != '<') {
-      throw jqLiteMinErr('nosel', 'Looking up elements via selectors is not supported by jqLite! See: http://docs.angularjs.org/api/angular.element');
+      throw jqLiteMinErr('nosel', 'Looking up elements via selectors is not supported by JQLite! See: http://docs.angularjs.org/api/angular.element');
     }
     return new JQLite(element);
   }
@@ -63,7 +67,7 @@ function jqLiteAddNodes(root, elements) {
 }
 ```
 
-After initialize, we get a new jqLite object with html DOM inside. then we can call
+After initialize, we get a new JQLite object with html DOM inside. then we can call
 the jquery api to manipulate to inside element.
 
 ## ready
@@ -86,7 +90,7 @@ JQLite.prototype.ready: function(fn) {
     setTimeout(trigger);
   } else {
     this.on('DOMContentLoaded', trigger); // works for modern browsers and IE9
-    // we can not use jqLite since we are not done loading and jQuery could be loaded later.
+    // we can not use JQLite since we are not done loading and jQuery could be loaded later.
     // jshint -W064
     JQLite(window).on('load', trigger); // fallback to window.onload for others
     // jshint +W064
