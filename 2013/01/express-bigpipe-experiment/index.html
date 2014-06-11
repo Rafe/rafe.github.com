@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>express bigpipe experiment - Neethack</title>
+  <meta name="author" content="Jimmy Chao">
+
+  
+  <meta name="description" content="Bigpipe Bigpipe is an unique frontend technique used by Facebook to increase their page rendering speed. When I read the article talk about bigpipe &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://neethack.com/2013/01/express-bigpipe-experiment">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/neethack" rel="alternate" title="Neethack" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-9904130-4']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body    class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Neethack</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/neethack" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:neethack.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://github.com/rafe">Github</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Express Bigpipe Experiment</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-21T15:28:00-05:00" pubdate data-updated="true">Jan 21<span>st</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Bigpipe</h2>
+
+<p>Bigpipe is an unique frontend technique used by Facebook to increase their page rendering speed.</p>
+
+<p>When I read the article talk about <a href="https://www.facebook.com/note.php?note_id=389414033919">bigpipe on facebook</a>, I was pretty shocked about how facebook implements those unique ideas to
+increase their page rendering speed.</p>
+
+<p>Recently I am using node.js for web development, I think the async structure of node is a perfect environment to use this technique, so I wrote a small experiments app with express:</p>
+
+<!--more-->
+
+
+<h2>Streaming</h2>
+
+<p>The technique behind Bigpipe is actually pretty simple,
+what Bigpipe do is using http streaming to load the page seperatly.
+When the page load, Facebook will return basic layout, css and assets manager(bootLoader) to user first.
+Then other slower content like news feeds, notification will returned later on the same request as Pagelet.
+A pagelet contain it&rsquo;s own css, javascripts and contents,
+after pagelet loaded, it will render itself to page,
+and resources dependencies is managed by bootLoader so it won&rsquo;t load duplicated resources.</p>
+
+<p>The adventage of this approach is that the slower part of the request won&rsquo;t block the whole page rendering.
+User can get response for the completed part first, than receive the slower part.</p>
+
+<h2>experiments on express</h2>
+
+<p>In this example, I use express as web framework, async for async rendering and jQuery for render content to layout.</p>
+
+<p><a href="http://express-bigpipe.herokuapp.com/">Demo</a></p>
+
+<p>you can clone the gist and run it on local:</p>
+
+<pre><code>git clone https://gist.github.com/4589002.git
+cd 4589002
+npm install
+npm start
+</code></pre>
+
+<div><script src='https://gist.github.com/4589002.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jimmy Chao</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-21T15:28:00-05:00" pubdate data-updated="true">Jan 21<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://neethack.com/2013/01/express-bigpipe-experiment/" data-via="jimchaos" data-counturl="http://neethack.com/2013/01/express-bigpipe-experiment/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2013/01/understand-event-loops/" title="Previous Post: Understand event loops">&laquo; Understand event loops</a>
+      
+      
+        <a class="basic-alignment right" href="/2013/02/bacon-dot-js-for-dummies/" title="Next Post: Bacon.js for dummies">Bacon.js for dummies &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section id="about">
+  <h1>About Me</h1>
+  <div class="avator">
+    <img src="/images/JimmyChao.jpg" width="85" alt="Jimchao"/>
+  </div>
+  <div class="bio clear">
+    <p>
+      Jimmy Chao, A programmer, newbie hacker and web developer live in New York.
+      You can contact me at daizenga[at]gmail.com. Or follow my code at 
+      <a href="https://github.com/Rafe">Github</a>.
+    </p>
+  </div>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2013/04/announcing-code-warrior/">Announcing Code-Warrior</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/02/bacon-dot-js-for-dummies/">Bacon.js for Dummies</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/01/express-bigpipe-experiment/">Express Bigpipe Experiment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/01/understand-event-loops/">Understand Event Loops</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/12/review-2012/">Review of 2012</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("jimchaos", 5, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/jimchaos" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @jimchaos</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Jimmy Chao -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'neethack';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://neethack.com/2013/01/express-bigpipe-experiment/';
+        var disqus_url = 'http://neethack.com/2013/01/express-bigpipe-experiment/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
