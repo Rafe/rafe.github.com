@@ -28,7 +28,7 @@ So it's a good starting point to understand how jQuery works.
 
 jQuery wrap the html DOM with jQuery object, as in JQLite:
 
-```
+{% codeblock lang:js %}
 function JQLite(element) {
   // if element is jquery object, return element
   if (element instanceof JQLite) {
@@ -65,7 +65,7 @@ function jqLiteAddNodes(root, elements) {
     }
   }
 }
-```
+{% endcodeblock %}
 
 After initialize, we get a new JQLite object with html DOM inside. then we can call
 the jquery api to manipulate to inside element.
@@ -75,7 +75,7 @@ the jquery api to manipulate to inside element.
 One thing jquery provide is $.ready, which will execute the block inside only when
 dom is ready
 
-```
+{% codeblock lang:js %}
 JQLite.prototype.ready: function(fn) {
   var fired = false;
 
@@ -97,7 +97,7 @@ JQLite.prototype.ready: function(fn) {
   }
 }
 
-```
+{% endcodeblock %}
 
 From the source, we can know jquery check the document.readyState,
 DOMContentLoaded event and window.onload event for the ready function.
@@ -107,7 +107,7 @@ DOMContentLoaded event and window.onload event for the ready function.
 jquery provides good api to set the attributes of DOM element, include css,
 attr, prop. lets take css as example:
 
-```
+{% codeblock lang:js %}
 // removed ie hacks...
 css: function(element, name, value) {
   name = camelCase(name);
@@ -118,7 +118,7 @@ css: function(element, name, value) {
     return element.style[name];
   }
 }
-```
+{% endcodeblock %}
 
 One reason that jquery interface is easy to use is, it provides single function
 for both getter and setter. If we pass value, css function is a setter,
@@ -127,7 +127,7 @@ otherwise it returns css value of name.
 Also, jquery object may include multiple elements, so inside the jquery object,
 the css function is wrapped to execute on multiple elements:
 
-```
+{% codeblock lang:js %}
 JQLite.prototpype[name] = function(arg1, arg2) {
   ...
   if (...) {
@@ -151,7 +151,7 @@ JQLite.prototpype[name] = function(arg1, arg2) {
   ...
 }
 
-```
+{% endcodeblock %}
 
 jQuery object provide both setter and getter on same function, multiple assignment,
 short function name and also chaining. It is a really sophisticate api.
@@ -161,7 +161,7 @@ short function name and also chaining. It is a really sophisticate api.
 One thing jquery handled is event, in the time before jquery, people need to
 handle different event api between IE and others. Lets see how JQLite handle this:
 
-```
+{% codeblock lang:js %}
 // mapping addEventListener (not IE) and attachEvent (IE) events api.
 var addEventListenerFn = (window.document.addEventListener
     ? function(element, type, fn) { element.addEventListener(type, fn, false);}
@@ -180,7 +180,7 @@ on: function onFn(element, type, fn) {
   eventFns.push(fn);
 }
 
-```
+{% endcodeblock %}
 
 ## conclusion
 
