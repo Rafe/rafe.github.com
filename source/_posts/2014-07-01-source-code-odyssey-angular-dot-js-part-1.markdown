@@ -4,6 +4,7 @@ title: "source code odyssey: angular.js part 1"
 date: 2014-10-01 23:05
 comments: true
 categories: javascript
+published: false
 ---
 
 ## Angular.js
