@@ -3,7 +3,7 @@ layout: post
 title: "deploy your rails app with docker"
 date: 2014-05-08 20:59
 comments: true
-categories:
+categories: devops
 published: false
 ---
 
