@@ -22,7 +22,7 @@ When reading from filesystem, node provides non-blocking method with callback:
 
 {% codeblock lang:js %}
 var require('fs');
-fs.readFile('./test.json', function(data, err){
+fs.readFile('./test.json', function(err, err){
   if (err) {
     return console.log(err);
   }
