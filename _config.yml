@@ -69,6 +69,8 @@ theme: casper
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
+  repo: git@github.com:Rafe/rafe.github.com.git
+  branch: master
 
 # Discuz
 disqus_shortname: neethack
