@@ -77,3 +77,6 @@ disqus_shortname: neethack
 
 # Github
 github_name: 'rafe'
+
+plugins:
+- hexo-generator-cname
