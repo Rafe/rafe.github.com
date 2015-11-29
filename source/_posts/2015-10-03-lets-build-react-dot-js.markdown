@@ -15,7 +15,7 @@ For those who is curious, this article is going to rebuild React from scratch an
 
 <!-- more -->
 
-I recommand you can also checkout the [code example](https://github.com/Rafe/build-react-js) from github, each section is tagged by step 1-10, you can follow the code example to see how the code evolves, and also with test cases.
+I recommand you can also checkout the [code example](https://github.com/Rafe/build-react-js) from github, each section is tagged by step 1-9, you can follow the code example to see how the code evolves, and also with test cases.
 
 
 ## Let's write React component!
