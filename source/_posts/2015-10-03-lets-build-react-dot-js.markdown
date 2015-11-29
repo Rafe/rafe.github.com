@@ -13,7 +13,10 @@ However, for people already know how to write React, they might still wondering 
 
 For those who is curious, this article is going to rebuild React from scratch and create a workable basic React-like framework, by going through the logics in React source code. I hope you can understand how React works after go through this post.
 
+<!-- more -->
+
 I recommand you can also checkout the [code example]() from github, each section is tagged by step 1-10, you can follow the code example to see how the code evolves, and also with test cases.
+
 
 ## Let's write React component!
 
