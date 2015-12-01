@@ -11,12 +11,11 @@ I recommand to start with the [official website](https://facebook.github.io/reac
 
 However, for people already know how to write React, they might still wondering why React is built in a certain way, like React DOM, state, how React update and manipulate the DOM elements.
 
-For those who is curious, this article is going to rebuild React from scratch and create a workable basic React-like framework, by going through the logics in React source code. I hope you can understand how React works after go through this post.
+For those who are curious, this article is going to rebuild React from scratch and create a workable basic React-like framework, by going through the logics in React source code. I hope you can understand how React works after reading this post.
 
 <!-- more -->
 
-I recommand you can also checkout the [code example](https://github.com/Rafe/build-react-js) from github, each section is tagged by step 1-9, you can follow the code example to see how the code evolves, and also with test cases.
-
+I recommand you can also checkout the [code example](https://github.com/Rafe/build-react-js) from github, each section is tagged by step 1-9, you can follow the code example to see how the code evolves with test cases.
 
 ## Let's write React component!
 
@@ -36,7 +35,7 @@ Before building element, we need to understand the difference between React Elem
 
 React Element is data. Includes content type, property and child elements. Content type includes React DOM or React Class, React DOM is usually what we can find in render() method, React Class is the custom class that we wrote for application logic.
 
-React Component is an instance. It contains element, render React DOM element to to html, handle events, manage state and update DOM when state changes.
+React Component is an instance. It contains element, render React DOM element to html, handle events, manage state and update DOM when state changes.
 
 ```javascript
 var ReactElement = function(type, props) {
@@ -65,7 +64,7 @@ React DOM is a ReactElement with tag name as type, for example, a div element ha
 
 ```javascript
 var DOM = {};
-['div', 'a', 'h1', 'p'].forEach(function() {
+['div', 'a', 'h1', 'p'].forEach(function(type) {
   DOM[type] = createElement.bind(null, type)
 })
 
