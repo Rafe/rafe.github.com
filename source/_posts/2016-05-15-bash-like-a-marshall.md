@@ -20,7 +20,9 @@ But it's still good to share those knowledge about bash.
 <script async class="speakerdeck-embed" data-id="8d8bf0a442cc46ad93994764a7b7cab2" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
 {% endraw %}
 
-{% youtube 7Lu1I4iY4CM %}
+{% raw %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7Lu1I4iY4CM" frameborder="0" allowfullscreen></iframe>
+{% endraw %}
 
 + [Bash Practices](https://github.com/Rafe/bash-practices) (use it with the keynote )
 
