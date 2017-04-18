@@ -75,8 +75,9 @@ deploy:
 # Discuz
 disqus_shortname: neethack
 
+# plugins:
+# - hexo-generator-cname
+
 # Github
 github_name: 'rafe'
 
-plugins:
-- hexo-generator-cname
