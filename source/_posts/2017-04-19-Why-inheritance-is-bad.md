@@ -7,6 +7,8 @@ It's been a while ago, when I first study programming in college. I remember the
 
 > Dog is an animal, Cat is an animal, therefore, they can both share the behaviors of an animal.
 
+<!-- more -->
+
 It is a really fascinate example that it links the program behavior to real world object hierarchy. It makes so much sense that we all learned to use inheritance when we can create a hierarchy in our code. Make the code more 'object oriented'.
 
 However, after couple years of experience in writing code. Lots of the most complex, hard to read code is often introduced by the use of inheritance. So we learned to avoid inheritance, 'prefer composition over inheritance'. But deep in my heart, there is always a young college student asking: Why the inheritance is bad? We use inheritance since the first day of learning object oriented programming!
