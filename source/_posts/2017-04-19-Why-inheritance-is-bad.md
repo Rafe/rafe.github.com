@@ -1,5 +1,5 @@
 title: Why inheritance is bad?
-date: 2017-04-19 22:14:20
+date: 2017-04-28 22:14:20
 tags: programming
 ---
 
