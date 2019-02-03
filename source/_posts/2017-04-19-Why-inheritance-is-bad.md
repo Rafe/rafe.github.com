@@ -126,7 +126,7 @@ But service is not an EventEmitter here, we just want to reuse the code and inte
 
 In conclusion, by using inheritance to reuse the code here, we also introduce a tightly couple, non-flexible, redundant, complex and does not make sense object.
 
-By contract we can just do this:
+By contrast we can just do this:
 
 ```
 class MyService
