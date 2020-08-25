@@ -1,9 +1,6 @@
----
-layout: post
 title: "Code Odyssey : Sinatra"
 date: 2012-02-22 00:09
-comments: true
-categories: [Odyssey, ruby]
+tags: ruby
 ---
 
 In 2012, I am planning to start contribute and participate more on opensource projects.

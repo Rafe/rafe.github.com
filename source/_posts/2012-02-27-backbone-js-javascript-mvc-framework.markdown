@@ -1,9 +1,6 @@
----
-layout: post
 title: "backbone-js javascript MVC Framework"
 date: 2012-02-27 11:20
-comments: true
-categories: javascript, backbone.js
+tags: javascript
 ---
 
 ## What is Backbone.js?

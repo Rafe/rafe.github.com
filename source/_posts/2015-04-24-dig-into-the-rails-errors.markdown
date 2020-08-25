@@ -1,9 +1,6 @@
----
-layout: post
 title: "Dig into the rails errors"
 date: 2015-04-24 23:38
-comments: true
-categories: rails, ruby
+tags: ruby
 ---
 
 ## Errors

@@ -1,9 +1,6 @@
----
-layout: post
 title: "Code odyssey : Express"
 date: 2012-05-28 20:21
-comments: true
-categories: javascript, programming
+tags: javascript
 ---
 
 Recently I was looking for web frameworks on Node.js. There are [Tower.js](http://towerjs.org/), [Railway](http://railwayjs.com/), [GeddyJS](http://geddyjs.org/), [SocektStream](http://socketstream.com/), [Meteor](https://github.com/meteor/meteor) and lots of cool framework on Node.js. However, Express, which created in the beginning of Node.js era, is still a very stable and easy to use framework with the most plugin and community support. Therefore, I think it is a good candidate as my 2nd source code review project.

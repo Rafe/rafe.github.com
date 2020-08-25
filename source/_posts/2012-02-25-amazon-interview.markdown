@@ -1,9 +1,6 @@
----
-layout: post
 title: "Amazon Interview"
 date: 2012-02-25 01:41
-comments: true
-categories: interviews
+tags: programming
 ---
 
   In 2011, I flew to Seattle for an on-site interview with Amazon, that is an interesting experience and I learned a lot from the preparation and knowing how these company finding new talents. I would like to share some of my experience on that interview.

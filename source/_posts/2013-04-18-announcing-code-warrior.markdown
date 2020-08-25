@@ -1,9 +1,6 @@
----
-layout: post
 title: "Announcing Code-Warrior"
 date: 2013-04-18 11:38
-comments: true
-categories: javascript
+tags: javascript
 ---
 
 Recently I am preparing the interview with some companies in West Coast.  

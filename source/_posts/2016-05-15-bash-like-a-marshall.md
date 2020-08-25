@@ -1,6 +1,6 @@
 title: Bash like a marshall
 date: 2016-05-15 12:40:46
-tags: bash
+tags: programming
 ---
 
 Bash is a programming language design for interact with user. Which have a very flexible syntax to take command from user.

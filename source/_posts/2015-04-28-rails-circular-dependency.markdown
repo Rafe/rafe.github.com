@@ -1,9 +1,6 @@
----
-layout: post
 title: "Rails circular dependency"
 date: 2015-04-28 22:35
-comments: true
-categories: ruby rails
+tags: ruby
 ---
 
 ## Circular dependency

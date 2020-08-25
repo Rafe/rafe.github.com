@@ -1,5 +1,5 @@
 title: Source code odyssey - Rake
-tags: ruby source-code-odyssey
+tags: ruby
 date: 2019-06-02 11:49:00
 ---
 

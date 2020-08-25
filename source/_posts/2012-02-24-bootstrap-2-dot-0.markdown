@@ -1,8 +1,6 @@
----
 title: "Bootstrap 2.0"
 date: 2012-02-24 22:55
-comments: true
-categories: css
+tags: javascript
 ---
 
 ## [Bootstrap](http://twitter.github.com/bootstrap/) , from twitter

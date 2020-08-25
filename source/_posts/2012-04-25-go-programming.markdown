@@ -1,9 +1,6 @@
----
-layout: post
 title: "Go Programming Example"
 date: 2012-04-25 23:26
-comments: true
-categories: Programming
+tags: programming
 ---
 
 ## GO v1

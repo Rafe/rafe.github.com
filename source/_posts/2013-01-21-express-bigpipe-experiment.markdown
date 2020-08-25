@@ -1,9 +1,6 @@
----
-layout: post
 title: "express bigpipe experiment"
 date: 2013-01-21 15:28
-comments: true
-categories: javascript
+tags: javascript
 ---
 
 ## Bigpipe

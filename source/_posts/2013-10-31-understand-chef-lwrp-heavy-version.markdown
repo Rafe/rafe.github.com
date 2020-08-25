@@ -1,9 +1,6 @@
----
-layout: post
 title: "Understand chef lwrp (Heavy version)"
 date: 2013-10-31 22:08
-comments: true
-categories: ruby, devops
+tags: ruby
 ---
 
 Recently I am mainly working on devops things, including system admin and chef.

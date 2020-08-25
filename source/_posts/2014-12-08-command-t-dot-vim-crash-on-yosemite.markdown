@@ -1,9 +1,6 @@
----
-layout: post
 title: "Command-t.vim crash on yosemite"
 date: 2014-12-08 04:35
-comments: true
-categories: vim
+tags: programming
 ---
 
 ## The bug

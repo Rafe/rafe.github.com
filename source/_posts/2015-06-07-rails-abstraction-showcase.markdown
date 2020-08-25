@@ -1,9 +1,6 @@
----
-layout: post
 title: "Rails abstraction showcase"
 date: 2015-06-07 21:02
-comments: true
-categories: rails ruby
+tags: ruby
 ---
 
 [Abstraction showcase](https://github.com/Rafe/rails-abstraction-showcase)

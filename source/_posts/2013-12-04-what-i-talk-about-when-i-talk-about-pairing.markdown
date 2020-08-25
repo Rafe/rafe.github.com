@@ -1,9 +1,6 @@
----
-layout: post
 title: "What I Talk About When I Talk About Pairing"
 date: 2013-12-04 20:53
-comments: true
-categories: programming
+tags: programming
 ---
 
 Pair programming, I used to heard a lot about it.  

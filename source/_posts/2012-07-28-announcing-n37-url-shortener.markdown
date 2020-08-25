@@ -1,9 +1,6 @@
----
-layout: post
 title: "Announcing N37 url shortener"
 date: 2012-07-28 00:08
-comments: true
-categories: node.js, project
+tags: javascript
 ---
 
 Few days ago, I started to work on a simple url shortener. The original idea was from one of my friends, he mentioned about the idea of implement a simple and deployable url shortener. This idea just popout my head when I was working on other side project. So I spend a few days working on it and it turns out to be an interesting project that I want to blog about:

@@ -1,9 +1,6 @@
----
-layout: post
 title: "Bacon.js for dummies"
 date: 2013-02-04 16:25
-comments: true
-categories: javascript
+tags: javascript
 ---
 
 Bacon.js is an FRP module for events on javascript. Which can transform 

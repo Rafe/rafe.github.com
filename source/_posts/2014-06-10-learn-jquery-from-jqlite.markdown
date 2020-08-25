@@ -1,9 +1,6 @@
----
-layout: post
 title: "Learn jQuery from jqLite"
 date: 2014-06-10 22:31
-comments: true
-categories: javascript
+tags: javascript
 ---
 
 ## JQuery

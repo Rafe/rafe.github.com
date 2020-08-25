@@ -1,8 +1,6 @@
----
 title: "Let's build react.js"
 date: 2015-10-03 11:11
-comments: true
-categories: react.js javascript
+tags: javascript
 ---
 
 Recently React is growing to become the de facto standard for web components. And it is also pretty straight forward to learn and use React.

@@ -1,10 +1,6 @@
----
-layout: post
 title: "Test driven server configuration with chef"
 date: 2013-09-09 22:12
-comments: true
-categories: ruby, devops
-published: false
+tags: ruby
 ---
 
 Recently I am working on Devops things, including server, network,

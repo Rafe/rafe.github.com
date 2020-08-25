@@ -1,9 +1,6 @@
----
-layout: post
 title: "Source code odyssey: angular.js injector"
 date: 2015-04-12 23:05
-comments: true
-categories: javascript
+tags: javascript
 ---
 
 ## [Angular.js](https://angularjs.org/)

@@ -1,9 +1,6 @@
----
-layout: post
 title: "Understand node stream (what I learned when fixing Aws sdk bug)"
 date: 2013-12-08 21:34
-comments: true
-categories: programming, javascript
+tags: javascript
 ---
 
 ## Node.js stream

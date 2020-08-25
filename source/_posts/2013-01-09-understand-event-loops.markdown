@@ -1,9 +1,6 @@
----
-layout: post
 title: "Understand event loops"
 date: 2013-01-09 18:02
-comments: true
-categories: node.js
+tags: javascript
 ---
 
 Event loop is the core feature in node.js, 
