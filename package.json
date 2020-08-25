@@ -17,5 +17,10 @@
     "hexo-renderer-stylus": "^0.3.0",
     "hexo-server": "^0.2.0",
     "highlight.js": "^9.15.6"
+  },
+  "scripts": {
+    "start": "hexo server",
+    "build": "hexo generate",
+    "deploy": "hexo deploy"
   }
 }
