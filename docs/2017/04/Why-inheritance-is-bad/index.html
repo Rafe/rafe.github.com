@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Why inheritance is bad? | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="http://neethack.com">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2017-04-29T03:14:20.000Z" itemprop="datePublished">
+          2017-04-28
+      </time>
+    
+    
+    | 
+    <a href='/tags/programming/'>programming</a>
+    
+    
+</span>
+    <h1 class="post-title">Why inheritance is bad?</h1>
+    <section class="post-content">
+      <p>It’s been a while ago, when I first study programming in college. I remember the moment when professor introduce us object oriented programming by the classic dog and cat example:</p>
+<blockquote>
+<p>Dog is an animal, Cat is an animal, therefore, they can both share the behaviors of an animal.</p>
+</blockquote>
+<a id="more"></a>
+<p>It is a really fascinate example that it links the program behavior to real world object hierarchy. It makes so much sense that we all learned to use inheritance when we can create a hierarchy in our code. Make the code more ‘object oriented’.</p>
+<p>However, after couple years of experience in writing code. Lots of the most complex, hard to read code is often introduced by the use of inheritance. So we learned to avoid inheritance, ‘prefer composition over inheritance’. But deep in my heart, there is always a young college student asking: Why the inheritance is bad? We use inheritance since the first day of learning object oriented programming!</p>
+<p>So this article is about to answer that question.</p>
+<h2 id="Misconception"><a href="#Misconception" class="headerlink" title="Misconception"></a>Misconception</h2><p>When we first taught object oriented programming, we usually introduced the classic inheritance example.</p>
+<p>Nonetheless, when Alan Kay created Smalltalks, the inheritance is never the main concept of it. The main concept is messaging, which is you can send message to object and object encapsulate the data and logic in it, and we can change behavior by using different object, which actually is, composition. But the concept of inheritance is too popular that eventually overshadow composition. I think part of the reason is inheritance introduce an abstract layer from real world to explain object’s relation, which can make the code really easy to understand if we use it properly.</p>
+<p><a href="http://lists.squeakfoundation.org/pipermail/squeak-dev/1998-October/017019.html" target="_blank" rel="noopener">Alan Kay on the misunderstanding of OOP</a></p>
+<h2 id="Problems-of-inheritance"><a href="#Problems-of-inheritance" class="headerlink" title="Problems of inheritance"></a>Problems of inheritance</h2><p>There are mainly 3 reasons of inheritance:</p>
+<h5 id="1-Code-reuse"><a href="#1-Code-reuse" class="headerlink" title="1. Code reuse"></a>1. Code reuse</h5><p>The main reason of inheritance is to reduce duplicated code, the child class can share the implementation from parent class.</p>
+<h5 id="2-Declare-interface"><a href="#2-Declare-interface" class="headerlink" title="2. Declare interface"></a>2. Declare interface</h5><p>The child class shares the same interface as parent class and can interact as parent class, also called ‘Liskov substitution principle’</p>
+<h5 id="3-Introduce-abstract-class-concept-for-hierarchy"><a href="#3-Introduce-abstract-class-concept-for-hierarchy" class="headerlink" title="3. Introduce abstract class concept for hierarchy"></a>3. Introduce abstract class concept for hierarchy</h5><p>This is a extra benefit that, if the class hierarchy defined well, can help to make system easy to understand.</p>
+<p>The problem of inheritance is, although it gets the job done, it sometimes do it pretty badly.</p>
+<p>Take an example from real life:</p>
+<figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Configuration</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">connection</span></span></span><br><span class="line">    @connection <span class="params">||</span>= Connection.new</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ServiceBase</span></span></span><br><span class="line">  extend Configuration</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">service_url</span></span></span><br><span class="line">    connection.to_url</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">send_request</span></span></span><br><span class="line">    connection.send(service_url)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">status</span></span></span><br><span class="line">    <span class="keyword">if</span> response.code == <span class="string">"200"</span></span><br><span class="line">      <span class="symbol">:success</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="symbol">:error</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyService</span> &lt; ServiceBase</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">service_url</span></span></span><br><span class="line">    <span class="string">"<span class="subst">#&#123;connection.to_url&#125;</span>.xml"</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">get_response</span></span></span><br><span class="line">    @response = send_request</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>Above code is a web service that send request to an endpoint and retrieve response. Because there are multiple services, we extract the common code into <code>ServiceBase</code> to reduce duplication.</p>
+<p>So what is the problem in the above code?</p>
+<h5 id="1-Yo-Yo-problem"><a href="#1-Yo-Yo-problem" class="headerlink" title="1. Yo-Yo problem"></a>1. Yo-Yo problem</h5><p>First is the readability problem, when we open the file <code>MyService</code> and try to understand what it does, it is pretty hard to understand what it does without opening up it’s parent class. So when reading method <code>get_response</code>, we’ll have to open ServiceBase, and then figure out connection is coming from configuration module. And then go to <code>send_request</code> in <code>ServiceBase</code> and than go to <code>service_url</code> method in <code>MyService</code>.</p>
+<p>The behavior of jumping back and forth from parent and child classes, we called it Yo-Yo problem.</p>
+<p>This problem occur because of the following problem:</p>
+<h5 id="2-Break-encapsulation"><a href="#2-Break-encapsulation" class="headerlink" title="2. Break encapsulation"></a>2. Break encapsulation</h5><p>Inheritance creates dependency between child and parent, when a class inherit another class, we include all methods and attributes from parent class and expose to the child class, therefore we break the encapsulation, the child object can access all the methods in parent object and overwrite them. That creates a tightly coupled relation between child and parent class, also against the idea of object oriented, which is hide the complexity in the object and interact by interface.</p>
+<p>In example, MyService overwrite service_url, which is used in ServiceBase and use the <code>connection</code> class from <code>Configuration</code> class, creates a circular logic that is hard to track without open all the files. Also when we read the child class, we needs to understand the implementation details of the parent class because it expose the complexity to child class, verses hiding it in the object.</p>
+<h5 id="3-Inheritance-unnecessary-methods"><a href="#3-Inheritance-unnecessary-methods" class="headerlink" title="3. Inheritance unnecessary methods"></a>3. Inheritance unnecessary methods</h5><p>Inheritance, by the rule of substitution, needs to inherit all the methods and properties from parent class, even if it is not used or not needed in the child class, that creates more complexity than the child class needs to.</p>
+<h5 id="4-Flexibility"><a href="#4-Flexibility" class="headerlink" title="4. Flexibility"></a>4. Flexibility</h5><p>Because we can only inheritance from one class, if we extract all the code into <code>ServiceBase</code>, it is hard to reuse just part of the code without includes all the methods in <code>ServiceBase</code>.</p>
+<p>This problem can be solved if we break ServiceBase into smaller module, like the Configuration module is an example, that if we want to use <code>connection</code> we can include the module to use it without including <code>ServiceBase</code></p>
+<h5 id="5-Is-a-relation"><a href="#5-Is-a-relation" class="headerlink" title="5. Is-a relation"></a>5. Is-a relation</h5><p>For object oriented, we create a class name imply the relationship between parent and child object. In this case, <code>Service</code> and <code>ServiceBase</code> which actually does not make sense. By inherit ServiceBase, MyService is a ServiceBase, But ServiceBase in here does not have any logical meaning in hierarchy, in here we just trying to reuse the code by introduce the abstract class. However in object oriented we also enforce an is-a relationship between parent and child, which sometime does not reflect object’s real relationships.</p>
+<p>Another example is EventEmitter, in javascript we often inheritance EventEmitter on things that needs an event api.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Service</span> <span class="keyword">extends</span> <span class="title">EventEmitter</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>But service is not an EventEmitter here, we just want to reuse the code and interface but accidentally introduce a is-a relation.</p>
+<h2 id="Prefer-composition-over-inheritance"><a href="#Prefer-composition-over-inheritance" class="headerlink" title="Prefer composition over inheritance"></a>Prefer composition over inheritance</h2><p>In conclusion, by using inheritance to reuse the code here, we also introduce a tightly couple, non-flexible, redundant, complex and does not make sense object.</p>
+<p>By contrast we can just do this:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyService</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span></span></span><br><span class="line">    @service = Service.new(<span class="symbol">format:</span> <span class="symbol">:xml</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">get_response</span></span></span><br><span class="line">    @service.send_request</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>So we got all the benefits of reuse the code, encapsulate the complexity behind Service class and create loose coupled object that we can easily swap to change behavior of the object.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>This example pretty well explain why we should prefer composition over inheritance in most of the cases. There are exceptions, one is the system objects, when we have a clear hierarchy of objects and definition of interfaces, inheritance actually works well. But in most of the cases, it does not. Imagine in real example that each file is around 400-500 lines of codes, the interaction between child and parent will become overly complex and those complexity can be avoided by composition.</p>
+<p>Programming paradigms is often changing, and there is no universal solution on everything. Inheritance is an example, once a good concept is now proved to introduce more harm than help. I hope this article can help people understand more about why inheritance is bad. And also answer my question from my college time:</p>
+<blockquote>
+<p>Inheritance is not the core of object oriented programming,<br>and it is commonly overrated because it creates more harm than help and should only used in certain situations.</p>
+</blockquote>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://blogs.perl.org/users/sid_burn/2014/03/inheritance-is-bad-code-reuse-part-1.html" target="_blank" rel="noopener">Why inheritance is bad: Code Reuse</a><br><a href="https://www.quora.com/Is-inheritance-bad-practice-in-OOP" target="_blank" rel="noopener">Is inheritance bad practive in OOP</a><br><a href="https://softwareengineering.stackexchange.com/questions/134097/why-should-i-prefer-composition-over-inheritance" target="_blank" rel="noopener">Why should I prefer composition over inheritance</a></p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at  <a href="http://github.com/rafe">Github</a></p>
+</section>
+
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2017/04/Why-inheritance-is-bad/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2017/04/Why-inheritance-is-bad/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2017/04/Why-inheritance-is-bad/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2019/06/source-code-odyssey-rake/">
+        ← Source code odyssey - Rake
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2017/04/Good-engineer-bad-engineer/">
+        Good engineer, bad engineer →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2015 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

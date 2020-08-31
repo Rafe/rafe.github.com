@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Rails circular dependency | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="http://neethack.com">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2015-04-29T03:35:00.000Z" itemprop="datePublished">
+          2015-04-28
+      </time>
+    
+    
+    | 
+    <a href='/tags/ruby/'>ruby</a>
+    
+    
+</span>
+    <h1 class="post-title">Rails circular dependency</h1>
+    <section class="post-content">
+      <h2 id="Circular-dependency"><a href="#Circular-dependency" class="headerlink" title="Circular dependency"></a>Circular dependency</h2><p>Recently, I encountered a circular dependency problem that happened in rails,<br>When the parent model is dependent on child model, it returns Runtime Error for Circular dependency.<br>However, there is 2 child model that have circular dependency on parent model, but only one will fail on loading:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># ./app/models/alpha_product</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AlphaProduct</span> &lt; BaseProduct</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ./app/models/base_product.rb</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseProduct</span></span></span><br><span class="line">  PRODUCTS = [AlphaProduct, Product]</span><br><span class="line">  <span class="comment"># this works</span></span><br><span class="line">  <span class="comment"># PRODUCTS = [Product]</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ./app/models/product.rb</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> &lt; BaseProduct</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># test file:</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'spec_helper'</span></span><br><span class="line"></span><br><span class="line">it <span class="string">'does something'</span> <span class="keyword">do</span></span><br><span class="line">  AlphaProduct.do_things <span class="comment"># RuntimeError: Circular dependency detected while autoloading constant AlphaProduct</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>But when we remove the dependency on AlphaProduct, the application works fine. Why is that?</p>
+<a id="more"></a>
+<h2 id="Rails-autoload"><a href="#Rails-autoload" class="headerlink" title="Rails autoload"></a>Rails autoload</h2><p>To understand this, first we need to know how rails autoload works.<br>First, rails provide a mechanism to let user does not to require every dependency in application files.</p>
+<p>If we call any unloaded constant in rails, rails will try to find the file in load path and require the file by<br>lookup the file in load paths.</p>
+<p>For example, a constant call <code>Product</code>, will lookup the product.rb file in app/models, app/controllers, lib/ and other load paths.<br>Rails achieve this by extend the ruby <code>const_missing?</code> method.</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># in active_support/dependencies.rb</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">const_missing</span><span class="params">(const_name)</span></span></span><br><span class="line">  from_mod = anonymous? ? guess_for_anonymous(const_name) : <span class="keyword">self</span></span><br><span class="line">  Dependencies.load_missing_constant(from_mod, const_name)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>In <code>Dependencies.load_missing_constant</code> method</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#lib/active_support/dependencies.rb:477</span></span><br><span class="line">expanded = File.expand_path(file_path)</span><br><span class="line">expanded.sub!(<span class="regexp">/\.rb\z/</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> loading.<span class="keyword">include</span>?(expanded)</span><br><span class="line">  raise <span class="string">"Circular dependency detected while autoloading constant <span class="subst">#&#123;qualified_name&#125;</span>"</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>So when rails require or autoload the files, it will record the files that loaded through it,<br>and raise error when loading the same file. So when loading the alpha_product.rb,<br>it autoload the base_product.rb and raise error when it autoload the dependency of alpha_product.</p>
+<p>However, when we try to load the base_product first, it creates BaseProduct class, and autoload the child class.<br>When the child class’s dependency for BaseProduct is called, the class is already required so it won’t trigger autoload.<br>Therefore it will not raise the error.</p>
+<h2 id="Eager-loading"><a href="#Eager-loading" class="headerlink" title="Eager loading"></a>Eager loading</h2><p>So that shows how the circular dependency happen,<br>but why it only fail when running test with circular dependency in alpha product?<br>It turns out it’s the load sequence and eager loading’s problem.</p>
+<p>I the test environment, we set the <code>config.eager_loading = true</code> which will preload all files under eager loading paths.</p>
+<p>from railties/lib/rails/engine.rb eager_load! method:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># Eager load the application by loading all ruby</span></span><br><span class="line"><span class="comment"># files inside eager_load paths.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">eager_load!</span></span></span><br><span class="line">  config.eager_load_paths.each <span class="keyword">do</span> <span class="params">|load_path|</span></span><br><span class="line">    matcher = <span class="regexp">/\A<span class="subst">#&#123;Regexp.escape(load_path.to_s)&#125;</span>\/(.*)\.rb\Z/</span></span><br><span class="line">    Dir.glob(<span class="string">"<span class="subst">#&#123;load_path&#125;</span>/**/*.rb"</span>).sort.each <span class="keyword">do</span> <span class="params">|file|</span></span><br><span class="line">      require_dependency file.sub(matcher, <span class="string">'\1'</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>We can see when eager_load is set to true, rails will run <code>require_dependency</code> for each file in eager load paths with sorted order.<br>Under the <code>require_dependency</code> call, it use the same <code>require_or_load</code> as in autoload, so it will also record the loaded files.<br>So alpha_product.rb will always be loaded before base_product.rb, therefore cause the circular dependency.</p>
+<p>However in product.rb, it loads after base_product.rb.<br>So the file will be loaded by autoload when loading base_product.rb. And it already have the reference of base_product.<br>So it won’t cause circular dependency. here’s the timeline of what happened:</p>
+<h3 id="For-alpha-product"><a href="#For-alpha-product" class="headerlink" title="For alpha product:"></a>For alpha product:</h3><ol>
+<li>loading AlphaProduct</li>
+<li>detected const missing for BaseProduct, before AlphaProduct declare</li>
+<li>autoload BaseProduct</li>
+<li>detected const missing for AlphaProduct</li>
+<li>autoload AlphaProduct</li>
+<li>detected circular dependency</li>
+</ol>
+<h3 id="For-product"><a href="#For-product" class="headerlink" title="For product:"></a>For product:</h3><ol>
+<li>loading BaseProduct</li>
+<li>detected const missing for Product, after BaseProduct declare</li>
+<li>autoload Product with dependency of BaseProduct</li>
+</ol>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Rails autoloading is a really convience feature, but it also generate some tricky problems when handling dependencies.<br>To avoid this kind of problems, it’s still better to call <code>require_dependency</code> before inherit or use other class in rails.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="http://urbanautomaton.com/blog/2013/08/27/rails-autoloading-hell/" target="_blank" rel="noopener">rails autoloading hell</a>  </li>
+<li><a href="http://cirw.in/blog/constant-lookup.html" target="_blank" rel="noopener">everything you ever wanted to know about constant lookup in Ruby</a></li>
+</ul>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at  <a href="http://github.com/rafe">Github</a></p>
+</section>
+
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2015/04/rails-circular-dependency/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2015/04/rails-circular-dependency/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2015/04/rails-circular-dependency/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2015/06/rails-abstraction-showcase/">
+        ← Rails abstraction showcase
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2015/04/dig-into-the-rails-errors/">
+        Dig into the rails errors →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2015 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "hexo server",
-    "build": "hexo generate",
+    "build": "hexo clean && hexo generate",
     "deploy": "hexo deploy"
   }
 }

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Understand event loops | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="http://neethack.com">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2013-01-09T23:02:00.000Z" itemprop="datePublished">
+          2013-01-09
+      </time>
+    
+    
+    | 
+    <a href='/tags/javascript/'>javascript</a>
+    
+    
+</span>
+    <h1 class="post-title">Understand event loops</h1>
+    <section class="post-content">
+      <p>Event loop is the core feature in node.js,<br>and is also the reason why it is better on handling requests and realtime communication like long polling.</p>
+<h2 id="The-Obstacle-of-IO"><a href="#The-Obstacle-of-IO" class="headerlink" title="The Obstacle of IO"></a>The Obstacle of IO</h2><p>The reason is on this is because the I/O is expensive:</p>
+<a id="more"></a>
+<ul>
+<li>L1/cache: 3 cycles</li>
+<li>L2/cache: 14 cycles</li>
+<li>RAM: 250 cycles</li>
+<li>Disk: 41,000,000 cycles</li>
+<li>Network: 240,000,000 cycles</li>
+</ul>
+<p>In the case like web application, every request is not computing heavy but require lots of access on database and disk.<br>So the most time-costing task in a request is waiting database or disk to response.</p>
+<p>To solve this problems, the application servers running multiprocess or multithread<br>to make it able to handle more request at same time.<br>however, the new process solution will cost large among of memory because the each fork will copy the memory data to new process.<br>Thread solution is more kindly on memory but still cost more memory.</p>
+<h2 id="What-is-event-loops"><a href="#What-is-event-loops" class="headerlink" title="What is event loops?"></a>What is event loops?</h2><p>So the event loops become the solution of this.</p>
+<h3 id="Asynchronous-I-O-aka-Evented-I-O"><a href="#Asynchronous-I-O-aka-Evented-I-O" class="headerlink" title="Asynchronous I/O aka Evented I/O"></a>Asynchronous I/O aka Evented I/O</h3><p>The problem of I/O obstacle, is because I/O can run concurrently, but your code is not,<br>So while the code is accessing the I/O, the process can only idle and wait for the response:</p>
+<p>Sync I/O in node.js:</p>
+<pre><code>fs = require(&apos;fs&apos;)
+
+var data = fs.readFileSync(&apos;file.txt&apos;)
+// wait for IO to return content
+console.log(data)
+</code></pre><p>But with event loop, the program don’t need to wait for the I/O but can handle next task directly.</p>
+<pre><code>fs = require(&apos;fs&apos;)
+
+fs.readFile(&apos;file.txt&apos;, function(err, data){
+  // Called when data is ready
+  console.log(data)
+});
+// returns
+</code></pre><p>The node.js event loop is using <a href="https://github.com/joyent/libuv" target="_blank" rel="noopener">libuv</a> to handle the I/O multiplex<br>in the core function of libuv:</p>
+<pre><code>//src/unix/core.c
+int uv_run2(uv_loop_t* loop, uv_run_mode mode) {
+  int r;
+
+  if (!uv__loop_alive(loop))
+    return 0;
+
+  do {
+    uv__update_time(loop);
+    uv__run_timers(loop);
+    uv__run_idle(loop);
+    uv__run_prepare(loop);
+    uv__run_pending(loop);
+    uv__io_poll(loop, (mode &amp; UV_RUN_NOWAIT ? 0 : uv_backend_timeout(loop)));
+    uv__run_check(loop);
+    uv__run_closing_handles(loop);
+    r = uv__loop_alive(loop);
+  } while (r &amp;&amp; !(mode &amp; (UV_RUN_ONCE | UV_RUN_NOWAIT)));
+
+  return r;
+}
+</code></pre><p>We can know the event loop is just a while loop, what it do is keep polling I/O for avalible fd(<a href="http://en.wikipedia.org/wiki/File_descriptor" target="_blank" rel="noopener">file descriptor</a>)<br>and trigger event callback while the fd is ready.</p>
+<p>in unix, there’s multiple way to polling fd:</p>
+<ul>
+<li>select</li>
+<li>poll</li>
+<li>epoll (linux)</li>
+<li>kqueue (BSD, unix, osx)</li>
+</ul>
+<p>node.js is using kqueue on mac os/unix.</p>
+<h2 id="Reactor-pattern"><a href="#Reactor-pattern" class="headerlink" title="Reactor pattern"></a>Reactor pattern</h2><p><img src="reactor-pattern.png" alt="Reactor Pattern"></p>
+<p>In javascript, function can be passed as first class object,<br>so the code on node.js is heavily using callback and event to make efficient async I/O.</p>
+<p>example a db query:</p>
+<pre><code>db.posts.find(function(err, posts){
+  console.log(posts);
+});
+</code></pre><p>could pass a function as callback to event loop, trigger it when the data is available.<br>and process can handle other tasks during response.</p>
+<p>Also, the process.nextTick can also pass function to event loop, execute the function when the process is avaliable for task.</p>
+<pre><code>//Blocked:
+
+// some time consuming task
+for(var i=0;i &lt; 10000000000; i++){}
+console.log(&apos;done&apos;);
+
+console.log(&apos;return&apos;)
+//&gt;&gt; done
+//&gt;&gt; return
+
+//Async:
+
+process.nextTick(function(){
+  // some time consuming task
+  for(var i=0;i &lt; 10000000000; i++){}
+  console.log(&apos;done&apos;);
+});
+
+console.log(&apos;return&apos;)
+//&gt;&gt; return
+//&gt;&gt; done
+</code></pre><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul>
+<li><a href="http://truthabouteventloops.com/" target="_blank" rel="noopener">The truth about event loops online masterclass</a></li>
+<li><a href="http://howtonode.org/61f361ddb1696aee4afedaf356430cdd768b1d73/understanding-process-next-tick" target="_blank" rel="noopener">Understanding process.nextTick()</a></li>
+<li><a href="http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/" target="_blank" rel="noopener">Understanding the node.js event loop</a></li>
+<li><a href="http://fred-zone.blogspot.com/2012/09/glib-main-event-loop-nodejs-libuv.html" target="_blank" rel="noopener">Integration of GLib Main Event Loop and Node.js (chinese) </a></li>
+</ul>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at  <a href="http://github.com/rafe">Github</a></p>
+</section>
+
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2013/01/understand-event-loops/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2013/01/understand-event-loops/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2013/01/understand-event-loops/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2013/01/express-bigpipe-experiment/">
+        ← express bigpipe experiment
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2012/12/review-2012/">
+        Review of 2012 →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2015 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>
