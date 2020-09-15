@@ -18,7 +18,7 @@
     "highlight.js": "^9.15.6"
   },
   "scripts": {
-    "start": "hexo server",
+    "start": "hexo server -o --draft",
     "build": "hexo clean && hexo generate",
     "deploy": "hexo deploy"
   }
