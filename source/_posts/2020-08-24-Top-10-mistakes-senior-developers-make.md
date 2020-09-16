@@ -1,7 +1,8 @@
 title: Top 10 mistakes senior developers make
-date: 2020-08-24 21:51:43
 tags: programming
+date: 2020-08-24 21:51:43
 ---
+
 
 ![cover image](top.png)
 

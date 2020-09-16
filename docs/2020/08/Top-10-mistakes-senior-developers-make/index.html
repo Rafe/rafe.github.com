@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Top 10 mistakes senior developers make | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="http://neethack.com">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2020-08-25T02:51:43.000Z" itemprop="datePublished">
+          2020-08-24
+      </time>
+    
+    
+    | 
+    <a href='/tags/programming/'>programming</a>
+    
+    
+</span>
+    <h1 class="post-title">Top 10 mistakes senior developers make</h1>
+    <section class="post-content">
+      <p><img src="top.png" alt="cover image"></p>
+<p>There is a lot of article talking about mistakes made by junior developers. But as the experience goes, people encounter different problems and make different mistakes. Here I am talking about some of the mistakes I made often, or what I observed from other experienced developers.</p>
+<h2 id="What-is-seniority-in-programming"><a href="#What-is-seniority-in-programming" class="headerlink" title="What is seniority in programming?"></a>What is seniority in programming?</h2><p>First, we need to make a definition for senior developers before we talk about the mistakes. The definition is a various by companies and people of course, as people have various backgrounds. And the years of experience doesn’t necessarily represent the seniority: </p>
+<p>Maybe someone is coming from another industry and go through Bootcamp in their 30s, someone starts coding around 12, Someone has experience in a young startup and get a senior title in 2 years. So generally the years of experience and title is only one aspect of it. The more important is what the developer does and acts while working.</p>
+<p>Overall several traits show in a senior developer:</p>
+<ul>
+<li>teaching people</li>
+</ul>
+<p>Every team has one or two really knowledgeable people that when teammate stuck, the first thing they do is to ask the opinion from them. It shows the experience a person has, from the team’s perspective, it’s also the reason why we need senior developers on the team.</p>
+<ul>
+<li>understand the development cycle</li>
+</ul>
+<p>This includes the design, development, testing, deploy, DevOps, and support. With enough experience and curiosity, a senior developer should be able to understand the full development cycle and be able to help when there is a problem. Which means the person has a wide range of knowledge.</p>
+<ul>
+<li>advance programming knowledge</li>
+</ul>
+<p>Some developers have more knowledge on a specific part of the stack. Like frontend, database, machine learning, frameworks, or deep understanding of how the programming language and compiler work and Programming concept like design pattern and functional programming, Also practical skills like logging, security, caching, and performance tweaking… etc. </p>
+<ul>
+<li>contribute critical opinion for decision</li>
+</ul>
+<p>Making decisions is one of the most important things as a leader. Opinion and experience from past failures can contribute a lot to avoid possible failures for the team. Even the opinion is always not taken, the developer still need to make the logic clear and review it afterward to improve the decision making.</p>
+<ul>
+<li>soft skills</li>
+</ul>
+<p>Include the work attitude, self-management, communication, and team relationship. Those soft skills are critical to the career but are often based on personality, which takes time to improve.</p>
+<p>Not every traits can be observed on senior developers, but those are the aspect that can distinguish an experienced developer and an inexperienced one.</p>
+<h3 id="10-Extract-too-many-layers"><a href="#10-Extract-too-many-layers" class="headerlink" title="10. Extract too many layers"></a>10. Extract too many layers</h3><p>As a famous quote goes: </p>
+<blockquote>
+<p>All problems in computer science can be solved by another level of indirection… except for the problem of too many layers of indirection”</p>
+</blockquote>
+<p>Extracting layer is a powerful tool that it doesn’t matter what the algorithm is, we can create an indirection layer to hide all the details and make the code clean.</p>
+<p>Without any indirection, we probably will be still writing assembly code today. But too much indirection, or wrong abstraction, is a problem on its own that usually be ignored.</p>
+<p>A developer wants to write short and clean code, and create indirection is the fastest way to give you short and clean code… but it does not improve the algorithm but only transfers it into a different problem, too many experience developers fall into this trap, they break up logics that are not reusable and should be together in one file, just to achieving the “clean code” that we saw in the example of the book. The rule of 3 is a good check to prevent this mistake that only extracts methods when it is used in 3 different places, and only extracts logic when you see a clear boundary in code but not just for the sake of extracting them.</p>
+<h3 id="9-Don’t-write-documentation-or-write-it-badly"><a href="#9-Don’t-write-documentation-or-write-it-badly" class="headerlink" title="9. Don’t write documentation, or write it badly."></a>9. Don’t write documentation, or write it badly.</h3><p>Some developer doesn’t like to write documentation, as the experience increase, people realized those documents are easily out of sync with the code, and sometimes even confusing and hard to understand. So instead of writing a bunch of documentation that no one likes to read, why not just make the code simple and read the code?</p>
+<p>I think there is truth in it but also missing some points. First, not everyone would like to read the code. Second, documentation can capture more things that are not in the code, like context, screenshot, or background. Some problem of documentation is coming from bad practice. Like bad writing skills, writing too much, can’t clearly express the logic, or did not store the documentation in a centralized place.</p>
+<h3 id="8-Overconfidence-about-your-code"><a href="#8-Overconfidence-about-your-code" class="headerlink" title="8. Overconfidence about your code"></a>8. Overconfidence about your code</h3><blockquote>
+<p>“What could be wrong? it’s just a refactor that move this method to another place.” </p>
+<p>~ Every on-call engineer at 4:00 AM fixing production issue.</p>
+</blockquote>
+<p>Most developers are overconfident about their code. The root reason is humans have a conscious bias that they have more confidence for the thing they are in control of. Like people usually think driving a car is safer than taking an airplane because they are in control of the steering wheel. But by statistic driving is far more dangerous than taking an airplane. Especially for a long time driver they feel more confident but ignore in the reality many factors are without people’s control. Sometimes we don’t manual test the code because it’s just a small bug, believe the test suite can cover all the possible problems, and rely on code review or QA to catch problems. Those are a bad habit that experience develops should try to avoid.</p>
+<h3 id="7-Misuse-inheritance"><a href="#7-Misuse-inheritance" class="headerlink" title="7. Misuse inheritance"></a>7. Misuse inheritance</h3><p>I wrote a blog about this topic already: <a href="http://neethack.com/2017/04/Why-inheritance-is-bad/">Why inheritance is bad</a></p>
+<p>In general, people should consider composition first because inheritance will:</p>
+<ol>
+<li>break encapsulation.</li>
+<li>Make code hard to reuse outside inherited class.</li>
+<li>Introduce unnecessary methods for subclasses.</li>
+<li>create dependencies between classes.</li>
+</ol>
+<p>So it should be used carefully. But every book teaching object-oriented programming will never talk about those problems. Which causes a lot of improper usage of inheritance.</p>
+<h3 id="6-Underestimate-algorithm"><a href="#6-Underestimate-algorithm" class="headerlink" title="6. Underestimate algorithm"></a>6. Underestimate algorithm</h3><p>Usually, developers think of an algorithm as those Leetcode questions that you only study when you want to move to the FAAMG. And people always say you don’t need to know algorithms to be a developer, That’s true. But I think of algorithms as the process of solving problems. I often saw developers writing complex solutions for simple problems. Unlike Leetcode, it is hard to evaluate what is the best algorithm for a complex problem, so those overly complex solutions are often delivered and become a problem for the future. There are many problem-solving skills from solving Leetcode problems that can be used in solving real problems. Like estimate complexity, optimize algorithm by remove unnecessary steps, and split the problem into smaller problems. Often people underestimate those problem-solving skills.  </p>
+<h3 id="5-Lack-of-coding"><a href="#5-Lack-of-coding" class="headerlink" title="5. Lack of coding"></a>5. Lack of coding</h3><p>This happens when people have more management responsibility, they tend to code less and slowly become rusty in their coding skills. As the age grows people have family, they have more responsibility and don’t have the passion to study new things or read code as junior developers. When those developers give the direction of a project or design system, the rustiness sometime becomes a burden of the team and it’s hard to point out that because by position-wise they should be the best developers in the room. And they are confident about their solution because in the past they were the best developers so they got promoted. I think senior developers need to acknowledge this problem, ask more questions about what they don’t know, and learn from junior developers to keep their skills sharpened.</p>
+<h3 id="4-Not-communicate-enough"><a href="#4-Not-communicate-enough" class="headerlink" title="4. Not communicate enough"></a>4. Not communicate enough</h3><p>Some developers often got feedback that they are not communicating enough with their boss and coworker, or having poor communication skills. Things become complicated when they also have good programming skills, because from their standpoint they are getting things done. Telling managers what they are doing, checking with them whenever something happens, it’s not productive. Also, why don’t they spend 10 minutes to read the code if they want to know what is happening? Moreover, nobody communicates everything to everyone, so you can always find some cases to prove that you are communicating, or at least the same as other people.</p>
+<p>But people reduce all problems to communication problems, so when people complain about communication, it is not the communication problem but more likely to be a relationship problem. You probably not spending enough time talking to people and helping them, Or maybe piss off team members when discussing stuff, Or so stubborn that insist to do everything your way. There is no absolute right or wrong in a relationship problem, it is more about ego and human feeling. Of course, be more responsive to things and notify people, but also improving human management skills which are often missed by some senior developers.</p>
+<h3 id="3-Don’t-ask-for-help"><a href="#3-Don’t-ask-for-help" class="headerlink" title="3. Don’t ask for help"></a>3. Don’t ask for help</h3><p>When the developer gets more experience, they don’t ask questions on the slack channel. I think this is because they know more and like to solve problems by themselves, which is good. But often when they got stuck, it becomes harder for them to ask questions. So how to ask questions at right time is a critical skill usually forgot by senior developers.</p>
+<h3 id="2-Not-able-to-take-criticism"><a href="#2-Not-able-to-take-criticism" class="headerlink" title="2. Not able to take criticism"></a>2. Not able to take criticism</h3><p>People don’t like to take criticism, but with more knowledge and experience, they tend to be more defensive about criticism. When you are a junior developer, you will probably just take it as it is. But with more experience you can see that other people’s criticism is not always correct, it makes people harder and harder to take criticism. And become “uncoachable”, because you have opinions on every people who think they can give you advice. Therefore as people become senior, they need to learn from junior developers to be humble, ignore ego, and absorb criticism. Because that is the way to continuous growing.</p>
+<h3 id="1-Believe-in-dogmatic-rules"><a href="#1-Believe-in-dogmatic-rules" class="headerlink" title="1. Believe in dogmatic rules"></a>1. Believe in dogmatic rules</h3><p>At last, here comes the biggest problem of senior developers, dogmatic rules. The dogmatic rules here means any programming paradigm, language, architecture, or best practices that people attach to them so much that they can not see it objectively anymore.</p>
+<p>Programming is an area that changing pretty fast. Any best practice that people consider established, is not that long if you compare to other areas. For example, design patterns appeared in 1994 and test-driven development rediscovered in 2003. It feels long but compares to math or physics, those are still brand new ideas. So we need to carefully consider the pros and cons of those ideas when we try to use them. But as developers grow, they become attached to those best practices due to the pass experience. This is not a bad thing, but sometimes people blindly follow those rules without considering it over the current context and creates a self-reinforcing loop. When the project success, it is definitely because we made the rule right, when the project failed, it is because we do not follow the rule correctly. Also when the new best practices comes out, people try to write books to sell those ideas as a silver bullet without talking about the cons. Because it is new, there are not much discussion about the cons and it is easy to get buy-in of those ideas until you realize things are not as good as they claim to be. </p>
+<p>For solving this problem, people need to keep doubt on things, either new ideas or established ones, be realism and keep radical transparency in the team, to discuss ideas openly so we don’t fall into the dogmatic rule problem.</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at  <a href="http://github.com/rafe">Github</a></p>
+</section>
+
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2020/08/Top-10-mistakes-senior-developers-make/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2020/08/Top-10-mistakes-senior-developers-make/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2020/08/Top-10-mistakes-senior-developers-make/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2019/06/source-code-odyssey-rake/">
+        Source code odyssey - Rake →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2015 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>
