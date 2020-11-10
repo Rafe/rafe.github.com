@@ -3,6 +3,8 @@ date: 2020-10-04 13:50:20
 tags: programming
 ---
 
+![cover image](top.png)
+
 > TLDR: Inline abstractions and simplify logic to write better code.
 
 Programmer's work today is based on different levels of abstractions in the form of APIs and modules, they hide large amounts of implementation details so we can build features and products without understanding every detail. However, abstractions also increase the complexity of our code. Lots of time I struggle with overly complex code and try to fix those pieces by removing unnecessary abstractions. But how can we tell the abstraction is good or bad? How much abstraction in the code is too much? This article will be focusing on some of my views about abstraction and complexity in programming.
@@ -36,13 +38,13 @@ Although abstraction can largely reduce accidental complexity, make the code clo
 
 2. It increases accidental complexity.
 
-This is a tricky part because abstraction is not essential for solving the problem. Any extra abstractions are increasing accidental complexity. But then how the abstraction decrease complexity? By enough usage of it. A higher-level abstraction can represent multiple lower-level concept together. So with more usage, it can encapsulate more details and make the code focus on essential complexity but not accidental. So with the growth of the problem domain, the complexity with abstraction will grow like this: [pic1]. 
+This is a tricky part because abstraction is not essential for solving the problem. Any extra abstractions are increasing accidental complexity. But then how the abstraction decrease complexity? By enough usage of it. A higher-level abstraction can represent multiple lower-level concept together. So with more usage, it can encapsulate more details and make the code focus on essential complexity but not accidental. So with the growth of the problem domain, the complexity with abstraction will grow like this: ![pic1](pic1.png). 
 
 At the beginning of the graph, it will increase more complexity. For example, we can create the acronym "ECAC" to represent those 2 types of complexity. If I only use this acronym once in this post, it only makes this more complicated because the acronym is not essential. However, if this article got widely accepted, we might be able to call our colleague "you should look at the ECAC for your code" Then it make the conversation simpler.
 
 3. It might be wrong or misleading.
 
-Abstractions are not essential, so in the worst case, it might not be correct and misleading. This graph shows how complexity grows with wrong abstractions. [pic2]
+Abstractions are not essential, so in the worst case, it might not be correct and misleading. This graph shows how complexity grows with wrong abstractions. ![pic2](pic2.png)
 
 If an abstraction does not have enough usage to cover the extra complexity introduced. It only makes to code more complicated. Or the abstraction might not be able to successfully hide lower-level details, and users even have to bypass the abstraction. Both of those cases make the abstraction increasing accidental complexity rather than decrease it.
 
@@ -400,7 +402,7 @@ end
 ```
 Generally, I think this version is better than the previous two versions. But how do we know which one is better? After all, this refactor doesn't change code much, it is still doing a lot of things in one object, doesn't fit the SOLID principle. but compared to the original code, the essential and accidental complexity both decreased, mainly by improving justify the logic and some minor improvement for `lines_to_print` and `read_lines`. Make the program size from 86 lines to 53 lines. So if we want to introduce abstractions at this point, the code will still be simpler. We can of course introduce more abstractions, but abstractions also increase accidental complexity, `read_lines`, `lines_to_print` and `justify_spaces` can all be extracted to separate module, but without any usage, those abstractions can not reduce complexity, therefore it is better to wait until there are other usages in the codebase.
 
-# conclusion
+# Conclusion
 
 When writing code, we need to carefully estimate the essential complexity and accidental complexity, understand the goal is to reduce them, but not implement any patterns or abstractions itself. When we see the opportunity to introduce abstractions, start from a simple one and make sure there are enough usages. Also, be ready to remove it when it becomes unnecessary. Last but not least figure out how to reduce essential complexity and replace it with a better algorithm to solve the problem domain.
 
