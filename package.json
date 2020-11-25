@@ -15,7 +15,7 @@
     "hexo-renderer-marked": "^0.2.4",
     "hexo-renderer-stylus": "^0.3.0",
     "hexo-server": "^0.2.0",
-    "highlight.js": "^9.15.6"
+    "highlight.js": "^10.1.2"
   },
   "scripts": {
     "start": "hexo server -o --draft",
