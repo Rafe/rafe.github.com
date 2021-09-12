@@ -3,14 +3,15 @@ tags: ruby
 date: 2019-06-02 11:49:00
 ---
 
-
 ## Why?
 
-Recently I have a chance to work on mass among of rake tasks in the code base. During the work I found Rake is somewhat confusing but also an interesting framework. So I would like to talk about some of the good and bad practices in Rake.
+Recently I have a chance to work on mass among of rake tasks in the code base. During the work I found Rake is somewhat confusing but also an interesting framework. I would like to talk about some of the good and bad practices I found in Rake.
 
 ## History and purpose of rake
 
-Rake was originally developed By [Jim Weirich](https://en.wikipedia.org/wiki/Jim_Weirich), who passed away in 2014 (you can check his last commit [here](https://github.com/jimweirich/wyriki/commit/d28fac7f18aeacb00d8ad3460a0a5a901617c2d4)), but later become the major task runner for all ruby projects. Because of that, it inherits some taste of make in the way of syntax, and the file task which mainly used for compiling but usually not used often in ruby project. Therefore, there are some legacy and practice that can only find in the early stage of ruby project and a more implicit DSL approach which sometimes confusing. Before we talk about them, let's start from how the Rake invokes the tasks. You can open the source code of [Rake](https://github.com/ruby/rake) for details of the source code and reference.
+Rake was originally developed By [Jim Weirich](https://en.wikipedia.org/wiki/Jim_Weirich), who passed away in 2014 (you can check his last commit [here](https://github.com/jimweirich/wyriki/commit/d28fac7f18aeacb00d8ad3460a0a5a901617c2d4)), and it is the major task runner for all ruby projects. It inherits some taste of the build tool "make" in the way of syntax, like the "file" task which mainly used for compiling but not used often in ruby project. There are some legacy and practices that can only be found in the early stage of ruby project and a implicit DSL approach which sometimes confusing.
+
+Before we talk about them, let's start from how Rake invokes the tasks. You can open the source code of [Rake](https://github.com/ruby/rake) for details of the source code and references.
 
 ## How Rake load when you call it
 
@@ -135,9 +136,9 @@ The process of invoking a task is:
 4. invoke prerequisties tasks with invocation chain
 5. execute actions with arguments
 
-It is pretty straight forward, isn't it? However one of the confusing part for me is the DSL syntax for the arguments and prerequisties.
+It is pretty straight forward, isn't it? But one of the confusing part for me is the DSL syntax for the arguments and prerequisties.
 
-Usually the DSL is `task :task_name`, when we want to pass the prerequisite, we pass it in the last argument as hash: `task task_name: :prerequisite` but it become so complicated after we introduce argument: `task task_name, [:arg1, :arg2] => :prerequisite`. This is somewhat so confusing that I don't understand why you have to design in this way? Last's check the source:
+Usually the DSL is `task :task_name`, when we want to pass the prerequisites, we pass it as the last argument in hash form: `task task_name: :prerequisite` but it become further complicated after we introduce task arguments: `task task_name, [:arg1, :arg2] => :prerequisite`. This is pretty confusing that I don't understand why you have to design in this way? Last's check the source:
 
 ```rb
 # lib/rake/task_manager.rb
@@ -151,9 +152,9 @@ def resolve_args(args)
 end
 ```
 
-Basically, we check the argument includes a Hash or not, if hash exists, then we extract the hash as dependencies and hash key as task name or argument names. In this way, we don't have to specify the type of args but can depend on hash exist or not for prerequisite. If we don't use this, the task api will be like this: `task :task_name, nil, [:dep1, :dep2]` or `task :task_name, dependencies: [:dep1]`. But I even feel this is still better than using the implicit hash.
+Basically, we check the arguments includes a Hash or not, if hash exists, we extract the hash as dependencies and hash key as task name or argument names. In this way, we don't have to specify the type of args but can depend on hash exist or not for prerequisite. If we don't use this, the task api will be like this: `task :task_name, nil, [:dep1, :dep2]` or `task :task_name, dependencies: [:dep1]`. I feel this is not concise but more readable than implicit hash.
 
-## Other stuff: Null object pattern, LinkedList, Scope and File task
+## Other stuffs: Null object pattern, LinkedList, Scope and File task
 
 One of the interesting patterns in Rake is the use or Null object pattern, there are `EMPTY_TASK_ARGS`, `EmptyScope` and `EmptyInvocationChain` used in the code base to detect the nil and empty values. In this way, it is better than nil check because nil might represent multiple conditions and with an object, it is less likely to blow up the code if the object/argument is empty.
 
@@ -185,7 +186,7 @@ def out_of_date?(stamp)
 end
 ```
 
-When you don't have a file task defined in the prerequisite, it will automatically define one in lookup to track the timestamp:
+When you don't have a "file" task defined in the prerequisite, it will automatically define one in lookup to track the timestamp:
 
 ```rb
 # lib/rake/task_manager.rb
@@ -205,6 +206,6 @@ end
 
 ## Conclusion
 
-After spending some time the source code of Rake, it is actually a pretty simple and  minimalist framework for running the tasks. And it is surprisingly testable. However because it is an old framework, it did inherit some bad practices like polluting global namespace, overwrite operator, creates helper method everywhere and use a hash to decide the type of arguments. However other than those, it is a good task runner for most of the things we need. 
+After spending some time the source code of Rake, it is actually a pretty simple and minimalist framework for running the tasks, and it is surprisingly testable. However it is an old framework, it inherits some bad practices like polluting global namespace, overwrite operator, creates helper method everywhere and use a hash to decide the type of arguments, but other than those, it is still good task runner that get the job done well.
 
-There is some other replacement like [Thor](https://github.com/erikhuda/thor) that solves those problems, but I still recommend the `Rake` because it fulfills most of the use cases and more widely used, also pretty much testable as `Thor`. Unless you want to use the generator provided by `Thor` or want to also invoke the task in codebase.
+There are replacement frameworks like [Thor](https://github.com/erikhuda/thor) which solves those problems, but I still recommend the `Rake` because it fulfills most of the use cases and is the de-facto standard for ruby projects, also as testable as `Thor`. Unless you want to use the template generator syntax provided by `Thor` or want to invoke the task method in codebase.
