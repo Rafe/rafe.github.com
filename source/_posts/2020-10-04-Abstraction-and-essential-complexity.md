@@ -7,7 +7,7 @@ tags: programming
 
 > TLDR: Inline abstractions and simplify logic to write better code.
 
-Programmer's work today is based on different levels of abstractions in the form of APIs and modules, they hide large amounts of implementation details so we can build features and products without understanding every detail. However, abstractions also increase the complexity of our code. Lots of time I struggle with overly complex code and try to fix those pieces by removing unnecessary abstractions. But how can we tell the abstraction is good or bad? How much abstraction in the code is too much? This article will be focusing on some of my views about abstraction and complexity in programming.
+Programmer's work today is based on different levels of abstractions in the form of APIs and modules, they hide large amounts of implementation details so we can build features and products without understanding every details. However, abstractions also increase the complexity of our code. Lots of time I struggle with overly complex code and try to fix those pieces by removing unnecessary abstractions. But how can we tell the abstraction is good or bad? How much abstraction in the code is too much? This article will be focusing on some of my views about abstraction and complexity in programming.
 
 ## Power of abstraction
 
@@ -26,7 +26,7 @@ Although abstraction is a really powerful tool, it also has its limitation.
 
 In the paper "[No Silver Bullet](http://worrydream.com/refs/Brooks-NoSilverBullet.pdf)", it defines the software complexity into 2 parts. Essential complexity and accidental complexity.
 
-Essential complexity is the complexity inherent from the problem domain. Including the mutation of state, condition, the order of procedure, and messaging. All other complexities from the language, framework, or stack are accidental. The line between those 2 complexities might vary, but basically, you can solve the problem with different languages, different software, but the essential - the algorithm and logic to solve the problem - can not be reduced. For example, you can write the quicksort in C, python, Haskell, or even pseudo-code. The essential complexity of quicksort still stays the same. Therefore no matter how much the technology of tooling improves, there is still no silver bullet to solve the essential complexity issue to increase the productivity of programmers.
+Essential complexity is the complexity inherent from the problem domain. Including the mutation of state, condition, the order of procedure, and messaging. All other complexities from the language, framework, or stack are accidental. The line between those 2 complexities might vary, but basically, you can solve the problem with different languages, different framework, but the essential - the algorithm and logic to solve the problem - can not be reduced. For example, you can write the quicksort in C, python, Haskell, or even pseudo-code. The essential complexity of quicksort still stays the same. Therefore no matter how much the technology of tooling improves, there is still no silver bullet to solve the essential complexity issue to increase the productivity of programmers.
 
 ## Problem of abstraction
 
@@ -46,11 +46,11 @@ At the beginning of the graph, it will increase more complexity. For example, we
 
 Abstractions are not essential, so in the worst case, it might not be correct and misleading. This graph shows how complexity grows with wrong abstractions. ![pic2](pic2.png)
 
-If an abstraction does not have enough usage to cover the extra complexity introduced. It only makes to code more complicated. Or the abstraction might not be able to successfully hide lower-level details, and users even have to bypass the abstraction. Both of those cases make the abstraction increasing accidental complexity rather than decrease it.
+If an abstraction does not have enough usage to cover the extra complexity introduced. It only makes the code more complicated. Or the abstraction might not be able to successfully hide lower-level details, and users even have to bypass the abstraction. Both of those cases make the abstraction increase accidental complexity rather than decrease it.
 
 ## Reduce complexity
 
-Then how can we properly reduce the complexity of our code? Here's are a couple of suggestions:
+Then how can we properly reduce the complexity of our code? Here's a couple of suggestions:
 
 1. Make reducing essential complexity the priority
 
