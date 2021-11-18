@@ -259,7 +259,7 @@ The `resolve` method will find any resolver class or proc then check the method 
 ```ruby
 def resolve(object, args, ctx)
   application_object = object.object
-  Schmea::Validator.validate!(validators, application_ovject, ctx, args)
+  Schmea::Validator.validate!(validators, application_object, ctx, args)
 
   # check if the field is authorized
   if self.authorized?(application_object, args, ctx)
