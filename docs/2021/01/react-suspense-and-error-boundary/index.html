@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>React Suspense and Error Boundary | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="http://neethack.com">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2021-01-12T13:50:00.000Z" itemprop="datePublished">
+          2021-01-12
+      </time>
+    
+    
+    | 
+    <a href='/tags/react-javascript-programming/'>react javascript programming</a>
+    
+    
+</span>
+    <h1 class="post-title">React Suspense and Error Boundary</h1>
+    <section class="post-content">
+      <p><img src="top.png" alt="cover image"></p>
+<p>TLDR: Suspend can catch Promise from children and render fallback until the promise is resolved.</p>
+<p>In React 16.6, React is adding the <code>Suspense</code> component that it can render fallback while the app is loading javascript or fetching API. You can see the demonstration from Dan Abramov’s <a href="https://www.youtube.com/watch?v=nLF0n9SACd4" target="_blank" rel="noopener">presentation</a> in React conf.</p>
+<p>From the <a href="https://reactjs.org/docs/concurrent-mode-suspense.html" target="_blank" rel="noopener">documentation</a> on Reactjs webside, the example below:</p>
+<script src="//gist.github.com/c8bf4007cbd2d09c24efed8059aa3ee0.js?file=ProfilePage.js"></script>
+<p>Can render “Loading profile…” while <code>ProfileDetails</code> is loading, and “Loading posts…” while <code>ProfileTimeline</code> is loading. It can control the timing of render components, skip the children while loading, and avoid race conditions in children. However, it doesn’t just work like magic as the document described. Because for the Suspense component to work, the API needs to follow certain criteria.</p>
+<p>How Suspense work is similar to the ErrorBoundary in React, for example:</p>
+<script src="//gist.github.com/c8bf4007cbd2d09c24efed8059aa3ee0.js?file=ErrorBoundary.js"></script>
+<p>Can catch any errors thrown in the children and skip the render in children. Suspense is similar to ErrorBoundary, But instead of catching the error, it is catching Promise that is thrown from the children, render fallback while the promise is pending, and unblock the children when the promise is resolved.</p>
+<p>To understand how it works, we can take a look at the source code of <a href="https://github.com/facebook/react/blob/master/packages/react/src/ReactLazy.js" target="_blank" rel="noopener"><code>React.Lazy</code></a>, <code>React.Lazy</code> can work with Suspense, wrapping javascript <code>import</code> and trigger Suspense fallback while loading the component:</p>
+<script src="//gist.github.com/c8bf4007cbd2d09c24efed8059aa3ee0.js?file=LazyComponent.js"></script>
+<p>A simplified version of <code>React.lazy</code> source code looks like this:</p>
+<script src="//gist.github.com/c8bf4007cbd2d09c24efed8059aa3ee0.js?file=React.lazy.js"></script>
+<p>Therefore for Suspense to work, the API needs to:</p>
+<ol>
+<li>Trigger <code>Promise</code> that loads the data</li>
+<li>Throw the <code>Promise</code> while loading</li>
+<li>Cache the result and return the result when the <code>Promise</code> is resolved.</li>
+</ol>
+<h2 id="Data-Fetching"><a href="#Data-Fetching" class="headerlink" title="Data Fetching"></a>Data Fetching</h2><p>Let’s try to implement data fetching to support Suspense. We can reuse the concept in <code>React.lazy</code> and replace the <code>import</code> with <code>fetch</code> </p>
+<script src="//gist.github.com/c8bf4007cbd2d09c24efed8059aa3ee0.js?file=SuspenseFetch.js"></script>
+<p>With the <code>suspenseFetch</code> function above, we can convert fetch into a suspense compatible API.</p>
+<p><a href="https://github.com/andreiduca/use-async-resource" target="_blank" rel="noopener">use-async-resource</a> is a package that can turns fetch into suspense compatible API too, with support for params and fetching the new result. It is a good resource if you want to implement the API with Suspense.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Suspense is an interesting concept that makes errors and async handling declarative, and it is supported on React level so it will be more stable and easy to handle in the future. However, the Apollo graphql client will not support Suspense API due to the usage of <code>useRef</code> does not support throwing promises and errors. But we will see more libraries in React world support Suspense in the future.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://itnext.io/what-the-heck-is-this-in-react-suspense-c5e641e487a" target="_blank" rel="noopener">https://itnext.io/what-the-heck-is-this-in-react-suspense-c5e641e487a</a></li>
+<li><a href="https://github.com/andreiduca/use-async-resource" target="_blank" rel="noopener">https://github.com/andreiduca/use-async-resource</a></li>
+<li><a href="https://dev.to/andreiduca/practical-implementation-of-data-fetching-with-react-suspense-that-you-can-use-today-273m" target="_blank" rel="noopener">https://dev.to/andreiduca/practical-implementation-of-data-fetching-with-react-suspense-that-you-can-use-today-273m</a></li>
+</ul>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at  <a href="http://github.com/rafe">Github</a></p>
+</section>
+
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2021/01/react-suspense-and-error-boundary/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2021/01/react-suspense-and-error-boundary/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2021/01/react-suspense-and-error-boundary/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2021/11/source-code-odyssey-graphql-ruby/">
+        ← Source code odyssey: GraphQL Ruby
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2020/12/understand-capybara-and-web-driver/">
+        Understand Selenium and Web Driver →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2015 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

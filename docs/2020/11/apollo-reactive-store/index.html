@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Announce apollo-reactive-store | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="http://neethack.com">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2020-11-23T03:58:03.000Z" itemprop="datePublished">
+          2020-11-22
+      </time>
+    
+    
+    | 
+    <a href='/tags/programming/'>programming</a>
+    
+    
+</span>
+    <h1 class="post-title">Announce apollo-reactive-store</h1>
+    <section class="post-content">
+      <p><img src="top.png" alt="cover image"></p>
+<p>State management in frontend is always a problem. Unlike backend, the state in frontend world is pretty fragmented. Not only the local state at each component, the remote state from API, also the global state that is shared in multiple components. There is always a dilemma in react that, we want to make the component as simple as pure function and only rely on props, but passing every prop down several levels makes the props list pretty big and complicated. Another problem is how to manage data from API, do we need to put data into the global state? or we only use it locally for a component? For solving those problems, state management libraries try to pushing for different solutions:</p>
+<ul>
+<li><a href="https://redux.js.org/" target="_blank" rel="noopener">Redux</a><br>Redux is the most popular approach that follows a single directional data flow and pure functional solution. But in the tradeoff, it brings multiple concepts to include actions, reducers, dispatch, and selectors into the app. Can often make creating simple interaction complicate, if the user wants to manage every state into Redux as the framework suggested.</li>
+<li><a href="https://mobx.js.org/" target="_blank" rel="noopener">Mobx</a><br>Mobx is on another side of the spectrum, which follow object-oriented and not opinionated. Users are free to create objects and subscribe to them in the react component. But the trade-off is no single data flow, and hard to understand because the code has less structure.</li>
+<li><a href="https://recoiljs.org/" target="_blank" rel="noopener">Recoil</a><br>Recoil is an experimental framework for managing the global state, but a promising one. It acts as an extension of useState but depends on the atom key to share it globally. And provide a selector to create derived and handle remote state. It will be a good fit for smaller applications compare to Redux.</li>
+<li><a href="https://zustand.surge.sh/" target="_blank" rel="noopener">Zustand</a><br>Zustand is a pretty elegant and simple state management library. It provides a single store combine with methods to modify, set state, and hooks for react, without complicated settings like redux and also highly efficient.</li>
+</ul>
+<h2 id="Apollo-and-Reactive-var"><a href="#Apollo-and-Reactive-var" class="headerlink" title="Apollo and Reactive var"></a>Apollo and Reactive var</h2><p>Recently in Apollo client 3, it introduces another option for state management, which is to manage the state in Apollo cache and read by graphql query. It’s called <a href="https://www.apollographql.com/docs/react/local-state/reactive-variables/" target="_blank" rel="noopener">“Reactive Var”</a>. There are several reasons to manage state in apollo cache:</p>
+<ul>
+<li>It makes Graphql query the source of truth, so the app only needs to rely on <code>useQuery</code> as the endpoint of the external state.</li>
+<li>Graphql already caches the query response in Apollo cache, so it unifies remote and global states together.</li>
+</ul>
+<p>However, before Apollo 3, users have to use <code>writeQuery</code> API with the graphql query to write state into Apollo cache, which is pretty complicated. Reactive Var simplifies how to integrate state into Apollo cache.</p>
+<p>About how ReactiveVar works, we can check the <a href="https://github.com/apollographql/apollo-client/blob/a975320528d314a1b7eba131b97d045d940596d7/src/cache/inmemory/reactiveVars.ts" target="_blank" rel="noopener">source code</a> for more details. When we read a reactive var from the query, it read the current value in reactiveVar and store the current cache slot. And when the value is updated, it will broadcast caches that the value has been updated, and the cache will notify the subscriber to update.</p>
+<h2 id="Apollo-Reactive-Store"><a href="#Apollo-Reactive-Store" class="headerlink" title="Apollo Reactive Store"></a>Apollo Reactive Store</h2><p>ReactiveVar provides a way to manage the state in apollo cache. But it still has a couple of problems that it is hard to use, update, and manage those vars. Therefore I created a package to manage reactiveVar with a simple and easy to use API:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create store</span></span><br><span class="line"><span class="keyword">const</span> store = create(&#123;</span><br><span class="line">  counter: <span class="number">1</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// initialize in apollo client</span></span><br><span class="line"><span class="keyword">const</span> client = <span class="keyword">new</span> ApolloClient(&#123;</span><br><span class="line">  uri: <span class="string">"API_URL"</span>,</span><br><span class="line">  cache: <span class="keyword">new</span> InMemoryCache(&#123;</span><br><span class="line">    typePolicies: store.getTypePolicies()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// use it in component</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; loading, error, data &#125; = useQuery(gql<span class="string">`</span></span><br><span class="line"><span class="string">    query &#123;</span></span><br><span class="line"><span class="string">      counter</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  `</span>, &#123; client &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (loading || error) &#123; <span class="keyword">return</span> <span class="literal">null</span> &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; counter &#125; = data;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;&#123;counter&#125;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;() =&gt; store.update("counter", counter + 1)&#125;&gt;+1&lt;/</span>button&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; store.update(<span class="string">"counter"</span>, counter - <span class="number">1</span>)&#125;&gt;<span class="number">-1</span>&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>With this interface, we can see the state and query with Graphql. When updating we can use the store instead of reactiveVar, so it’s possible to manage multiple reactive var at the same time.</p>
+<p>Using reactive var can make managing state the same as query data from API. However, it also brings some confusion about how the state is managed:</p>
+<ul>
+<li>No type and schema declarations for reactive var.</li>
+<li>On testing, it will confuse with <code>MockedProvider</code>, since the updating store will not reflect on MockedProvider in this case.</li>
+<li>For applications with a large amount of states, it might be hard to manage everything in one store.</li>
+</ul>
+<p>Those problems will be tackled in the future versions, and welcome any pull request to improve the library:</p>
+<p><a href="https://github.com/rafe/apollo-reactive-store" target="_blank" rel="noopener">Apollo Reactive Store</a></p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at  <a href="http://github.com/rafe">Github</a></p>
+</section>
+
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2020/11/apollo-reactive-store/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2020/11/apollo-reactive-store/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2020/11/apollo-reactive-store/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2020/12/understand-capybara-and-web-driver/">
+        ← Understand Selenium and Web Driver
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2020/10/Abstraction-and-essential-complexity/">
+        Abstraction and essential complexity →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2015 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

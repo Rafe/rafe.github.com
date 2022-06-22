@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Build dropdown list with RxJS | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="http://neethack.com">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2015-11-29T22:30:00.000Z" itemprop="datePublished">
+          2015-11-29
+      </time>
+    
+    
+    | 
+    <a href='/tags/javascript/'>javascript</a>
+    
+    
+</span>
+    <h1 class="post-title">Build dropdown list with RxJS</h1>
+    <section class="post-content">
+      <p>Dropdown list is one of the most common web UI component, but yet one of the most difficult to implement.</p>
+<p>Recently I was working on a navigation dropdown list with animation. But this time, I implemented it with RxJS, which makes the code so much cleaner than usual javascript implementation.</p>
+<p>So this article is going to talk about how to use RxJS to implement a dropdown list, what is RxJS in general and dropdown list example.</p>
+<h2 id="RxJS"><a href="#RxJS" class="headerlink" title="RxJS"></a>RxJS</h2><p>RxJS is a library called Reactive Extension in Javascript. This library enable <a href="https://en.wikipedia.org/wiki/Functional_reactive_programming" target="_blank" rel="noopener">Function Reactive Programming</a> in Javascript. Which let user can manage data or events as functional stream, and provide a series of funcational methods to manupulate stream.</p>
+<p>It is easy to understand how function interact with streams from <a href="http://rxmarbles.com/" target="_blank" rel="noopener">RxMarble</a> or <a href="http://jaredforsyth.com/rxvision/examples/playground/" target="_blank" rel="noopener">RxVision</a></p>
+<p>For Example:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> source = Rx.Observable.range(<span class="number">1</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">source</span><br><span class="line">  .map( <span class="function">(<span class="params">x</span>) =&gt;</span> &#123; <span class="keyword">return</span> x * <span class="number">2</span> &#125;)</span><br><span class="line">  .filter( <span class="function">(<span class="params">x</span>) =&gt;</span> &#123; <span class="keyword">return</span> x % <span class="number">3</span> !== <span class="number">0</span> &#125;)</span><br><span class="line">  .subscribe( <span class="function">(<span class="params">x</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(x)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 4</span></span><br><span class="line"><span class="comment">// 8</span></span><br><span class="line"><span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+<p>The code above provide a stream of data from 1 to 5. We can apply map function to mutate the stream to double the value, and filter out unwanted values.<br><code>subscribe</code> method let us register listener to listen and react when receiving data from stream and print out the numbers.</p>
+<h2 id="Start-with-marble-diagram"><a href="#Start-with-marble-diagram" class="headerlink" title="Start with marble diagram"></a>Start with marble diagram</h2><p>The reason why dropdown list is hard is because it involves interaction between events and states.</p>
+<p>Let me show a basic use case for dropdown list:</p>
+<ol>
+<li>mouse enter item</li>
+<li>display dropdown</li>
+<li>mouse leave item</li>
+<li>wait for n seconds before closing dropdown</li>
+<li>mouse move into dropdown </li>
+<li>check the mouse is inside dropdown, keep dropdown open</li>
+<li>mouse leave dropdown</li>
+<li>wait for n seconds before closing dropdown</li>
+<li>check the mouse is not inside item or dropdown, close dropdown</li>
+</ol>
+<p>Usually when mouse enter item, we record the current state as ‘inside item’, and keep track of the state.<br>If mouse leave item but enter dropdown in some amount of time, we have to keep dropdown open, else user can never click any items on dropdown. After mouse enter dropdown, we will usually check the mouse state again to make sure we needs to keep dropdown open. Adding animation will makes this interaction more complicate.</p>
+<p>So, how can RxJS solve this problem?</p>
+<p>Before we implement anything, it’s better to draw the marble diagram to understand the interaction:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">                                   |<span class="keyword">check</span>          |<span class="keyword">check</span></span><br><span class="line">                              <span class="keyword">open</span> |   |<span class="keyword">keep</span> <span class="keyword">open</span>  |   |<span class="keyword">close</span> dropdown</span><br><span class="line">Mouseenter item          <span class="comment">-----O---------------------------</span></span><br><span class="line"></span><br><span class="line">Mouseleave item          <span class="comment">----------O----------------------</span></span><br><span class="line"></span><br><span class="line">Mouseenter dropdown      <span class="comment">------------O--------------------</span></span><br><span class="line"></span><br><span class="line">Mouseleave dropdown      <span class="comment">--------------------------O------</span></span><br></pre></td></tr></table></figure>
+<p>So first event is mouse enter item, when mouse enter item, it opens dropdown, and will not be effected or delay by other events.<br>Second event is mouse leave item, which trigger close dropdown check, if mouse does not move into dropdown, than close the dropdown.<br>Third is mouse enter dropdown, it will be triggered before dropdown closed, keeps dropdown open. And last is mouse leave dropdown. After mouse leave, dropdown will be closed.</p>
+<p>We can find that the mouse enter and mouse leave events are actually a pair of actions both effect the state of mouse inside/outside item.<br>So we can actually merge the events into this:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">                                   |<span class="string">check          </span>|check</span><br><span class="line">                              open |<span class="string">   </span>|<span class="string">keep open  </span>|<span class="string">   </span>|<span class="string">close dropdown</span></span><br><span class="line"><span class="string">Mouseenter item          ---  </span>|<span class="string">    </span>|<span class="string">   </span>|<span class="string">           </span>|<span class="string">   </span>|</span><br><span class="line">                           |<span class="string">  </span>|<span class="string">    </span>|<span class="string">   </span>|<span class="string">           </span>|<span class="string">   </span>|</span><br><span class="line">Mouseleave item          -----A----B----------------------</span><br><span class="line">                                                   |<span class="string">   </span>|</span><br><span class="line">Mouseenter dropdown      ---                       |<span class="string">   </span>|</span><br><span class="line">                           |<span class="string">                       </span>|<span class="string">   </span>|</span><br><span class="line">Mouseleave dropdown      ------------1-------------2------</span><br><span class="line"></span><br><span class="line">A: enter, B: leave</span><br><span class="line">1: enter, 2: leave</span><br></pre></td></tr></table></figure>
+<p>A and B present the state change. We can combine the state and action triggered to a table:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>1</th>
+<th>2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> A</td>
+<td>X</td>
+<td>open</td>
+<td></td>
+</tr>
+<tr>
+<td> B</td>
+<td>open</td>
+<td>close</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>So if we merge the event into single stream and combine the latest state, the events become state changes:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                                   |<span class="string">check          </span>|check</span><br><span class="line">                              open |<span class="string">   </span>|<span class="string">keep open  </span>|<span class="string">   </span>|<span class="string">close dropdown</span></span><br><span class="line"><span class="string">                              </span>|<span class="string">    </span>|<span class="string">   </span>|<span class="string">           </span>|<span class="string">   </span>|</span><br><span class="line">State                    -----A2---B2--B1----------B2------</span><br></pre></td></tr></table></figure>
+<p>So with this diagram, we can start to implement dropdown in RxJs</p>
+<h2 id="Implement-in-RxJS"><a href="#Implement-in-RxJS" class="headerlink" title="Implement in RxJS"></a>Implement in RxJS</h2><p>First, we generate event stream from <code>mouseenter</code> <code>mouseleave</code> events</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>)</span><br><span class="line"><span class="keyword">var</span> Rx = <span class="built_in">require</span>(<span class="string">'rx'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fromEvent = Rx.Observable.fromEvent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> navItems = $(<span class="string">'#nav-tray-links li'</span>);</span><br><span class="line"><span class="keyword">var</span> navTrays = $(<span class="string">'.nav-tray'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> mouseEnterMenuItem = fromEvent(navItems, <span class="string">'mouseenter'</span>);</span><br><span class="line"><span class="keyword">var</span> mouseLeaveMenuItem = fromEvent(navItems, <span class="string">'mouseleave'</span>);</span><br><span class="line"><span class="keyword">var</span> mouseEnterTray = fromEvent(navTrays, <span class="string">'mouseenter'</span>);</span><br><span class="line"><span class="keyword">var</span> mouseLeaveTray = fromEvent(navTrays, <span class="string">'mouseleave'</span>);</span><br></pre></td></tr></table></figure>
+<p>Then, we can map the event to return true and false to present the state inside and outside, and merge mouseenter and mouseleave event into a single stream.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> inMenu = mouseEnterMenuItem.map( <span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="keyword">return</span> <span class="literal">true</span> &#125;)</span><br><span class="line">  .merge(mouseLeaveMenuItem.map( <span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="keyword">return</span> <span class="literal">false</span> &#125;))</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> inTray = mouseEnterTray.map( <span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="keyword">return</span> <span class="literal">true</span> &#125; )</span><br><span class="line">  .merge(mouseLeaveTray.map( <span class="function"><span class="params">()</span> =&gt;</span> &#123;<span class="keyword">return</span> <span class="literal">false</span> &#125;)).startWith(<span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+<p>And the next part is to combine those 2 event stream and transform them into a single state by <code>combineLatest</code>, when event happened, return with both latest value from both stream.<br><a href="http://rxmarbles.com/#combineLatest" target="_blank" rel="noopener">combineLatest</a></p>
+<p>Also the inTray stream needs to start with false since the <code>combineLatest</code> does not work without all the streams have values.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> state = Rx.Observable.combineLatest(inMenu, inTray)</span><br><span class="line"></span><br><span class="line"><span class="comment">// handle state A2: open dropdown</span></span><br><span class="line">state.filter( <span class="function">(<span class="params">args</span>) =&gt;</span> &#123; <span class="keyword">return</span> args[<span class="number">0</span>]&#125;)</span><br><span class="line">  .subscribe(openTray)</span><br><span class="line"></span><br><span class="line"><span class="comment">// handle state B2: close dropdown</span></span><br><span class="line">state.filter( <span class="function">(<span class="params">args</span>) =&gt;</span> &#123; <span class="keyword">return</span> !args[<span class="number">0</span>] &amp;&amp; !args[<span class="number">1</span>] &#125;)</span><br><span class="line">  .subscribe(closeTray)</span><br></pre></td></tr></table></figure>
+<h2 id="Manipulate-event-stream"><a href="#Manipulate-event-stream" class="headerlink" title="Manipulate event stream"></a>Manipulate event stream</h2><p>So we get a pretty simple and clean dropdown list now, but we did not consider the case when mouse move in and move out in short periods of time,<br>we want to keep dropdown open when mouse move from item to dropdown, or move from dropdown to item.</p>
+<p>We can use <a href="http://rxmarbles.com/#debounce" target="_blank" rel="noopener">debounce</a> to only trigger event that does not change in certain amount of time.<br>when mouse enter and leave item, the debounce can filter out the enter event, only capture the last event in certain time range.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> state = Rx.Observable.combineLatest(inMenu, inTray)</span><br><span class="line">  .debounce(<span class="number">200</span>)</span><br><span class="line">  .subscribe(openTray)</span><br></pre></td></tr></table></figure>
+<p>With debounce method, we can easily create and control the event stream without any <code>timeout</code> call in javascript. And also easy to modify and change.</p>
+<p><a href="http://rxmarbles.com/#throttle" target="_blank" rel="noopener">Throttle</a> can also be used here to make sure the animation dropdown can be finished without other event interuption.</p>
+<h3 id="Souce-Code-amp-Demo"><a href="#Souce-Code-amp-Demo" class="headerlink" title="Souce Code &amp; Demo"></a>Souce Code &amp; Demo</h3><p><a href="http://www.github.com/rafe/rxjs-menu" target="_blank" rel="noopener">source</a><br><a href="http://neethack.com/rxjs-menu">demo</a></p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at  <a href="http://github.com/rafe">Github</a></p>
+</section>
+
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2015/11/build-dropdown-list-with-rxjs/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2015/11/build-dropdown-list-with-rxjs/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2015/11/build-dropdown-list-with-rxjs/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2016/05/bash-like-a-marshall/">
+        ← Bash like a marshall
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2015/10/lets-build-react-dot-js/">
+        Let's build react.js →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2015 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

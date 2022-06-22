@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>express bigpipe experiment | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="http://neethack.com">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2013-01-21T20:28:00.000Z" itemprop="datePublished">
+          2013-01-21
+      </time>
+    
+    
+    | 
+    <a href='/tags/javascript/'>javascript</a>
+    
+    
+</span>
+    <h1 class="post-title">express bigpipe experiment</h1>
+    <section class="post-content">
+      <h2 id="Bigpipe"><a href="#Bigpipe" class="headerlink" title="Bigpipe"></a>Bigpipe</h2><p>Bigpipe is an unique frontend technique used by Facebook to increase their page rendering speed.</p>
+<p>When I read the article talk about <a href="https://www.facebook.com/note.php?note_id=389414033919" target="_blank" rel="noopener">bigpipe on facebook</a>, I was pretty shocked about how facebook implements those unique ideas to<br>increase their page rendering speed.</p>
+<p>Recently I am using node.js for web development, I think the async structure of node is a perfect environment to use this technique, so I wrote a small experiments app with express:</p>
+<a id="more"></a>
+<h2 id="Streaming"><a href="#Streaming" class="headerlink" title="Streaming"></a>Streaming</h2><p>The technique behind Bigpipe is actually pretty simple,<br>what Bigpipe do is using http streaming to load the page seperatly.<br>When the page load, Facebook will return basic layout, css and assets manager(bootLoader) to user first.<br>Then other slower content like news feeds, notification will returned later on the same request as Pagelet.<br>A pagelet contain it’s own css, javascripts and contents,<br>after pagelet loaded, it will render itself to page,<br>and resources dependencies is managed by bootLoader so it won’t load duplicated resources.</p>
+<p>The adventage of this approach is that the slower part of the request won’t block the whole page rendering.<br>User can get response for the completed part first, than receive the slower part.</p>
+<h2 id="experiments-on-express"><a href="#experiments-on-express" class="headerlink" title="experiments on express"></a>experiments on express</h2><p>In this example, I use express as web framework, async for async rendering and jQuery for render content to layout.</p>
+<p>you can clone the gist and run it on local:</p>
+<pre><code>git clone https://gist.github.com/4589002.git
+cd 4589002
+npm install
+npm start
+</code></pre><script src="//gist.github.com/4589002.js"></script>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at  <a href="http://github.com/rafe">Github</a></p>
+</section>
+
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2013/01/express-bigpipe-experiment/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2013/01/express-bigpipe-experiment/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2013/01/express-bigpipe-experiment/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2013/02/bacon-dot-js-for-dummies/">
+        ← Bacon.js for dummies
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2013/01/understand-event-loops/">
+        Understand event loops →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2015 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

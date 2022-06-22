@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Bacon.js for dummies | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="http://neethack.com">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2013-02-04T21:25:00.000Z" itemprop="datePublished">
+          2013-02-04
+      </time>
+    
+    
+    | 
+    <a href='/tags/javascript/'>javascript</a>
+    
+    
+</span>
+    <h1 class="post-title">Bacon.js for dummies</h1>
+    <section class="post-content">
+      <p>Bacon.js is an FRP module for events on javascript. Which can transform<br>your event listener/handler to a functional event stream. After servey a few blogs and example project,<br>I found it is a really interesting concept and can make event handling speghetti code into clear functional logics.</p>
+<h3 id="Event-stream"><a href="#Event-stream" class="headerlink" title="Event stream"></a>Event stream</h3><p>First, what is event stream?<br>Actually it is nothing special, it is just an event listener that listen to specific event.</p>
+<p>For example,</p>
+<pre><code>$(&quot;#clickme&quot;).on(&apos;click&apos;, function(event){ alert(event.target)})
+</code></pre><p>Can transfer to event stream by Bacon.js’s asEventStream helper:</p>
+<pre><code>clicked = $(&quot;#clickme&quot;).asEventStream(&apos;click&apos;)
+</code></pre><p>And add handler to event stream, listen to click event:</p>
+<pre><code>clicked.onValue(function(event){ alert(event.target) })
+</code></pre><a id="more"></a>
+<h3 id="So-what’s-the-different"><a href="#So-what’s-the-different" class="headerlink" title="So what’s the different?"></a>So what’s the different?</h3><p>Remember what I said in the beginning, event stream is functional.<br>Which means it provide functional interface to manipulate events:</p>
+<pre><code>clicked
+  .map(function(event) { return event.target })
+  .onValue(function(element) { alert(element) })
+// will map the event to event.target
+
+clicked.skip(1).take(4).onValue(function(event) { alert(event.target) })
+// will only take the 2-5 click event.
+
+clicked
+  .filter(function(event) { return event.type == &apos;click&apos; })
+  .onValue(function(event) { alert(event.target)})
+// will only take &apos;click&apos; event on event stream
+</code></pre><h3 id="Merge"><a href="#Merge" class="headerlink" title="Merge"></a>Merge</h3><p>A powerful feature of event stream is it can merge with multiple stream.<br>For example, if we want to listen 2 click event with enable and disable state, you can merge the stream:</p>
+<pre><code>enable = $(&apos;#enable&apos;).asEventStream(&apos;click&apos;).map(true)
+disable = $(&apos;#disable&apos;).asEventStream(&apos;click&apos;).map(false)
+enable.merge(disable).onValue(function(state) { alert(state) })
+</code></pre><h3 id="Property"><a href="#Property" class="headerlink" title="Property"></a>Property</h3><p>Moreover, it provide property: an event stream with state.<br>What property different with event stream is it will remember the state of stream,<br>which is the event object or mapped value.</p>
+<pre><code>buttonState = enable.merge(disable).toProperty(false)
+// with initial state false
+buttonState.onValue(function(state) {
+  $(&apos;#button&apos;).toggleClass(&apos;enable&apos;, state)
+})
+</code></pre><p>Also, it provide scan and assign helper to provide advance usage.</p>
+<h3 id="Message-Queue"><a href="#Message-Queue" class="headerlink" title="Message Queue"></a>Message Queue</h3><p>We can also use the event stream as message queue.</p>
+<pre><code>messageQueue = new Bacon.Bus()
+messageQueue.plug(enable.map({type: &apos;enable&apos;}))
+messageQueue.plug(disable.map({type: &apos;disable&apos;}))
+//plug event stream to queue
+
+messageQueue.onValue(function(event){ alert(event.type)})
+// listen and alert event state
+
+messageQueue.push({ type: &apos;disable&apos;})
+// push event manually, alert event
+</code></pre><p>The project <a href="https://github.com/raimohanska/worzone" target="_blank" rel="noopener">worzone</a> provide a more detailed implementation example for messageQueue</p>
+<h3 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h3><p>You can use the .ajax() helper to pass stream params to .ajax(params) and listen the promise object as event stream</p>
+<pre><code>response = enable.map({url: &apos;/enable&apos;, method: &apos;post&apos; }).ajax()
+response.onValue(function(data) {
+  alert(data)
+})
+</code></pre><h2 id="So-what-is-it-trying-to-solve"><a href="#So-what-is-it-trying-to-solve" class="headerlink" title="So what is it trying to solve?"></a>So what is it trying to solve?</h2><p>FRP, functional reactive programming on events.<br>Which reduce the duplicated part of event handling, and make code more looks like pure logic and functions.</p>
+<p>I recommand to read the example of <a href="http://nullzzz.blogspot.fi/2012/11/baconjs-tutorial-part-i-hacking-with.html" target="_blank" rel="noopener">Bacon.js tutorial</a>,<br>and <a href="https://github.com/raimohanska/todomvc" target="_blank" rel="noopener">todomvc example</a> with Bacon.js.<br>It shows how the functional declarative can simplify codes.</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at  <a href="http://github.com/rafe">Github</a></p>
+</section>
+
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2013/02/bacon-dot-js-for-dummies/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2013/02/bacon-dot-js-for-dummies/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2013/02/bacon-dot-js-for-dummies/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2013/04/announcing-code-warrior/">
+        ← Announcing Code-Warrior
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2013/01/express-bigpipe-experiment/">
+        express bigpipe experiment →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2015 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>
