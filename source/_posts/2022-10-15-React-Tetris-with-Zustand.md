@@ -116,7 +116,7 @@ when the game state is START
     when the key released, stop the repeat key
 ```
 
-As the implementation in (link to the App.tsx)[], the logic can be pretty close to the description within the Zustand store, without too much jumping between code or extra modules/variables.
+As the implementation in [App.tsx](https://github.com/Rafe/react-tetris/blob/main/src/App.tsx), the logic can be pretty close to the description within the Zustand store, without too much jumping between code or extra modules/variables.
 
 ## Game loop, Movement and Coyote Time
 
