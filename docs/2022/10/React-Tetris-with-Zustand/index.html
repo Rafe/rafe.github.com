@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>React Tetris with Zustand | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="http://neethack.com">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2022-10-15T06:05:19.000Z" itemprop="datePublished">
+          2022-10-15
+      </time>
+    
+    
+    | 
+    <a href='/tags/javascript-react-programming/'>javascript react programming</a>
+    
+    
+</span>
+    <h1 class="post-title">React Tetris with Zustand</h1>
+    <section class="post-content">
+      <p><img src="tetris.png" alt="cover image"></p>
+<p><a href="https://neethack.com/react-tetris">Play Tetris Game</a></p>
+<h2 id="Yet-another-React-Tetris"><a href="#Yet-another-React-Tetris" class="headerlink" title="Yet another React Tetris"></a>Yet another React Tetris</h2><p>Tetris was created in 1984, it is a simple game in which the player controls the falling “tetromino”, and clears them by combining tetromino into one line. It is one of the most popular computer puzzle games and has hundreds of implementations on different platforms. </p>
+<p>When I am looking for some side project to work on, I remembered once seeing a Tetris implementation by React, there are surprisingly lots of implementations of Tetris in React as if there is a category of it.</p>
+<p>However, as a personal goal to distinguish from other projects, I want to implement this as simply as possible. Then I think of <a href="https://github.com/pmndrs/zustand" target="_blank" rel="noopener">Zustand</a>, a framework I found when working on <a href="https://github.com/Rafe/apollo-reactive-store" target="_blank" rel="noopener">Apollo Reactive Store</a>, it is much simpler than Redux and more readable than React hook.</p>
+<h2 id="Zustand"><a href="#Zustand" class="headerlink" title="Zustand"></a>Zustand</h2><p>Zustand is a great framework, I recommend taking a look at the example on the home page. It has the benefit of a single monostore, without the complexity introduced by Redux. The usage is simple, we design the states we need for the Tetris, and combine the state and actions that will modify the state into the store.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> useGame&lt;State&gt;<span class="function">(<span class="params">(<span class="params"><span class="keyword">set</span>, <span class="keyword">get</span></span>) =&gt; (<span class="params">&#123;</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  gameState: GameState.START,</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  level: 1,</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  line: 0,</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  score: 0,</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params"></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  matrix: buildMatrix(<span class="params"></span>),</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  currentPiece: createCurrentPiece(<span class="params">generatePieceType(<span class="params"></span>)</span>),</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  nextPieceType: generatePieceType(<span class="params"></span>),</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  gameLoop(<span class="params"></span>) &#123;</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">    ...</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  &#125;,</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  controller: (<span class="params">&#123;</span></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params"><span class="params">    ...</span></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params"><span class="params">  &#125;</span>)</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">&#125;</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<p>And than we can use the store like <code>const { gameState, level, line } = useGame(state =&gt; state)</code> in React Component.</p>
+<h2 id="Application-logic"><a href="#Application-logic" class="headerlink" title="Application logic"></a>Application logic</h2><p>One of the goals for this project is to implement Tetris without too many abstractions and make the code as close as possible to the application logic. As a result, I write down the Application as:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">A game has 7 types of Tetrimino: I, L, J, Z, S, O, T.</span><br><span class="line">  <span class="keyword">show</span> board that contains <span class="number">20</span> * <span class="number">10</span> Blocks.</span><br><span class="line">  <span class="keyword">show</span> the <span class="keyword">current</span> moving piece that <span class="keyword">is</span> controlled <span class="keyword">by</span> the player.</span><br><span class="line">  <span class="keyword">show</span> the future <span class="keyword">position</span> <span class="keyword">where</span> the <span class="keyword">current</span> piece will <span class="keyword">drop</span></span><br><span class="line">  <span class="keyword">show</span> the <span class="keyword">next</span> piece, <span class="keyword">and</span> the piece that <span class="keyword">is</span> held</span><br><span class="line">  <span class="keyword">show</span> the score, <span class="keyword">level</span>, <span class="keyword">and</span> line</span><br><span class="line"></span><br><span class="line"><span class="keyword">when</span> the game state <span class="keyword">is</span> GAME_OVER <span class="keyword">or</span> PAUSE</span><br><span class="line">  press enter <span class="keyword">to</span> <span class="keyword">start</span> the game</span><br><span class="line"><span class="keyword">when</span> the game state <span class="keyword">is</span> <span class="keyword">START</span></span><br><span class="line">  <span class="keyword">for</span> every tick (<span class="number">0.8</span> - (<span class="keyword">level</span> - <span class="number">1</span>) * <span class="number">0.007</span>) ** (<span class="keyword">level</span> - <span class="number">1</span>) <span class="keyword">second</span></span><br><span class="line">    the <span class="keyword">current</span> piece moves down</span><br><span class="line"></span><br><span class="line">  <span class="keyword">when</span> the piece <span class="keyword">move</span> down</span><br><span class="line">    <span class="keyword">if</span> the piece can <span class="keyword">move</span></span><br><span class="line">      <span class="keyword">move</span> the <span class="keyword">current</span> piece one <span class="keyword">block</span> down</span><br><span class="line">    <span class="keyword">if</span> the piece <span class="keyword">is</span> blocked</span><br><span class="line">      <span class="keyword">add</span> the tick <span class="keyword">to</span> the <span class="keyword">current</span> tick <span class="built_in">time</span> <span class="keyword">of</span> the piece</span><br><span class="line">      <span class="keyword">if</span> tick <span class="built_in">time</span> &gt; <span class="number">0.4</span> sec <span class="keyword">or</span> total <span class="built_in">time</span> &gt; <span class="number">4</span> sec</span><br><span class="line">        <span class="keyword">add</span> the <span class="keyword">current</span> piece <span class="keyword">to</span> the board</span><br><span class="line">        <span class="keyword">clear</span> the <span class="keyword">full</span> line</span><br><span class="line">        <span class="keyword">add</span> the line cleared <span class="keyword">to</span> the total <span class="keyword">lines</span></span><br><span class="line">        <span class="keyword">add</span> score <span class="keyword">by</span> [<span class="number">40</span>, <span class="number">100</span>, <span class="number">300</span>, <span class="number">1200</span>] <span class="keyword">for</span> <span class="keyword">each</span> line cleared</span><br><span class="line">        <span class="keyword">add</span> the <span class="keyword">level</span> <span class="keyword">for</span> every <span class="number">20</span> <span class="keyword">lines</span> cleared</span><br><span class="line">        play the <span class="keyword">clear</span> animation <span class="keyword">for</span> <span class="number">0.4</span> sec</span><br><span class="line">        <span class="keyword">create</span> a <span class="keyword">new</span> <span class="keyword">current</span> piece <span class="keyword">from</span> the <span class="keyword">next</span> piece</span><br><span class="line">        <span class="keyword">create</span> a <span class="keyword">new</span> <span class="keyword">next</span> piece</span><br><span class="line">  <span class="keyword">when</span> the piece <span class="keyword">move</span> <span class="keyword">left</span></span><br><span class="line">    <span class="keyword">if</span> the piece can <span class="keyword">move</span></span><br><span class="line">      <span class="keyword">move</span> the <span class="keyword">current</span> piece one <span class="keyword">block</span> <span class="keyword">left</span></span><br><span class="line">      <span class="keyword">reset</span> <span class="keyword">current</span> piece tick <span class="built_in">time</span></span><br><span class="line">  <span class="keyword">when</span> the piece <span class="keyword">move</span> <span class="keyword">right</span></span><br><span class="line">    <span class="keyword">if</span> the piece can <span class="keyword">move</span></span><br><span class="line">      <span class="keyword">move</span> the <span class="keyword">current</span> piece one <span class="keyword">block</span> <span class="keyword">right</span></span><br><span class="line">      <span class="keyword">reset</span> <span class="keyword">current</span> piece tick <span class="built_in">time</span></span><br><span class="line">  <span class="keyword">when</span> piece hold</span><br><span class="line">    <span class="keyword">if</span> the holding piece <span class="keyword">exists</span></span><br><span class="line">      <span class="keyword">switch</span> the holding piece <span class="keyword">with</span> the <span class="keyword">current</span> piece</span><br><span class="line">      <span class="keyword">lock</span> the piece <span class="keyword">and</span> hold <span class="keyword">until</span> the <span class="keyword">next</span> <span class="keyword">current</span> piece</span><br><span class="line">    <span class="keyword">if</span> the holding piece <span class="keyword">not</span> <span class="keyword">exists</span></span><br><span class="line">      put the <span class="keyword">current</span> piece <span class="keyword">to</span> hold</span><br><span class="line">      <span class="keyword">create</span> the <span class="keyword">new</span> <span class="keyword">current</span> piece</span><br><span class="line">      <span class="keyword">create</span> the <span class="keyword">new</span> <span class="keyword">next</span> piece</span><br><span class="line">  <span class="keyword">when</span> piece <span class="keyword">drop</span></span><br><span class="line">    <span class="keyword">move</span> the piece <span class="keyword">to</span> the bottom <span class="keyword">of</span> the board</span><br><span class="line">    play the shaken animation</span><br><span class="line">    <span class="keyword">add</span> the <span class="keyword">current</span> piece <span class="keyword">to</span> the board</span><br><span class="line">    <span class="keyword">clear</span> the <span class="keyword">full</span> line</span><br><span class="line">    <span class="keyword">add</span> the line cleared <span class="keyword">to</span> the total <span class="keyword">lines</span></span><br><span class="line">    <span class="keyword">add</span> score <span class="keyword">by</span> [<span class="number">40</span>, <span class="number">100</span>, <span class="number">300</span>, <span class="number">1200</span>] <span class="keyword">for</span> <span class="keyword">each</span> line cleared</span><br><span class="line">    <span class="keyword">add</span> the <span class="keyword">level</span> <span class="keyword">for</span> every <span class="number">20</span> <span class="keyword">lines</span> cleared</span><br><span class="line">    play the <span class="keyword">clear</span> animation <span class="keyword">for</span> <span class="number">0.4</span> sec</span><br><span class="line">    <span class="keyword">create</span> a <span class="keyword">new</span> <span class="keyword">current</span> piece <span class="keyword">from</span> the <span class="keyword">next</span> piece</span><br><span class="line">    <span class="keyword">create</span> a <span class="keyword">new</span> <span class="keyword">next</span> piece</span><br><span class="line">  <span class="keyword">when</span> piece rotate</span><br><span class="line">    <span class="keyword">move</span> the <span class="keyword">current</span> piece clockwise/counterclockwise <span class="keyword">by</span> <span class="keyword">pivot</span></span><br><span class="line">    <span class="keyword">if</span> the piece <span class="keyword">is</span> blocked</span><br><span class="line">      try <span class="keyword">to</span> <span class="keyword">move</span> one <span class="keyword">block</span> down</span><br><span class="line">      <span class="keyword">or</span> try <span class="keyword">to</span> <span class="keyword">move</span> one <span class="keyword">block</span> <span class="keyword">right</span></span><br><span class="line">      <span class="keyword">or</span> try <span class="keyword">to</span> <span class="keyword">move</span> one <span class="keyword">block</span> <span class="keyword">left</span></span><br><span class="line">      <span class="keyword">or</span> try <span class="keyword">to</span> <span class="keyword">move</span> two blocks up</span><br><span class="line">      <span class="keyword">or</span> <span class="keyword">cancel</span> rotate</span><br><span class="line">  <span class="keyword">when</span> the <span class="keyword">current</span> piece <span class="keyword">is</span> blocked <span class="keyword">at</span> the top</span><br><span class="line">    <span class="keyword">save</span> the game state <span class="keyword">to</span> Game <span class="keyword">Over</span></span><br><span class="line">  <span class="keyword">when</span> the arrow <span class="keyword">key</span> ArrowLeft, ArrowDown, ArrowRight <span class="keyword">is</span> pressed</span><br><span class="line">    overwrite original <span class="keyword">input</span></span><br><span class="line">    <span class="keyword">when</span> the <span class="keyword">key</span> pressed <span class="keyword">repeat</span> the <span class="keyword">key</span> <span class="keyword">after</span> <span class="number">0.15</span>s <span class="keyword">in</span> <span class="number">0.05</span>s <span class="built_in">interval</span></span><br><span class="line">    <span class="keyword">when</span> the <span class="keyword">key</span> released, <span class="keyword">stop</span> the <span class="keyword">repeat</span> <span class="keyword">key</span></span><br></pre></td></tr></table></figure>
+<p>As the implementation in (link to the App.tsx)[], the logic can be pretty close to the description within the Zustand store, without too much jumping between code or extra modules/variables.</p>
+<h2 id="Game-loop-Movement-and-Coyote-Time"><a href="#Game-loop-Movement-and-Coyote-Time" class="headerlink" title="Game loop, Movement and Coyote Time"></a>Game loop, Movement and Coyote Time</h2><p>The main game loop only contains one simple logic, if the game is started, trigger ArrowDown every tick. The main game logic is actually inside the ArrorDown key.</p>
+<p>When we press the left or right arrow key, we simply check if the position is empty, and move the current piece. But when moving down, it has a lot more to consider. If the piece can not move anymore, first we need to give some time for the player to adjust the piece, we called those “coyote time” in the game. (based on the cartoon character coyote, who can float a little bit before falling down the cliff). We record the time of the tick that the piece stall. If no movement after a certain time, or if moving but exceeds the time limit, we “lock” the piece into the board, clear the full lines, and pop the new piece. This gives the player some time to adjust the piece to the right place, especially useful when under high level since the piece falls in 1 sec and most of the time will be coyote time.</p>
+<p>If the next piece can not be popped, the game will be over, which is also triggered when ArrowDown is triggered.</p>
+<h2 id="Rotation-Wallkick-and-Smooth-Criminal"><a href="#Rotation-Wallkick-and-Smooth-Criminal" class="headerlink" title="Rotation, Wallkick, and Smooth Criminal"></a>Rotation, Wallkick, and Smooth Criminal</h2><p>Rotation is a tricky part of the application. Generally, there are couple of ways to implement this:</p>
+<ol>
+<li>Run matrix transition.</li>
+<li>Create 4 different pieces for each direction.</li>
+<li>Mix 1 and 2, create one piece centered in the pivot, and run matrix transition.</li>
+</ol>
+<p>The problem with matrix transition is, we want the piece to rotate around the “pivot”, for example, a T piece will rotate around the centerpiece, but matrix transition will make the result “shifted” a bit. So it will need adjustment afterward, the solution I used is, to record the position of the pivot while matrix transitions, and shift the piece to keep the pivot in the same position.</p>
+<p>Another interesting feature is, while rotating, if the position is not available, we want to shift the piece to the next empty place. That makes the player can maneuver the piece around under coyote time. Implementation is pretty straight forward, I compare the rotated piece with different positions, if the current position is not available, move down, else left, right, or up. Until an empty position is found, or return the original piece. </p>
+<p>Combine with Coyote Time, this makes the game can be played smoothly under high speed, or else the game will end quickly at a high level.</p>
+<h2 id="Animation"><a href="#Animation" class="headerlink" title="Animation"></a>Animation</h2><p>There is 2 animation in the game, while hard drop the piece with space, the piece falls immediately, we play a “shaken” animation to indicate the speed. Another is when the line is full, we play clear animation. That animation is simple with CSS but complicates the application logic a bit due to the timing. I have to insert multiple “setTimeout” to play the animation. Maybe an async function/generator approach might be better.</p>
+<h2 id="Repeat-button"><a href="#Repeat-button" class="headerlink" title="Repeat button"></a>Repeat button</h2><p>While using keyboard input, it has a default repeat rate depending on the operating system setting. We want to overwrite it to have a consistent control, and also implement it for the button controller. For the keyboard basically, we listen to the keyboard “keydown” and “keyup” events, while the key is pressed, record the event in a global hash after 150ms repeat the event in a 50ms interval until the key is released.</p>
+<p>For the button, it is a bit complicated due to the touch event also happening. Currently, when you touch the button, it will trigger events in this sequence:</p>
+<ul>
+<li>touchStart</li>
+<li>touchEnd</li>
+<li>mouseDown</li>
+<li>mouseUp</li>
+</ul>
+<p>So we have to record the touch event in <code>touchStart</code>, and reset it after the final <code>mouseUp</code> event, also support the case for only “mouseDown” and “mouseUp” which is so confusing just by describing it… however, I reference other implementations and come out with logic for it.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Tetris is a game that is pretty simple but includes a lot of details to make the game more playable. It is pretty fun to dig into those history and implementation details and eat dog food for fun all the time. I am pretty happy with the result, Although I might need to put more effort into design in the future version…</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a href="https://github.com/brandly/react-tetris" target="_blank" rel="noopener">https://github.com/brandly/react-tetris</a><br><a href="https://github.com/chvin/react-tetris" target="_blank" rel="noopener">https://github.com/chvin/react-tetris</a><br><a href="https://tetris.com/play-tetris" target="_blank" rel="noopener">https://tetris.com/play-tetris</a><br><a href="https://tetris.com/play-tetris" target="_blank" rel="noopener">https://tetris.wiki/</a></p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at  <a href="http://github.com/rafe">Github</a></p>
+</section>
+
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2022/10/React-Tetris-with-Zustand/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2022/10/React-Tetris-with-Zustand/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2022/10/React-Tetris-with-Zustand/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2021/11/stop-being-a-10x-engineer/">
+        Stop being a 10x engineer →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2015 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>
