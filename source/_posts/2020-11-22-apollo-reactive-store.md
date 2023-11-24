@@ -3,7 +3,7 @@ tags: react
 date: 2020-11-22 22:58:03
 ---
 
-![cover image](top.png)
+![cover image](cover.png)
 
 State management in frontend is always a problem. Unlike backend, the state in frontend world is pretty fragmented. Not only the local state at each component, the remote state from API, also the global state that is shared in multiple components. There is always a dilemma in react that, we want to make the component as simple as pure function and only rely on props, but passing every prop down several levels makes the props list pretty big and complicated. Another problem is how to manage data from API, do we need to put data into the global state? or we only use it locally for a component? For solving those problems, state management libraries try to pushing for different solutions:
 

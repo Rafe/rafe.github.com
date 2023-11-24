@@ -3,7 +3,7 @@ tags: react
 date: 2021-01-12 08:50:00
 ---
 
-![cover image](top.png)
+![cover image](cover.png)
 
 TLDR: Suspend can catch Promise from children and render fallback until the promise is resolved.
 

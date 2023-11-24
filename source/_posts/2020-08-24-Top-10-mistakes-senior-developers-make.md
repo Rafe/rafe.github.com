@@ -4,7 +4,7 @@ date: 2020-08-24 21:51:43
 ---
 
 
-![cover image](top.png)
+![cover image](cover.png)
 
 There is a lot of article talking about mistakes made by junior developers. But as the experience goes, people encounter different problems and make different mistakes. Here I am talking about some of the mistakes I made often, or what I observed from other experienced developers.
 

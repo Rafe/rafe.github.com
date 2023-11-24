@@ -3,7 +3,7 @@ tags: ruby
 date: 2021-11-18
 ---
 
-![cover image](top.png)
+![cover image](cover.png)
 
 Recently I am working with GraphQL on a day-to-day basis. The more I work with it, the more I like the GraphQL API compared to the traditional Restful API. And it is an interesting project, this article is going to do a deep dive on the ruby implementation of [GraphQL](https://graphql-ruby.org/) and share some discoveries along the way.
 

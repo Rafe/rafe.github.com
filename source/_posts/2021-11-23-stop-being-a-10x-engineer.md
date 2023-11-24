@@ -3,7 +3,7 @@ tags: programming
 date: 2021-11-23 23:06:38
 ---
 
-![cover image](top.png)
+![cover image](cover.png)
 
 Have you heard from the recruiters or internet memes, talking about a special kind of engineer, called 10x engineer?
 Rumor says those engineers can write 10x more code than their coworkers, and get 10x more jobs done. At the same time, they are only working at midnight,

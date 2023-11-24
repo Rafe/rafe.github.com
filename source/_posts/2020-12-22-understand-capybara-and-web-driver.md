@@ -3,7 +3,7 @@ tags: programming
 date: 2020-12-22 21:28:25
 ---
 
-![cover image](top.png)
+![cover image](cover.png)
 
 Integration test, system test, or end to end test in web development are a really helpful tool to make sure the application work as intended. Because it actually simulates a real browser and tests the application just like a real user. It can catch the errors that can not be found in unit tests and it is the most useful tool to make sure the application work. Even though it is more resource consuming than unit tests, the benefit is still over the cost.
 

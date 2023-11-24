@@ -3,7 +3,7 @@ date: 2020-10-04 13:50:20
 tags: programming
 ---
 
-![cover image](top.png)
+![cover image](cover.png)
 
 > TLDR: Inline abstractions and simplify logic to write better code.
 
