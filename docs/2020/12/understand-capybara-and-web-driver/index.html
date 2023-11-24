@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Understand Selenium and Web Driver | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="/">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2020-12-23T02:28:25.000Z" itemprop="datePublished">
+          2020-12-22
+      </time>
+    
+    
+    | 
+    <a href='/tags/programming/'>programming</a>
+    
+    
+</span>
+    <h1 class="post-title">Understand Selenium and Web Driver</h1>
+    <section class="post-content">
+      <p><img src="/2020/12/understand-capybara-and-web-driver/cover.png" alt="cover image"></p>
+<p>Integration test, system test, or end to end test in web development are a really helpful tool to make sure the application work as intended. Because it actually simulates a real browser and tests the application just like a real user. It can catch the errors that can not be found in unit tests and it is the most useful tool to make sure the application work. Even though it is more resource consuming than unit tests, the benefit is still over the cost.</p>
+<p>However, most of us only run integration tests and see the browser jumping around magically (or in headless mode). But how does it work under the hood? This article is going to introduce web-driver and selenium - the tools that make integration tests possible - and how they work.</p>
+<h2 id="Web-Driver"><a href="#Web-Driver" class="headerlink" title="Web Driver"></a>Web Driver</h2><p>Web Driver is a remote control interface and protocol created by W3C, supported by various browser vendors. <a href="https://www.w3.org/TR/webdriver/">W3C documentation</a></p>
+<p>For example, <a href="https://chromedriver.chromium.org/">ChromeDriver</a> is the chrome implementation version of the web driver. We can install it on Mac by brew: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; brew install chromedriver</span><br></pre></td></tr></table></figure>
+
+<p>and run it in terminal:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; chromedriver</span><br><span class="line"></span><br><span class="line">Starting ChromeDriver 87.0.4280.20 (c99e81631faa0b2a448e658c0dbd8311fb04ddbd-refs/branch-heads/4280@&#123;<span class="comment">#355&#125;) on port 9515</span></span><br><span class="line">Only <span class="built_in">local</span> connections are allowed.</span><br><span class="line">Please see https://chromedriver.chromium.org/security-considerations <span class="keyword">for</span> suggestions on keeping ChromeDriver safe.</span><br><span class="line">ChromeDriver was started successfully.</span><br></pre></td></tr></table></figure>
+
+<p>You might need to update chrome to match the right version of chromedriver, also might need to <a href="https://stackoverflow.com/questions/60362018/macos-catalinav-10-15-3-error-chromedriver-cannot-be-opened-because-the-de">authorize</a> if you are using Mac</p>
+<p><code>chromedriver</code> will start a HTTP server process, from w3c documentation we can see the web driver interact user with http, for example, if we want to start a browser process, we can send a HTTP request to chromedriver:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -XPOST http://localhost:9515/session \</span><br><span class="line">-H <span class="string">&quot;Content-Type: application/json&quot;</span> \</span><br><span class="line">-d <span class="string">&#x27;&#123; &quot;capabilities&quot;: &#123; &quot;browserName&quot;: &quot;chrome&quot; &#125; &#125;&#x27;</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">&quot;value&quot;</span>:&#123;<span class="string">&quot;capabilities&quot;</span>:&#123;<span class="string">&quot;acceptInsecureCerts&quot;</span>:<span class="literal">false</span>,<span class="string">&quot;browserName&quot;</span>:<span class="string">&quot;chrome&quot;</span>,<span class="string">&quot;browserVersion&quot;</span>:<span class="string">&quot;87.0.4280.67&quot;</span>,<span class="string">&quot;chrome&quot;</span>:&#123;<span class="string">&quot;chromedriverVersion&quot;</span>:<span class="string">&quot;87.0.4280.20 (c99e81631faa0b2a448e658c0dbd8311fb04ddbd-refs/branch-heads/4280@&#123;#355&#125;)&quot;</span>,<span class="string">&quot;userDataDir&quot;</span>:<span class="string">&quot;/var/folders/dh/nrc_gcpx3s19gs1t479jhj180000gn/T/.com.google.Chrome.Immsr4&quot;</span>&#125;,<span class="string">&quot;goog:chromeOptions&quot;</span>:&#123;<span class="string">&quot;debuggerAddress&quot;</span>:<span class="string">&quot;localhost:57462&quot;</span>&#125;,<span class="string">&quot;networkConnectionEnabled&quot;</span>:<span class="literal">false</span>,<span class="string">&quot;pageLoadStrategy&quot;</span>:<span class="string">&quot;normal&quot;</span>,<span class="string">&quot;platformName&quot;</span>:<span class="string">&quot;mac os x&quot;</span>,<span class="string">&quot;proxy&quot;</span>:&#123;&#125;,<span class="string">&quot;setWindowRect&quot;</span>:<span class="literal">true</span>,<span class="string">&quot;strictFileInteractability&quot;</span>:<span class="literal">false</span>,<span class="string">&quot;timeouts&quot;</span>:&#123;<span class="string">&quot;implicit&quot;</span>:0,<span class="string">&quot;pageLoad&quot;</span>:300000,<span class="string">&quot;script&quot;</span>:30000&#125;,<span class="string">&quot;unhandledPromptBehavior&quot;</span>:<span class="string">&quot;dismiss and notify&quot;</span>,<span class="string">&quot;webauthn:virtualAuthenticators&quot;</span>:<span class="literal">true</span>&#125;,<span class="string">&quot;sessionId&quot;</span>:<span class="string">&quot;a836dcb9e2b3b664f58b3c12f8341538&quot;</span>&#125;&#125;%</span><br></pre></td></tr></table></figure>
+
+<p>Then magically, you can see a browser page opened on your machine. The return value from http request has a session id, we can use this id to further interact with the page:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// open google</span><br><span class="line">curl -XPOST http://localhost:9515/session/a836dcb9e2b3b664f58b3c12f8341538/url \</span><br><span class="line">-H <span class="string">&quot;Content-Type: application/json&quot;</span> \</span><br><span class="line">-d <span class="string">&#x27;&#123; &quot;url&quot;: &quot;https://www.google.com&quot;&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line">// find input element</span><br><span class="line">curl -XPOST http://localhost:9515/session/a836dcb9e2b3b664f58b3c12f8341538/element \</span><br><span class="line">-H <span class="string">&quot;Content-Type: application/json&quot;</span> \</span><br><span class="line">-d <span class="string">&#x27;&#123; &quot;using&quot;: &quot;css selector&quot;, &quot;value&quot;: &quot;input[name=q]&quot;&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line">// enter text and submit search</span><br><span class="line">curl -XPOST http://localhost:9515/session/a836dcb9e2b3b664f58b3c12f8341538/element/2292f1cb-a478-40dc-9de0-00ce0019a212/value \</span><br><span class="line">-H <span class="string">&quot;Content-Type: application/json&quot;</span> \</span><br><span class="line">-d <span class="string">&#x27;&#123; &quot;type&quot;: &quot;keyDown&quot;, &quot;text&quot;: &quot;webdriver and selenium\n&quot;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>So we can do almost all the interactions that we can do on browser through HTTP requests, like filling up the form, resize window, dismiss alert, or even execute scripts. It is a really powerful tool that enables integration tests and even power bots.</p>
+<h2 id="Selenium"><a href="#Selenium" class="headerlink" title="Selenium"></a>Selenium</h2><p>But purely interact with web driver through HTTP requests is kind of cumbersome. So <a href="https://github.com/SeleniumHQ/selenium">Selenium</a> is created to make access web driver easier. Selenium is an open source library that wraps the web driver API into an easy to use interface. You can create a session, find elements, and interact without consider the web driver implementation.</p>
+<p>In this case, I am using the Ruby version of Selenium, in the source code it includes couple of objects that wrap the web driver:</p>
+<ul>
+<li>Service: find executable and run <code>webdriver</code> in the background</li>
+<li>Bridge: sending HTTP requests to webdriver</li>
+<li>Driver: main interface that sending commands to browser through bridge.</li>
+<li>Element: interface for manipulating DOM element, ex: click, submit</li>
+</ul>
+<p>For example, we can rewrite the previous bash example with Selenium:</p>
+<figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create driver</span></span><br><span class="line">driver = <span class="title class_">Selenium</span><span class="symbol">:</span><span class="symbol">:WebDriver</span>.<span class="keyword">for</span>(<span class="symbol">:chrome</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># start browser and navigate to URL</span></span><br><span class="line">driver.navigate.to(<span class="string">&quot;https://www.google.com&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># find input, enter search text and submit search</span></span><br><span class="line">element = driver.find_element(<span class="string">&quot;css&quot;</span>, <span class="string">&quot;input[name=q]&quot;</span>)</span><br><span class="line">element.send_keys(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">element.submit</span><br></pre></td></tr></table></figure>
+
+<p>Isn’t this much simpler? At the bottom, it is still using the webdriver but provides a better interface and hides the complexity of settings, session id, and element id. Make writing web crawler and integration tests much easier.</p>
+<h2 id="Capybara"><a href="#Capybara" class="headerlink" title="Capybara"></a>Capybara</h2><p>Capybara is a framework for running integration test on Ruby, it wraps selenium webdriver and Rack app together, and provide a set of DSL methods.</p>
+<p>For example, you can start a Capybara session with App by</p>
+<figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session = <span class="title class_">Capybara::Session</span>.new(<span class="symbol">:selenium</span>, <span class="title class_">MyRackApp</span>)</span><br></pre></td></tr></table></figure>
+
+<p>And run interaction with</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">session.visit(<span class="string">&quot;/home&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">element</span> <span class="operator">=</span> session.find(<span class="string">&quot;input[type=submit]&quot;</span>)</span><br><span class="line">element.click</span><br></pre></td></tr></table></figure>
+
+<p>Compare to selenium, it provides a higher level abstraction with DSL and simplify settings, so it looks good when writing integration test like:</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">it</span> <span class="string">&quot;visit the page and do search&quot;</span> <span class="built_in">do</span></span><br><span class="line">  visit <span class="string">&quot;/home&quot;</span></span><br><span class="line">  <span class="keyword">within</span> <span class="string">&quot;#content&quot;</span> <span class="built_in">do</span></span><br><span class="line">    fill_in <span class="string">&quot;input[type=text]&quot;</span>, <span class="keyword">with</span>: <span class="string">&quot;test&quot;</span></span><br><span class="line">    click_button(<span class="string">&quot;input[type=submit]&quot;</span>)</span><br><span class="line">  <span class="function"><span class="keyword">end</span></span></span><br><span class="line"><span class="function"><span class="title">end</span></span></span><br></pre></td></tr></table></figure>
+
+<p>The DSL methods basically forward the calls to <code>Capybara.current_session</code> which contains the current selenium session and app. It’s also possible to use Capybara directly without Rack app, it feels more straightforward to manipulate the page with Capybara DSL, but essentially it’s the same and Selenium will be easier to understand with Webdriver documentation.</p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>After understand how Selenium and Capybara interact with browser, it helps me debug browser test issue and enables more possible for me to write the crawler to automate some daily tasks. I hope this article can help you write automated tests and tasks with web driver too.</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at github.com/rafe</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2020/12/understand-capybara-and-web-driver/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2020/12/understand-capybara-and-web-driver/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2020/12/understand-capybara-and-web-driver/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2021/01/react-suspense-and-error-boundary/">
+        ← React Suspense and Error Boundary
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2020/11/apollo-reactive-store/">
+        Announce apollo-reactive-store →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2023 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

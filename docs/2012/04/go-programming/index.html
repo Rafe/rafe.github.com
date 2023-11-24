@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Go Programming Example | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="/">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2012-04-26T04:26:00.000Z" itemprop="datePublished">
+          2012-04-25
+      </time>
+    
+    
+    | 
+    <a href='/tags/programming/'>programming</a>
+    
+    
+</span>
+    <h1 class="post-title">Go Programming Example</h1>
+    <section class="post-content">
+      <h2 id="GO-v1"><a href="#GO-v1" class="headerlink" title="GO v1"></a>GO v1</h2><p>Recently, the Go language release it’s version 1.0, which have a more constant api that aiming on<br>attracting enterprise developers to use go as part of their solution.</p>
+<p>I read the tutorial when it’s first release. At that time, Go was positioned as a new system language, Like C or C++. But right now it become more powerful that can be use on any general programming topic that require efficiency and concurrency.</p>
+<p>As a language, Go has pretty weird syntax such as postfix type decleration and interface oriented. But other then that, Go is more like a compiled version scripting language. Which is pretty easy to write, and focusing on making threading easier through It’s Go routine.</p>
+<span id="more"></span>
+
+<h2 id="Install-go"><a href="#Install-go" class="headerlink" title="Install go"></a>Install go</h2><p>On OSX you can use homebrew:</p>
+<pre><code>brew install go
+</code></pre>
+<h2 id="Concurrent"><a href="#Concurrent" class="headerlink" title="Concurrent"></a>Concurrent</h2><p>One main feature of Go is go routine:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;runtime&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HelloGo</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Hello Go!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">		<span class="keyword">go</span> HelloGo()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>It’s equivalent to Java:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloRunnable</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello Go!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span> &#123;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">	    	(<span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">HelloRunnable</span>())).start();</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>While using go routine, the function will fork to run on different thread. Which won’t block the main process and can be efficient on multicore.</p>
+<p>Although there are other framework that can make threading easy too, but Go provide language level support and another useful feature: Channel</p>
+<p>In Java, if we want to implement a multithread program, a big problem is how to passing data between Threads. One solution is using shared memory. For example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Counter</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> <span class="variable">counter</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//synchronized access for multithreads</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">increment</span><span class="params">()</span> &#123;</span><br><span class="line">        counter++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCounter</span><span class="params">()</span>&#123; </span><br><span class="line">    	<span class="keyword">return</span> counter;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    	<span class="keyword">final</span> <span class="type">Counter</span> <span class="variable">counter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Counter</span>();</span><br><span class="line">    	<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123;</span><br><span class="line">    		<span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123; </span><br><span class="line">        		<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123; </span><br><span class="line">              		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">100000000</span>; i++)</span><br><span class="line">                  		counter.increment();</span><br><span class="line">        		&#125; </span><br><span class="line">        	&#125;).start();</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">        	<span class="comment">//wait for thread finish</span></span><br><span class="line">        	Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (InterruptedException e)&#123;</span><br><span class="line">        	System.out.println(e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(counter.getCounter());</span><br><span class="line">        <span class="comment">// 200000000</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In this example, There are 2 thread both increasing the counter, if without the synchronzed keyword, the counter will not be 200000000 in the end because when thread 1 and 2 accessing counter at same time, result will be overwritten by other thread and only increase by 1. The synronized keyword enable deadlock to prevent this happened. But even with lock protection, the communication between threads is still a problem that reduce performence and make the parallel computation harder. Therefore the Go language make a new approach: channel, to solve this problem:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">counter</span><span class="params">(id <span class="type">int</span>, channel <span class="keyword">chan</span> <span class="type">int</span>, closer <span class="type">bool</span>)</span></span> &#123;</span><br><span class="line">  <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10000000</span>; i++ &#123;</span><br><span class="line">    <span class="comment">// send count data to channel</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;process&quot;</span>, id,<span class="string">&quot; send&quot;</span>, i)</span><br><span class="line">    channel &lt;- <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> closer &#123; <span class="built_in">close</span>(channel ) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  channel := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line">  <span class="keyword">go</span> counter(<span class="number">1</span>, channel, <span class="literal">false</span>)</span><br><span class="line">  <span class="keyword">go</span> counter(<span class="number">2</span>, channel, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">  x := <span class="number">0</span></span><br><span class="line">  <span class="comment">// receiving data from channel</span></span><br><span class="line">  <span class="keyword">for</span> i := <span class="keyword">range</span> channel &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;receiving&quot;</span>)</span><br><span class="line">    x += i</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fmt.Println(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>This version of counter send the data through go channel.<br>There are 2 counter routine running in thread, invoke by go counter(channel, closer).<br>In the main process, the for loop wait to read the channel until it is closed.</p>
+<p>What happened here is the cpu core will switch between threads, and main process can be run when there’s data in channel, if not, switch to other threads. Until the channel is closed.</p>
+<p>Example in 5 count:</p>
+<pre><code>Thread 1 send 0
+Thread 2 send 0
+Thread 1 send 1
+receiving
+receiving
+Thread 2 send 1
+receiving
+Thread 1 send 2
+receiving
+Thread 2 send 2
+receiving
+Thread 1 send 3
+receiving
+Thread 2 send 3
+receiving
+Thread 1 send 4
+receiving
+Thread 2 send 4
+receiving
+receiving
+</code></pre>
+<p>Moreover, we can increase the channel buffer to optimize threads, for example:</p>
+<pre><code>channel := make(chan int, 10)
+</code></pre>
+<p>Increase buffer to 10 will make the execute sequence different:</p>
+<pre><code>Thread 1 send 0
+Thread 2 send 0
+Thread 1 send 1
+Thread 2 send 1
+receiving
+Thread 1 send 2
+Thread 2 send 2
+receiving
+Thread 1 send 3
+Thread 2 send 3
+receiving
+Thread 1 send 4
+Thread 2 send 4
+receiving
+receiving
+receiving
+receiving
+receiving
+receiving
+receiving
+</code></pre>
+<p>By the channel model, thread can easily wait and receive data but not exchange data by shared memory. Making parallel programming more easy and natural.</p>
+<p>However, accessing channel is still a heavy job. If we tweak the counter program above to only send back the result:</p>
+<pre><code>func counter(id int, channel chan int, closer bool) &#123;
+  x := 0
+    for i := 0; i &lt; 10000000; i++ &#123;
+    x++;
+  &#125;
+  channel &lt;- x
+ &#125;
+ 
+</code></pre>
+<p>The execution time can be pretty different:</p>
+<pre><code> //count to 200000000
+ //channel count:
+ real	0m32.650s
+ //result only:
+ real	0m0.359s
+</code></pre>
+<h2 id="Interface-Oriented"><a href="#Interface-Oriented" class="headerlink" title="Interface Oriented"></a>Interface Oriented</h2><p>In Go, there is no Class. Go take a lightweight approach that the data and function are seperate.<br>And we can attach function to data as receiver.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//define datatype Name is string</span></span><br><span class="line"><span class="keyword">type</span> Name <span class="type">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//define name.print() that type Name can receive function call &quot;print()&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(name Name)</span></span> <span class="built_in">print</span>() &#123;</span><br><span class="line">	fmt.Println(name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  name := Name(<span class="string">&quot;John&quot;</span>)</span><br><span class="line">  name.<span class="built_in">print</span>() <span class="comment">// John</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>On the other hand, interface is the collection of methods. That describe the behavior of a type.<br>Go is using ducktype approach, as long as the type have all method defined in interface, it can be treat as the interface type:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//define interface Runner which can Run</span></span><br><span class="line"><span class="keyword">type</span> Runner <span class="keyword">interface</span>&#123;</span><br><span class="line">	Run()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="type">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//A person can Run =&gt; p.Run()</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Person)</span></span> Run() &#123;</span><br><span class="line">	fmt.Println(p, <span class="string">&quot;is running&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Dog <span class="keyword">struct</span>&#123;</span><br><span class="line">	Name <span class="type">string</span></span><br><span class="line">	Type <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//A dog can Run =&gt; d.Run()</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d Dog)</span></span> Run() &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;A&quot;</span> ,d.Type, <span class="string">&quot;dog is running&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//A runner can start running</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Start</span><span class="params">(r Runner)</span></span> &#123;</span><br><span class="line">	r.Run()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	p := Person(<span class="string">&quot;John&quot;</span>)</span><br><span class="line">	Start(p) <span class="comment">// &quot;John is running&quot;</span></span><br><span class="line">	d := Dog&#123;<span class="string">&quot;Johnny&quot;</span>,<span class="string">&quot;Husky&quot;</span>&#125;</span><br><span class="line">	Start(d) <span class="comment">// &quot;A Husky dog is running&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Map-Reduce"><a href="#Map-Reduce" class="headerlink" title="Map Reduce"></a>Map Reduce</h2><p>Map Reduce is a programming model that distribute the calculation and collect the results.<br>The most famous example is Google. When Google build the index of web pages. Because the calculation is too big. They need to distribute the task to different server, and run as parallel as possible. The result is that they use the map reduce structure, each server received some amount of web page. Parse and count the words of that page, and the result index will be collected and added to the main index.</p>
+<p>Here is the structure of Map Reduce by Go, from <a href="http://dan.bravender.us/2009/11/24/MapReduce_for_Go.html">Dan Bravender</a> </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">&quot;fmt&quot;</span></span><br><span class="line">  <span class="string">&quot;math/rand&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Object <span class="keyword">interface</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MapReduce</span><span class="params">(input <span class="keyword">chan</span> Object,</span></span></span><br><span class="line"><span class="params"><span class="function">               mapper <span class="keyword">func</span>(Object, <span class="keyword">chan</span> Object)</span></span>,</span><br><span class="line">               reducer <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">chan</span> Object)</span></span> Object,</span><br><span class="line">               pool_size <span class="type">int</span>) Object &#123;</span><br><span class="line"></span><br><span class="line">    worker_outputs := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">chan</span> Object, pool_size)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">      <span class="comment">//read input, assign input to mapper(item, output)</span></span><br><span class="line">      <span class="keyword">for</span> item := <span class="keyword">range</span> input &#123;</span><br><span class="line">          worker_output := <span class="built_in">make</span>(<span class="keyword">chan</span> Object)</span><br><span class="line">          worker_outputs &lt;- worker_output</span><br><span class="line">          <span class="keyword">go</span> mapper(item, worker_output)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">close</span>(worker_outputs)</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    reduce_input := <span class="built_in">make</span>(<span class="keyword">chan</span> Object)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">      <span class="comment">//listening worker_outputs as reduce_input</span></span><br><span class="line">      <span class="keyword">for</span> worker := <span class="keyword">range</span> worker_outputs &#123;</span><br><span class="line">          reduce_input &lt;- (&lt;-worker)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">close</span>(reduce_input)</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> reducer(reduce_input)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>I use the type “Object” to reference an empty interface. Because the Go don’t have generic type.</p>
+<p>The first section send input to mapper, and receive worker_outputs as the collection of each worker’s result channel. Afterward, second section of the code send worker_output to reducer. Reducer return the result of calculation.</p>
+<p>For example, we can try to calculate PI by some amounts of random points. Assume there’s a circle with radius 1. we get a random point on the square of 1. The PI will be the number of points in circle &#x2F; total points. That the more points we collect, the more accurate the result will be.</p>
+<p>For example, we can distribute the calculate of 2000 points to 2000 worker, and the PI will be equal to the result &#x2F; total points</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CalculatePI</span><span class="params">(n Object, c <span class="keyword">chan</span> Object)</span></span> &#123;</span><br><span class="line">  sum := <span class="number">0</span></span><br><span class="line">  <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; n.(<span class="type">int</span>); i++ &#123;</span><br><span class="line">    x := rand.Float64()</span><br><span class="line">    y := rand.Float64()</span><br><span class="line">    <span class="keyword">if</span> (x * x + y * y ) &lt;= <span class="number">1.0</span> &#123;</span><br><span class="line">      sum += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  c &lt;- sum</span><br><span class="line">  <span class="built_in">close</span>(c)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CollectPI</span><span class="params">(in <span class="keyword">chan</span> Object)</span></span> Object &#123;</span><br><span class="line">  sum := <span class="number">0</span></span><br><span class="line">  <span class="keyword">for</span> i := <span class="keyword">range</span> in &#123;</span><br><span class="line">    sum += i.(<span class="type">int</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  input := <span class="built_in">make</span>(<span class="keyword">chan</span> Object)</span><br><span class="line">  <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">2000</span>; i++ &#123;</span><br><span class="line">      input &lt;- <span class="number">2000</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">close</span>(input)</span><br><span class="line">  &#125;()</span><br><span class="line">  points_in_circle := MapReduce(input, CalculatePI, CollectPI, <span class="number">10</span>).(<span class="type">int</span>)</span><br><span class="line">  result := <span class="type">float64</span>(points_in_circle) * <span class="number">4</span> / (<span class="number">2000</span> * <span class="number">2000</span>)</span><br><span class="line">  fmt.Println(result)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//output: 3.141711</span></span><br><span class="line"><span class="comment">//output on 20000 * 20000 points: 3.14156549</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Unittest"><a href="#Unittest" class="headerlink" title="Unittest"></a>Unittest</h2><p>Go provide a unittest package and a buildin command for testing:</p>
+<pre><code>go test
+</code></pre>
+<p>Will execute all *_test.go files as test cases.</p>
+<p>Let’s write some test for the MapReduce mapper and reducer we have:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">&quot;testing&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestCalculatePI</span><span class="params">(t *testing.T )</span></span> &#123;</span><br><span class="line">  result := <span class="built_in">make</span>(<span class="keyword">chan</span> Object)</span><br><span class="line">  <span class="keyword">go</span> CalculatePI(<span class="number">2000</span>, result)</span><br><span class="line">  sum := &lt;-result</span><br><span class="line">  PI := <span class="type">float64</span>(sum.(<span class="type">int</span>)) * <span class="number">4</span> / <span class="number">2000</span></span><br><span class="line">  <span class="keyword">if</span> PI &gt; <span class="number">3.5</span> &#123;</span><br><span class="line">    t.Error(<span class="string">&quot;Calculation Error!!&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">buildChannel</span><span class="params">(in <span class="keyword">chan</span> Object, a <span class="type">int</span>, b <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">  <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b; i++ &#123;</span><br><span class="line">    in &lt;- a</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">close</span>(in)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestCollectPI</span><span class="params">(t *testing.T)</span></span>&#123;</span><br><span class="line">  result := <span class="built_in">make</span>(<span class="keyword">chan</span> Object)</span><br><span class="line">  <span class="keyword">go</span> buildChannel(result, <span class="number">10</span>, <span class="number">10</span>)</span><br><span class="line">  sum := CollectPI(result).(<span class="type">int</span>)</span><br><span class="line">  <span class="keyword">if</span> sum != <span class="number">100</span> &#123;</span><br><span class="line">    t.Error(<span class="string">&quot;Calculation Error!!&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>The go testing framework passing a pointer for test case.<br>There is no extra syntax like assert to learn. Just use simple &#x3D;&#x3D;, !&#x3D; to check the results is correct or not. If Error happened, call testcase.Error for report error. Else the case will be mark as passed.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Go is a very interesting language. On the first hand, it might be awkward because of it’s syntax and no object oriented support. But once you know the simplicity and concurrency of Go. It would be a handy tool for the need fast calculation. However, we’re still waiting for a more complete eco system for developer and successful usecase for Go language.</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at github.com/rafe</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2012/04/go-programming/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2012/04/go-programming/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2012/04/go-programming/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2012/05/code-odyssey-expressjs/">
+        ← Code odyssey : Express
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2012/02/backbone-js-javascript-mvc-framework/">
+        backbone-js javascript MVC Framework →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2023 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

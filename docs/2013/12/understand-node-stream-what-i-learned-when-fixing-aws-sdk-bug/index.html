@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Understand node stream (what I learned when fixing Aws sdk bug) | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="/">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2013-12-09T02:34:00.000Z" itemprop="datePublished">
+          2013-12-08
+      </time>
+    
+    
+    | 
+    <a href='/tags/javascript/'>javascript</a>
+    
+    
+</span>
+    <h1 class="post-title">Understand node stream (what I learned when fixing Aws sdk bug)</h1>
+    <section class="post-content">
+      <h2 id="Node-js-stream"><a href="#Node-js-stream" class="headerlink" title="Node.js stream"></a>Node.js stream</h2><p>Node.js provides asynchronous I&#x2F;O base on event loop.<br>When reading and writing from filesystem or sending http request,<br>Node.js can process other events when waiting for response, which we called it non-blocking I&#x2F;O.<br>Stream is an extend of this concept, it provides an event base I&#x2F;O interface to<br>save memory buffers and bandwidth.</p>
+<span id="more"></span>
+
+<h2 id="Event-Based-I-O"><a href="#Event-Based-I-O" class="headerlink" title="Event Based I&#x2F;O"></a>Event Based I&#x2F;O</h2><p>When reading from filesystem, node provides non-blocking method with callback:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line">fs.<span class="title function_">readFile</span>(<span class="string">&#x27;./test.json&#x27;</span>, <span class="keyword">function</span>(<span class="params">err, err</span>)&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(err);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;test file is loaded:\n&#x27;</span>, data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>However, for large file we may want to do something before the file is completely<br>loaded to save memory buffer. This is where stream comes in:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> stream = fs.<span class="title function_">createReadStream</span>(<span class="string">&#x27;./test.mp4&#x27;</span>);</span><br><span class="line"></span><br><span class="line">stream.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;loaded part of the file&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">stream.<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="title function_">fucntion</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;all parts is loaded&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">stream.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;something is wrong :( &#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Basically a read stream is an EventEmitter with ‘data’, ‘end’ and ‘error’ event.</p>
+<p>‘data’ event return the part of file,<br>‘end’ event is called when read finished.<br>‘error’ event is called when error happened  </p>
+<p>So we can write or process part of the file, but no need to wait until the whole file is loaded.<br>For example, when we request a file from internet:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> request = <span class="built_in">require</span>(<span class="string">&#x27;request&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> stream = <span class="title function_">request</span>(<span class="string">&#x27;http://i.imgur.com/dmetFjf.jpg&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> writeStream = fs.<span class="title function_">createWriteStream</span>(<span class="string">&#x27;test.jpg&#x27;</span>)</span><br><span class="line"></span><br><span class="line">stream.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>) &#123;</span><br><span class="line">  writeStream.<span class="title function_">write</span>(data)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">stream.<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="title function_">fucntion</span>(<span class="params"></span>) &#123;</span><br><span class="line">  writeStream.<span class="title function_">end</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">stream.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;something is wrong :( &#x27;</span>);</span><br><span class="line">  writeStream.<span class="title function_">close</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>This will write the data to file when it receive part of the data.</p>
+<h2 id="Pipe"><a href="#Pipe" class="headerlink" title="Pipe"></a>Pipe</h2><p>Pipe is another concept that can let you redirect input to output.<br>The above download file code can be present with pipe:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> request = <span class="built_in">require</span>(<span class="string">&#x27;request&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> stream = <span class="title function_">request</span>(<span class="string">&#x27;http://i.imgur.com/dmetFjf.jpg&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> writeStream = fs.<span class="title function_">createWriteStream</span>(<span class="string">&#x27;./testimg.jpg&#x27;</span>);</span><br><span class="line"></span><br><span class="line">stream.<span class="title function_">pipe</span>(writeStream);</span><br></pre></td></tr></table></figure>
+
+<p>What pipe function do is, it connect the read and write events between streams,<br>and return another pipe. So we can even chaining multiple pipes together:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> request = <span class="built_in">require</span>(<span class="string">&#x27;request&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> gzip = <span class="built_in">require</span>(<span class="string">&#x27;zlib&#x27;</span>).<span class="title function_">createGzip</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> stream = <span class="title function_">request</span>(<span class="string">&#x27;http://i.imgur.com/dmetFjf.jpg&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> writeStream = fs.<span class="title function_">createWriteStream</span>(<span class="string">&#x27;./testimg.jpg&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// write gzipped image file</span></span><br><span class="line">stream.<span class="title function_">pipe</span>(gzip).<span class="title function_">pipe</span>(writeStream);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Stream2-Readable-and-Writable-stream"><a href="#Stream2-Readable-and-Writable-stream" class="headerlink" title="Stream2 (Readable and Writable stream)"></a>Stream2 (Readable and Writable stream)</h2><p>One problem of the ‘data’ event based stream is the stream consumer can’t control the timimg of read<br>and how much data to read each times.<br>When data event is triggered,<br>handler function need to store the data into buffer or write it to disk right away.<br>That becomes a problem when we have slow or limited write I&#x2F;O.</p>
+<p>Therefore, in node.js v0.10. It introduce the new stream interface, called stream2.</p>
+<p>It provides 2 new stream classes:</p>
+<h3 id="Readable-Stream"><a href="#Readable-Stream" class="headerlink" title="Readable Stream"></a>Readable Stream</h3><p>Readable stream extend the old stream interface with new ‘readable’ event,<br>which let the consumer control the timing of read and how many bytes to read.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// node.js &gt;= v0.10</span></span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> stream = fs.<span class="title function_">createReadStream</span>(<span class="string">&#x27;./testimg.jpg&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> writeStream = fs.<span class="title function_">createWriteStream</span>(<span class="string">&#x27;./output.jpg&#x27;</span>);</span><br><span class="line"></span><br><span class="line">stream.<span class="title function_">on</span>(<span class="string">&#x27;readable&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// stream is ready to read</span></span><br><span class="line">  <span class="keyword">var</span> data = stream.<span class="title function_">read</span>();</span><br><span class="line">  writeStream.<span class="title function_">write</span>(data);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">stream.<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  writeStream.<span class="title function_">end</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>So when readable event is triggered, the consumer control to call the <code>stream.read()</code> to read the data.<br>if the data is not read, readable event will be throwed back to eventloop and be triggered later.</p>
+<p>The Readable stream is also backward competable, so when ‘data’ event is listened.<br>Stream will not use readable event but downgrade to old stream behavior.</p>
+<h3 id="Writable-Stream"><a href="#Writable-Stream" class="headerlink" title="Writable Stream"></a>Writable Stream</h3><p>Writable stream added new ‘drain’ event, which will be triggered when all data in buffer is written.<br>So we can control the timing to write when the buffer is empty.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// node.js &gt;= v0.10</span></span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> stream = fs.<span class="title function_">createReadStream</span>(<span class="string">&#x27;./input.mp4&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> writeStream = fs.<span class="title function_">createWriteStream</span>(<span class="string">&#x27;./output.mp4&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> writable = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> doRead = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> data = stream.<span class="title function_">read</span>();</span><br><span class="line">  <span class="comment">// when writable return false, it means the buffer is full.</span></span><br><span class="line">  writable = writeStream.<span class="title function_">write</span>(data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stream.<span class="title function_">on</span>(<span class="string">&#x27;readable&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span>(writable) &#123;</span><br><span class="line">    <span class="title function_">doRead</span>()</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// wait for drain event if stream buffer is full</span></span><br><span class="line">    writeStream.<span class="title function_">removeAllListeners</span>(<span class="string">&#x27;drain&#x27;</span>);</span><br><span class="line">    writeStream.<span class="title function_">once</span>(<span class="string">&#x27;drain&#x27;</span>, doRead)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">stream.<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  writeStream.<span class="title function_">end</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="AWS-sdk-bug-How-to-implement-readable-stream"><a href="#AWS-sdk-bug-How-to-implement-readable-stream" class="headerlink" title="AWS sdk bug (How to implement readable stream)"></a>AWS sdk bug (How to implement readable stream)</h2><p><a href="https://github.com/aws/aws-sdk-js/pull/109">issue link</a></p>
+<p>So when I was using AWS sdk to download image from S3 with stream.<br>I found out it only download part of the image.</p>
+<p>After dig into the source of <a href="https://github.com/isaacs/readable-stream">readable stream</a>.<br>I found out the mechanism of readable stream and what happened durning download.</p>
+<p>For implementing Readable stream, we can overwrite the <code>_read</code> method of Readable stream.<br>As the spec said, the <code>_read</code> method should read the data from source and <code>push</code> the data into read buffer</p>
+<p>In AWS js sdk:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">stream.<span class="property">_read</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> data;</span><br><span class="line">  <span class="keyword">while</span> (data = httpStream.<span class="title function_">read</span>()) &#123;</span><br><span class="line">    stream.<span class="title function_">push</span>(data);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>It looks fine. The <code>_read</code> function consume data from http stream and push back to stream.<br>However, in the source of readable stream,<br>It is actually implementented with a event pull method,<br>The stream will try to read the data first, if read got null value.<br>it put the read event back to eventloop, wait until it to be triggered again.<br>However, when the _read method is called, it set a reading flag to block<br>further read event to avoid race condition.<br>And a <code>push</code> method call set the reading flag to false and unblock stream read.</p>
+<p>Therefore when the httpStream.read() return null, the stream.push will not be called.<br>And block any following read events.</p>
+<p>The solution is to remember to unblock the stream when reading:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">stream.<span class="property">_read</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> data = httpStream.<span class="title function_">read</span>();</span><br><span class="line">  <span class="keyword">do</span> &#123;</span><br><span class="line">    stream.<span class="title function_">push</span>(data);</span><br><span class="line">  &#125; <span class="keyword">while</span>(data = httpStream.<span class="title function_">read</span>());</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Further-reading"><a href="#Further-reading" class="headerlink" title="Further reading"></a>Further reading</h2><ul>
+<li><a href="http://nodestreams.com/">John Resig’s stream playground</a></li>
+<li><a href="https://github.com/substack/stream-handbook">Substack’s stream handbook</a></li>
+<li><a href="https://github.com/isaacs/readable-stream">Readable stream implementation</a></li>
+<li><a href="http://blog.nodejs.org/2012/12/20/streams2/">Official announcement of stream2</a></li>
+</ul>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at github.com/rafe</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2013/12/understand-node-stream-what-i-learned-when-fixing-aws-sdk-bug/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2013/12/understand-node-stream-what-i-learned-when-fixing-aws-sdk-bug/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2013/12/understand-node-stream-what-i-learned-when-fixing-aws-sdk-bug/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2014/06/learn-jquery-from-jqlite/">
+        ← Learn jQuery from jqLite
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2013/12/what-i-talk-about-when-i-talk-about-pairing/">
+        What I Talk About When I Talk About Pairing →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2023 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

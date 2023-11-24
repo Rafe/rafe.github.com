@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>backbone-js javascript MVC Framework | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="/">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2012-02-27T16:20:00.000Z" itemprop="datePublished">
+          2012-02-27
+      </time>
+    
+    
+    | 
+    <a href='/tags/javascript/'>javascript</a>
+    
+    
+</span>
+    <h1 class="post-title">backbone-js javascript MVC Framework</h1>
+    <section class="post-content">
+      <h2 id="What-is-Backbone-js"><a href="#What-is-Backbone-js" class="headerlink" title="What is Backbone.js?"></a>What is Backbone.js?</h2><p>Backbone is a framework for front-end JavaScript, unlike jQuery focus on easier DOM manipulation and event binding, backbone provide a structure for separating data model and DOM, just like a MVC framework separate model, view and controller. Make heavy JavaScript application easier to develop and maintain.</p>
+<h2 id="Why-Backbone"><a href="#Why-Backbone" class="headerlink" title="Why Backbone?"></a>Why Backbone?</h2><span id="more"></span>
+
+<p>In jQuery, we will write a sequence of chain selector for assign data model to DOM element like:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> article = &#123;</span><br><span class="line">  <span class="attr">author</span>:<span class="string">&quot;Joe&quot;</span>,</span><br><span class="line">  <span class="attr">content</span>: <span class="string">&quot;testing&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">$(<span class="string">&#x27;#article&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">  $(<span class="variable language_">this</span>).<span class="title function_">find</span>(<span class="string">&#x27;.content&#x27;</span>).<span class="title function_">text</span>(article.<span class="property">content</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>For backbone, it provide the Model class and View class, which is the main two element of backbone.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Article</span> = <span class="title class_">Backbone</span>.<span class="property">Model</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">ArticleView</span> = <span class="title class_">Backbone</span>.<span class="property">View</span>.<span class="title function_">extend</span>(&#123;</span><br><span class="line"></span><br><span class="line">  <span class="attr">el</span>: $(<span class="string">&#x27;#article&#x27;</span>),</span><br><span class="line"></span><br><span class="line">  <span class="attr">initialize</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">model</span>.<span class="title function_">bind</span>(<span class="string">&#x27;change&#x27;</span>,<span class="variable language_">this</span>.<span class="property">updateContent</span>, <span class="variable language_">this</span>);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">events</span>: &#123;</span><br><span class="line">    <span class="string">&quot;click .content&quot;</span> : <span class="string">&quot;updateContent&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">updateContent</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.$(<span class="string">&#x27;.content&#x27;</span>).<span class="title function_">text</span>(<span class="variable language_">this</span>.<span class="property">model</span>.<span class="title function_">get</span>(<span class="string">&quot;content&quot;</span>));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> article = <span class="keyword">new</span> <span class="title class_">Article</span>(&#123;</span><br><span class="line">  <span class="attr">author</span>:<span class="string">&quot;Joe&quot;</span>,</span><br><span class="line">  <span class="attr">content</span>: <span class="string">&quot;testing&quot;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> articleView = <span class="keyword">new</span> <span class="title class_">ArticleView</span>(&#123;<span class="attr">model</span>:article&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>OK, it’s seen like a completely overwork, that’s my first thought when I saw a clientside MVC framework too, but we have to dig further to understand why people create it.</p>
+<p>##Event Binding</p>
+<p>First, it separate the data model and view - which include event handle and DOM element, we can easily bind data model in view like:</p>
+<pre><code>this.model.bind(&#39;change&#39;, this.updateContent, this);
+</code></pre>
+<p>It means when the data model change, the view will be automatically updated to DOM element.</p>
+<p>Also, backbone provide literal event binding:</p>
+<pre><code>events:&#123;
+  &quot;click .content&quot;: &quot;updateContent&quot;
+&#125;
+</code></pre>
+<p>which bind the “click” event to “.content” class, trigger “updateContent” function in current view.<br>It’s useful when binding multiple events.</p>
+<p>##Restful synchronization</p>
+<p>Furthermore, the backbone provide a RESTful format API for synchronize data model with server.<br>every model class in backbone have a corresponding url for synchronize, and when the “model.save” or “model.fetch” method is called, the model will make an Ajax request to update data with server.<br>For example:</p>
+<pre><code>article.save(&#123;author:&quot;John&quot;&#125;);
+</code></pre>
+<p>will first find article.sync method, if undefined, call Backbone.sync.<br>The sync method will make an ajax request to server, and update model, trigger event and update to view.</p>
+<p>the url of model is defined by RESTful API:</p>
+<ul>
+<li>create -&gt; POST &#x2F;model</li>
+<li>read   -&gt; GET &#x2F;model[&#x2F;id]</li>
+<li>update -&gt; PUT &#x2F;model&#x2F;id</li>
+<li>delete -&gt; DELETE &#x2F;model&#x2F;id</li>
+</ul>
+<p>and we can also change it by overwrite url parameter</p>
+<p>##Dependency</p>
+<p>backbone.js depend on underscore.js and jQuery&#x2F;Zepto library, since it is only a 5k framework focus on the structure of JavaScript application.</p>
+<p>##Collection and Router</p>
+<p>Backbone provide Collection, which is the collection of Backbone.Model, and provide manipulation on underscore.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Article</span> = <span class="title class_">Backbone</span>.<span class="property">Model</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Articles</span> = <span class="title class_">Backbone</span>.<span class="property">Collection</span>.<span class="title function_">extend</span>(&#123;</span><br><span class="line">  <span class="attr">model</span>: <span class="title class_">Article</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> articles = <span class="keyword">new</span> <span class="title class_">Articles</span>();</span><br><span class="line"></span><br><span class="line">articles.<span class="title function_">add</span>([&#123;</span><br><span class="line">  <span class="attr">author</span>:<span class="string">&quot;Joe&quot;</span>,</span><br><span class="line">  <span class="attr">content</span>: <span class="string">&quot;testing&quot;</span></span><br><span class="line">&#125;,&#123;</span><br><span class="line">  <span class="attr">author</span>:<span class="string">&quot;John&quot;</span>,</span><br><span class="line">  <span class="attr">content</span>: <span class="string">&quot;developing&quot;</span></span><br><span class="line">&#125;]);</span><br><span class="line"></span><br><span class="line">articles.<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params">article</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(article.<span class="title function_">get</span>(<span class="string">&quot;author&quot;</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>the Router in backbone is like the route map in MVC framework, it provide clientside fragment url routing, eg. route “&#x2F;#article&#x2F;12” to match method “article(id)”. So the url can be recorded and bookmarked by browser.</p>
+<h2 id="Template"><a href="#Template" class="headerlink" title="Template"></a>Template</h2><p>In Backbone, we can create template in view.<br>In that way we can add and remove multiple view and render with template.<br>The underscore.js provide template engine or we can use other engine too.</p>
+<p>In view:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">render</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> template = <span class="string">&quot;&lt;%=content %&gt;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    $el.html(</span></span><br><span class="line"><span class="string">        this.template(this.model.toJSON())</span></span><br><span class="line"><span class="string">    );</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    return this;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>JavaScript MVC framework is good for rich client application and also can keep your javascript cleaner.<br>But whether to use it depend on how much script in your application, for small page, the MVC is total overhead, but it is good for large scale page like Mail or Desktop like application.</p>
+<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><p><a href="http://documentcloud.github.com/backbone/">Backbone</a><br><a href="http://documentcloud.github.com/backbone/docs/todos.html">Sample todo application</a><br><a href="http://documentcloud.github.com/backbone/docs/backbone.html">Annotated source</a> </p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at github.com/rafe</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2012/02/backbone-js-javascript-mvc-framework/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2012/02/backbone-js-javascript-mvc-framework/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2012/02/backbone-js-javascript-mvc-framework/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2012/04/go-programming/">
+        ← Go Programming Example
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2012/02/amazon-interview/">
+        Amazon Interview →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2023 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

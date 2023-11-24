@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Learn jQuery from jqLite | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="/">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2014-06-11T03:31:00.000Z" itemprop="datePublished">
+          2014-06-10
+      </time>
+    
+    
+    | 
+    <a href='/tags/javascript/'>javascript</a>
+    
+    
+</span>
+    <h1 class="post-title">Learn jQuery from jqLite</h1>
+    <section class="post-content">
+      <h2 id="JQuery"><a href="#JQuery" class="headerlink" title="JQuery"></a>JQuery</h2><p>Jquery is a great library, it makes manipulating DOM element and browser really simple and easy.<br>As a web developer, jQuery is our day to day tool. However, sometimes it just too convenience that<br>we forget how to make web page without it. It is important to go back to see how jQuery handle and wrap<br>the DOM api and provide the simple interface for us.</p>
+<h2 id="JQLite"><a href="#JQLite" class="headerlink" title="JQLite"></a>JQLite</h2><p><a href="https://github.com/angular/angular.js/blob/master/src/jqLite.js">JQLite</a></p>
+<p>Angular.js comes with a simple compatible implementation of jQuery, called JQLite.<br>JQLite is used internally for angular.element if user doesn’t include jQuery, as a<br>replacement for jQuery. It only have 1000 lines of code with lots comments,<br>So it’s a good starting point to understand how jQuery works.</p>
+<span id="more"></span>
+
+<h2 id="initialize-element"><a href="#initialize-element" class="headerlink" title="initialize element"></a>initialize element</h2><p>jQuery wrap the html DOM with jQuery object, as in JQLite:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">JQLite</span>(<span class="params">element</span>) &#123;</span><br><span class="line">  <span class="comment">// if element is jquery object, return element</span></span><br><span class="line">  <span class="keyword">if</span> (element <span class="keyword">instanceof</span> <span class="title class_">JQLite</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> element;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// if element is string, trim it</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="title function_">isString</span>(element)) &#123;</span><br><span class="line">    element = <span class="title function_">trim</span>(element);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// and if element is html tag, create new jquery object with it.</span></span><br><span class="line">  <span class="keyword">if</span> (!(<span class="variable language_">this</span> <span class="keyword">instanceof</span> <span class="title class_">JQLite</span>)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">isString</span>(element) &amp;&amp; element.<span class="title function_">charAt</span>(<span class="number">0</span>) != <span class="string">&#x27;&lt;&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="title function_">jqLiteMinErr</span>(<span class="string">&#x27;nosel&#x27;</span>, <span class="string">&#x27;Looking up elements via selectors is not supported by JQLite! See: http://docs.angularjs.org/api/angular.element&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">JQLite</span>(element);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// wrap element with jquery interface</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="title function_">isString</span>(element)) &#123;</span><br><span class="line">    <span class="title function_">jqLiteAddNodes</span>(<span class="variable language_">this</span>, <span class="title function_">jqLiteParseHTML</span>(element));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">jqLiteAddNodes</span>(<span class="variable language_">this</span>, element);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">jqLiteAddNodes</span>(<span class="params">root, elements</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (elements) &#123;</span><br><span class="line">    elements = (!elements.<span class="property">nodeName</span> &amp;&amp; <span class="title function_">isDefined</span>(elements.<span class="property">length</span>) &amp;&amp; !<span class="title function_">isWindow</span>(elements))</span><br><span class="line">      ? elements</span><br><span class="line">      : [ elements ];</span><br><span class="line">    <span class="comment">// push element to jqLite object</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; elements.<span class="property">length</span>; i++) &#123;</span><br><span class="line">      <span class="comment">// push function is borrowed from Array object</span></span><br><span class="line">      root.<span class="title function_">push</span>(elements[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>After initialize, we get a new JQLite object with html DOM inside. then we can call<br>the jquery api to manipulate to inside element.</p>
+<h2 id="ready"><a href="#ready" class="headerlink" title="ready"></a>ready</h2><p>One thing jquery provide is $.ready, which will execute the block inside only when<br>dom is ready</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">JQLite</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">ready</span>: <span class="keyword">function</span>(<span class="params">fn</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> fired = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">trigger</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (fired) <span class="keyword">return</span>;</span><br><span class="line">    fired = <span class="literal">true</span>;</span><br><span class="line">    <span class="title function_">fn</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// check if document already is loaded</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">readyState</span> === <span class="string">&#x27;complete&#x27;</span>)&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(trigger);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">on</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, trigger); <span class="comment">// works for modern browsers and IE9</span></span><br><span class="line">    <span class="comment">// we can not use JQLite since we are not done loading and jQuery could be loaded later.</span></span><br><span class="line">    <span class="comment">// jshint -W064</span></span><br><span class="line">    <span class="title class_">JQLite</span>(<span class="variable language_">window</span>).<span class="title function_">on</span>(<span class="string">&#x27;load&#x27;</span>, trigger); <span class="comment">// fallback to window.onload for others</span></span><br><span class="line">    <span class="comment">// jshint +W064</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>From the source, we can know jquery check the document.readyState,<br>DOMContentLoaded event and window.onload event for the ready function.</p>
+<h2 id="attributes"><a href="#attributes" class="headerlink" title="attributes"></a>attributes</h2><p>jquery provides good api to set the attributes of DOM element, include css,<br>attr, prop. lets take css as example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// removed ie hacks...</span></span><br><span class="line"><span class="attr">css</span>: <span class="keyword">function</span>(<span class="params">element, name, value</span>) &#123;</span><br><span class="line">  name = <span class="title function_">camelCase</span>(name);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="title function_">isDefined</span>(value)) &#123;</span><br><span class="line">    element.<span class="property">style</span>[name] = value;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> element.<span class="property">style</span>[name];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>One reason that jquery interface is easy to use is, it provides single function<br>for both getter and setter. If we pass value, css function is a setter,<br>otherwise it returns css value of name.</p>
+<p>Also, jquery object may include multiple elements, so inside the jquery object,<br>the css function is wrapped to execute on multiple elements:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">JQLite</span>.<span class="property">prototpype</span>[name] = <span class="keyword">function</span>(<span class="params">arg1, arg2</span>) &#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">if</span> (...) &#123;</span><br><span class="line">    <span class="comment">// we are a read, so read the first child.</span></span><br><span class="line">    <span class="keyword">var</span> value = fn.<span class="property">$dv</span>;</span><br><span class="line">    <span class="comment">// Only if we have $dv do we iterate over all, otherwise it is just the first element.</span></span><br><span class="line">    <span class="keyword">var</span> jj = (value === <span class="literal">undefined</span>) ? <span class="title class_">Math</span>.<span class="title function_">min</span>(<span class="variable language_">this</span>.<span class="property">length</span>, <span class="number">1</span>) : <span class="variable language_">this</span>.<span class="property">length</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; jj; j++) &#123;</span><br><span class="line">      <span class="keyword">var</span> nodeValue = <span class="title function_">fn</span>(<span class="variable language_">this</span>[j], arg1, arg2);</span><br><span class="line">      value = value ? value + nodeValue : nodeValue;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// write, apply to all children</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="variable language_">this</span>.<span class="property">length</span>; i++) &#123;</span><br><span class="line">      <span class="title function_">fn</span>(<span class="variable language_">this</span>[i], arg1, arg2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// return self for chaining</span></span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>jQuery object provide both setter and getter on same function, multiple assignment,<br>short function name and also chaining. It is a really sophisticate api.</p>
+<h2 id="events"><a href="#events" class="headerlink" title="events"></a>events</h2><p>One thing jquery handled is event, in the time before jquery, people need to<br>handle different event api between IE and others. Lets see how JQLite handle this:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mapping addEventListener (not IE) and attachEvent (IE) events api.</span></span><br><span class="line"><span class="keyword">var</span> addEventListenerFn = (<span class="variable language_">window</span>.<span class="property">document</span>.<span class="property">addEventListener</span></span><br><span class="line">    ? <span class="keyword">function</span>(<span class="params">element, type, fn</span>) &#123; element.<span class="title function_">addEventListener</span>(type, fn, <span class="literal">false</span>);&#125;</span><br><span class="line">    : <span class="keyword">function</span>(<span class="params">element, type, fn</span>) &#123; element.<span class="title function_">attachEvent</span>(<span class="string">&#x27;on&#x27;</span> + type, fn);&#125;;</span><br><span class="line"></span><br><span class="line"><span class="attr">on</span>: <span class="keyword">function</span> <span class="title function_">onFn</span>(<span class="params">element, type, fn</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> events = <span class="title function_">jqLiteExpandoStore</span>(element, <span class="string">&#x27;events&#x27;</span>);</span><br><span class="line">  <span class="comment">// handler will stop propagation and default events</span></span><br><span class="line">  <span class="keyword">var</span> handle = <span class="title function_">createEventHandler</span>(element, events);</span><br><span class="line">  <span class="keyword">var</span> eventFns = events[type];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!eventFns) &#123;  </span><br><span class="line">    <span class="title function_">addEventListenerFn</span>(element, type, handle);</span><br><span class="line">    eventFns = [];</span><br><span class="line">  &#125;</span><br><span class="line">  eventFns.<span class="title function_">push</span>(fn);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h2><p>After review the JQLite source, we can better understand the jQuery API<br>and how jquery works. And why you can do things such as combine getter and setter,<br>chaining and multi element assign. Learning those skills can also help us to design better API.</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at github.com/rafe</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2014/06/learn-jquery-from-jqlite/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2014/06/learn-jquery-from-jqlite/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2014/06/learn-jquery-from-jqlite/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2014/12/command-t-dot-vim-crash-on-yosemite/">
+        ← Command-t.vim crash on yosemite
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2013/12/understand-node-stream-what-i-learned-when-fixing-aws-sdk-bug/">
+        Understand node stream (what I learned when fixing Aws sdk bug) →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2023 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>

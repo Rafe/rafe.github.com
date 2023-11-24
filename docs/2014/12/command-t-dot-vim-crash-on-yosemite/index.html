@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Command-t.vim crash on yosemite | Neethack</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Neethack">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+            
+            <h1 class="blog-title"><a href="/">Neethack</a></h1>
+            <h2 class="blog-description"></h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2014-12-08T09:35:00.000Z" itemprop="datePublished">
+          2014-12-08
+      </time>
+    
+    
+    | 
+    <a href='/tags/programming/'>programming</a>
+    
+    
+</span>
+    <h1 class="post-title">Command-t.vim crash on yosemite</h1>
+    <section class="post-content">
+      <h2 id="The-bug"><a href="#The-bug" class="headerlink" title="The bug"></a>The bug</h2><p>Today I updraged my mac osx to 10.10 yosemite,<br>However, the command-t.vim plugin does not work correctly with new os.</p>
+<p>I saw the <code>command-t.vim could not load the C extension</code> message from vim.</p>
+<span id="more"></span>
+
+<h2 id="The-solution"><a href="#The-solution" class="headerlink" title="The solution"></a>The solution</h2><p>First I update my xcode version and install newer command-line tool from xcode<br>Then I got a different error from vim<br>After google on internet<br>I figure out because the system ruby version is updated on yosemite<br>The command-t plugin might not compiled with new system ruby.<br>So I have to recompile it with system ruby then link it.<br>So the solusion with rbenv is:  </p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> ~/.<span class="keyword">vim</span>/bundle/<span class="keyword">command</span>-t/<span class="keyword">ruby</span>/<span class="keyword">command</span>-t/</span><br><span class="line">rbenv local <span class="built_in">system</span></span><br><span class="line"><span class="keyword">ruby</span> extconf.rb</span><br><span class="line"><span class="keyword">make</span> clean # remember <span class="keyword">to</span> clean old <span class="keyword">ruby</span> <span class="keyword">file</span> before recompile</span><br><span class="line"><span class="keyword">make</span></span><br></pre></td></tr></table></figure>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Jimchao</h4>
+    <p>A developer, hacker, traveler and boarder live in New York City. You can follow my code at github.com/rafe</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://neethack.com/2014/12/command-t-dot-vim-crash-on-yosemite/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://neethack.com/2014/12/command-t-dot-vim-crash-on-yosemite/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://neethack.com/2014/12/command-t-dot-vim-crash-on-yosemite/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2015/04/source-code-odyssey-angular-dot-js-injector/">
+        ← Source code odyssey: angular.js injector
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2014/06/learn-jquery-from-jqlite/">
+        Learn jQuery from jqLite →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Neethack</a> &copy; 2023 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'neethack';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+</body>
+</html>
