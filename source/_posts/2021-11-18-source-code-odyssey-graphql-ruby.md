@@ -1,5 +1,5 @@
 title: 'Source code odyssey: GraphQL Ruby'
-tags: ruby graphql
+tags: ruby
 date: 2021-11-18
 ---
 

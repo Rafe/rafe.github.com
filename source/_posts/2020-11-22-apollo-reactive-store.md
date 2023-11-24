@@ -1,5 +1,5 @@
 title: Announce apollo-reactive-store
-tags: programming
+tags: react
 date: 2020-11-22 22:58:03
 ---
 

@@ -1,5 +1,5 @@
 title: React Tetris with Zustand
-tags: javascript react programming
+tags: react
 date: 2022-10-15 01:05:19
 ---
 
